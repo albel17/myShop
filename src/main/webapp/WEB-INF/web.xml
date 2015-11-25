@@ -22,6 +22,15 @@
         <url-pattern>/start</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>products</servlet-name>
+        <servlet-class>myApp.servlets.Products</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>products</servlet-name>
+        <url-pattern>/products</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>/start</welcome-file>
     </welcome-file-list>
