@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="mydb">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>myApp.AddressesEntity</class>
+        <class>myApp.OrderItemEntity</class>
+        <class>myApp.OrdersEntity</class>
+        <class>myApp.ParametersEntity</class>
+        <class>myApp.PersonsEntity</class>
+        <class>myApp.ProductsEntity</class>
+        <class>myApp.StorageEntity</class>
+        <class>myApp.AttributesEntity</class>
+        <class>myApp.CategoriesEntity</class>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/mydb"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="root"/>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>
