@@ -10,23 +10,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by Admin on 26.11.15.
- */
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
+        RequestDispatcher rd = req.getRequestDispatcher("/start");
         try {
             PersonsEntity user = new PersonsDAO().getPersonByEmail(login);
             if (user.getPassword().equals(password))
                 req.getSession().setAttribute("userID", user.getId());
+            else throw new  Exception();
 
         }
-        catch (Exception e){}
+        catch (Exception e){
+            rd = req.getRequestDispatcher("/registration.jsp");
+            req.setAttribute("error","Illegal Username or Password.");
+        }
         finally {
-            RequestDispatcher rd = req.getRequestDispatcher("/start");
             rd.forward(req, resp);
         }
     }

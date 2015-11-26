@@ -13,19 +13,27 @@ public class GenericDaoJpaImpl<T>
     private Class<T> type;
 
     @PersistenceContext
-    protected EntityManager em;
+    protected static EntityManager em;
+
+    private void getEntityManager(){
+        if(em==null){
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("mydb");
+            this.em = emf.createEntityManager();
+        }
+    }
 
     public GenericDaoJpaImpl() {
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         type = (Class) pt.getActualTypeArguments()[0];
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("mydb");
-        this.em = emf.createEntityManager();
+        getEntityManager();
     }
 
     public T create(final T t) {
+        this.em.getTransaction().begin();
         this.em.persist(t);
+        this.em.getTransaction().commit();
         return t;
     }
 

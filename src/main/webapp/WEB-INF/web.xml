@@ -50,6 +50,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>registration</servlet-name>
+        <servlet-class>myApp.servlets.Registration</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registration</servlet-name>
+        <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>addToBin</servlet-name>
         <servlet-class>myApp.servlets.AddToBin</servlet-class>
     </servlet>

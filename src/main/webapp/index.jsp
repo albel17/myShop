@@ -3,6 +3,7 @@
 <body>
 <h2>Welcome to my shop!</h2>
 <% if(session.getAttribute("userID")==null) {%>
+<p><a href="registration.jsp">Registration</a> </p>
 <form action="/login">
   Login:<br>
   <input type="text" name="login">

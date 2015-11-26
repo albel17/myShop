@@ -3,9 +3,6 @@ package myApp.entity;
 import javax.persistence.*;
 import java.util.Collection;
 
-/**
- * Created by Admin on 22.11.15.
- */
 @Entity
 @Table(name = "persons", schema = "", catalog = "mydb")
 public class PersonsEntity {
@@ -19,8 +16,13 @@ public class PersonsEntity {
     private Collection<AddressesEntity> addressesById;
     private Collection<OrdersEntity> ordersesById;
 
+    public PersonsEntity() {
+    }
+
     @Id
     @Column(name = "ID")
+    //@GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -135,5 +137,14 @@ public class PersonsEntity {
 
     public void setOrdersesById(Collection<OrdersEntity> ordersesById) {
         this.ordersesById = ordersesById;
+    }
+
+    public PersonsEntity(String name, String surname, String birthdate, String email, String password, int personType) {
+        this.name = name;
+        this.surname = surname;
+        this.birthdate = birthdate;
+        this.email = email;
+        this.password = password;
+        this.personType = personType;
     }
 }
