@@ -1,10 +1,7 @@
-package myApp;
+package myApp.entity;
 
 import javax.persistence.*;
 
-/**
- * Created by Admin on 22.11.15.
- */
 @Entity
 @Table(name = "storage", schema = "", catalog = "mydb")
 public class StorageEntity {

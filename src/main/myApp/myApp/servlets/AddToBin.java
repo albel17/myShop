@@ -1,7 +1,7 @@
 package myApp.servlets;
 
-import myApp.Bin;
-import myApp.BinItem;
+import myApp.bin.Bin;
+import myApp.bin.BinItem;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,7 +25,7 @@ public class AddToBin extends HttpServlet {
         }
         else
             bin.add(new BinItem(id, 1));
-        req.getSession().setAttribute("bin",bin);
+        req.getSession().setAttribute("bin", bin);
         RequestDispatcher rd = req.getRequestDispatcher("/productDescription?id="+id);
         rd.forward(req,resp);
     }

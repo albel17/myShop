@@ -1,11 +1,8 @@
-package myApp;
+package myApp.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
 
-/**
- * Created by Admin on 22.11.15.
- */
 @Entity
 @Table(name = "products", schema = "", catalog = "mydb")
 public class ProductsEntity {

@@ -1,6 +1,6 @@
 package myApp.servlets;
 
-import myApp.CategoriesEntity;
+import myApp.entity.CategoriesEntity;
 import myApp.DAO.CategoriesDAO;
 
 import javax.servlet.RequestDispatcher;

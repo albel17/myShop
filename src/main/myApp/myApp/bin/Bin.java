@@ -1,10 +1,7 @@
-package myApp;
+package myApp.bin;
 
 import java.util.ArrayList;
 
-/**
- * Created by Admin on 26.11.15.
- */
 public class Bin {
     private ArrayList<BinItem> items = new ArrayList<BinItem>();
 

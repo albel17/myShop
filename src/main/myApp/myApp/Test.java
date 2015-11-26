@@ -1,7 +1,6 @@
 package myApp;
 
-import myApp.DAO.CategoriesDAO;
-import myApp.DAO.PersonsDAO;
+import myApp.entity.PersonsEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

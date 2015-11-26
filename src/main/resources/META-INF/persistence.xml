@@ -3,15 +3,15 @@
 
     <persistence-unit name="mydb">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>myApp.AddressesEntity</class>
-        <class>myApp.OrderItemEntity</class>
-        <class>myApp.OrdersEntity</class>
-        <class>myApp.ParametersEntity</class>
-        <class>myApp.PersonsEntity</class>
-        <class>myApp.ProductsEntity</class>
-        <class>myApp.StorageEntity</class>
-        <class>myApp.AttributesEntity</class>
-        <class>myApp.CategoriesEntity</class>
+        <class>myApp.entity.AddressesEntity</class>
+        <class>myApp.entity.OrderItemEntity</class>
+        <class>myApp.entity.OrdersEntity</class>
+        <class>myApp.entity.ParametersEntity</class>
+        <class>myApp.entity.PersonsEntity</class>
+        <class>myApp.entity.ProductsEntity</class>
+        <class>myApp.entity.StorageEntity</class>
+        <class>myApp.entity.AttributesEntity</class>
+        <class>myApp.entity.CategoriesEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/mydb"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

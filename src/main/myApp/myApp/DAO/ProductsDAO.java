@@ -1,8 +1,7 @@
 package myApp.DAO;
 
-import myApp.CategoriesEntity;
-import myApp.ParametersEntity;
-import myApp.ProductsEntity;
+import myApp.entity.ParametersEntity;
+import myApp.entity.ProductsEntity;
 
 import javax.persistence.Query;
 import java.util.ArrayList;

@@ -1,12 +1,9 @@
 package myApp.servlets;
 
-import myApp.DAO.CategoriesDAO;
 import myApp.DAO.ProductsDAO;
-import myApp.ParametersEntity;
-import myApp.ProductsEntity;
+import myApp.entity.ProductsEntity;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

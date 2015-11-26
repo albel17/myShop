@@ -1,6 +1,6 @@
 package myApp.DAO;
 
-import myApp.CategoriesEntity;
+import myApp.entity.CategoriesEntity;
 
 import javax.persistence.Query;
 import java.util.ArrayList;

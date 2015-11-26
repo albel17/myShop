@@ -1,7 +1,7 @@
 package myApp.servlets;
 
 import myApp.DAO.ProductsDAO;
-import myApp.ProductsEntity;
+import myApp.entity.ProductsEntity;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,6 +22,6 @@ public class ProductDescription extends HttpServlet {
         ProductsEntity product = dao.getProductByID(Integer.parseInt(req.getParameter("id")));
         req.setAttribute("product", product);
         RequestDispatcher rd = req.getRequestDispatcher("/productDescription.jsp");
-        rd.forward(req,resp);
+        rd.forward(req, resp);
     }
 }

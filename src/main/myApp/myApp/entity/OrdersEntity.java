@@ -1,4 +1,4 @@
-package myApp;
+package myApp.entity;
 
 import javax.persistence.*;
 import java.util.Collection;

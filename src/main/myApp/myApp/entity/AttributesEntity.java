@@ -1,8 +1,7 @@
-package myApp;
+package myApp.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by Admin on 22.11.15.

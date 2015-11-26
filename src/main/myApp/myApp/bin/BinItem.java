@@ -1,4 +1,4 @@
-package myApp;
+package myApp.bin;
 
 public class BinItem {
     private int id;
@@ -7,6 +7,14 @@ public class BinItem {
     public BinItem(int id, int amount) {
         this.id = id;
         this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "BinItem{" +
+                "id=" + id +
+                ", amount=" + amount +
+                '}';
     }
 
     public int getId() {
