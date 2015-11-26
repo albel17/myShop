@@ -40,6 +40,15 @@
         <url-pattern>/productDescription</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>addToBin</servlet-name>
+        <servlet-class>myApp.servlets.AddToBin</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addToBin</servlet-name>
+        <url-pattern>/addToBin</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>start</welcome-file>
     </welcome-file-list>

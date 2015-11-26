@@ -13,8 +13,12 @@
 </head>
 <body>
 <h2>Products:</h2>
-<c:forEach var="product" items="${productInfo}">
-  <p>${product}</p>
+<c:forEach var="info" items="${productInfo}">
+  <p>${info}</p>
 </c:forEach>
+<p></p>
+<a href="/addToBin?id=${product.getId()}">Add to the Bin</a>
+<p></p>
+<p><%=session.getAttribute("bin")%></p>
 </body>
 </html>

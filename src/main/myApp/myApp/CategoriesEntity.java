@@ -9,8 +9,8 @@ import java.util.Collection;
 @Entity
 @Table(name = "categories", schema = "", catalog = "mydb")
 public class CategoriesEntity {
-    public int id;
-    public String name;
+    private int id;
+    private String name;
     private String description;
     private Collection<AttributesEntity> attributes;
 

@@ -15,7 +15,7 @@
 <body>
 <h2>Products:</h2>
 <c:forEach var="product" items="${products}">
-  <p>  <a href="/productDescription?id=${product.id}">${product.name}</a> </p>
+  <p>  <a href="/productDescription?id=${product.getId()}">${product.getName()}</a> </p>
 </c:forEach>
 </body>
 </body>

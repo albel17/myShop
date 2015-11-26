@@ -1,6 +1,7 @@
 package myApp.servlets;
 
 import myApp.DAO.ProductsDAO;
+import myApp.ProductsEntity;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,8 +16,11 @@ import java.util.ArrayList;
  */
 public class ProductDescription extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ArrayList<String> productInfo = new ProductsDAO().getProductInfoByID(Integer.parseInt(req.getParameter("id")));
+        ProductsDAO dao = new ProductsDAO();
+        ArrayList<String> productInfo = dao.getProductInfoByID(Integer.parseInt(req.getParameter("id")));
         req.setAttribute("productInfo", productInfo);
+        ProductsEntity product = dao.getProductByID(Integer.parseInt(req.getParameter("id")));
+        req.setAttribute("product", product);
         RequestDispatcher rd = req.getRequestDispatcher("/productDescription.jsp");
         rd.forward(req,resp);
     }
