@@ -1,5 +1,6 @@
 package myApp.servlets;
 
+import myApp.CategoriesEntity;
 import myApp.DAO.CategoriesDAO;
 
 import javax.servlet.RequestDispatcher;
@@ -14,7 +15,8 @@ import java.util.ArrayList;
 public class Categories extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ArrayList<String> categories = new CategoriesDAO().getAllNames();
+        //ArrayList<String> categories = new CategoriesDAO().getAllNames();
+        ArrayList<CategoriesEntity> categories = new CategoriesDAO().getAll();
         req.setAttribute("categories", categories);
         RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
         rd.forward(req,resp);
