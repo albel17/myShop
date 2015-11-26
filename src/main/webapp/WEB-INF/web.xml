@@ -31,8 +31,17 @@
         <url-pattern>/products</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>productDescription</servlet-name>
+        <servlet-class>myApp.servlets.ProductDescription</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>productDescription</servlet-name>
+        <url-pattern>/productDescription</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
-        <welcome-file>/start</welcome-file>
+        <welcome-file>start</welcome-file>
     </welcome-file-list>
 
 </web-app>
