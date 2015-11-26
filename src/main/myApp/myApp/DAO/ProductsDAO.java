@@ -1,10 +1,12 @@
 package myApp.DAO;
 
 import myApp.CategoriesEntity;
+import myApp.ParametersEntity;
 import myApp.ProductsEntity;
 
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -40,6 +42,10 @@ public class ProductsDAO extends GenericDaoJpaImpl<ProductsEntity> {
         result.add(product.getName());
         result.add(product.getCurrentPrice());
         result.add(product.getDescription());
+        Collection<ParametersEntity> parameters = (Collection<ParametersEntity>) product.getParametersesById();
+        for(ParametersEntity p : parameters){
+            result.add(p.getValue());
+        }
         return result;
     }
 
