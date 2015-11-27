@@ -6,9 +6,6 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Admin on 24.11.15.
- */
 public class CategoriesDAO extends GenericDaoJpaImpl<CategoriesEntity> {
     public ArrayList<String> getAllNames(){
         Query query = em.createQuery("SELECT c FROM CategoriesEntity c");

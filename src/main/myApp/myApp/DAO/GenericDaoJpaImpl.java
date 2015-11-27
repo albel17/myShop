@@ -22,6 +22,11 @@ public class GenericDaoJpaImpl<T>
         }
     }
 
+    private void getNewEntityManager(){
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("mydb");
+            this.em = emf.createEntityManager();
+    }
+
     public GenericDaoJpaImpl() {
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
@@ -33,12 +38,18 @@ public class GenericDaoJpaImpl<T>
     public T create(final T t) {
         this.em.getTransaction().begin();
         this.em.persist(t);
+        this.em.flush();
         this.em.getTransaction().commit();
+        getNewEntityManager();
         return t;
     }
 
     public void delete(final Object id) {
+        this.em.getTransaction().begin();
         this.em.remove(this.em.getReference(type, id));
+        this.em.flush();
+        this.em.getTransaction().commit();
+        getNewEntityManager();
     }
 
     public T find(final Object id) {

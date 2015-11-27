@@ -103,6 +103,33 @@
         <url-pattern>/submituserchange</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AddressList</servlet-name>
+        <servlet-class>myApp.servlets.AddressList</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddressList</servlet-name>
+        <url-pattern>/addresslist</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddAddress</servlet-name>
+        <servlet-class>myApp.servlets.AddAddress</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddAddress</servlet-name>
+        <url-pattern>/addaddress</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteAddress</servlet-name>
+        <servlet-class>myApp.servlets.DeleteAddress</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteAddress</servlet-name>
+        <url-pattern>/deleteaddress</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>start</welcome-file>
     </welcome-file-list>

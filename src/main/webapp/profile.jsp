@@ -14,6 +14,8 @@
 <body>
 <p>Hello, <%=((PersonsEntity)request.getAttribute("person")).getName()%></p>
 <p></p>
-<p><a href="/edituserinfo">Edit user info</a> </p>
+<p><a href="/edituserinfo">Your info</a> </p>
+<p></p>
+<p><a href="/addresslist">Adress list</a> </p>
 </body>
 </html>
