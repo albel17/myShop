@@ -18,4 +18,11 @@ public class PersonsDAO extends GenericDaoJpaImpl<PersonsEntity> {
         return result;
     }
 
+    public PersonsEntity getPersonByID(int id){
+        Query query = em.createQuery("SELECT c FROM PersonsEntity c where c.id=:id");
+        query.setParameter("id", id);
+        PersonsEntity result = (PersonsEntity) query.getSingleResult();
+        return result;
+    }
+
 }

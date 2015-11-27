@@ -46,6 +46,9 @@ public class GenericDaoJpaImpl<T>
     }
 
     public T update(final T t) {
-        return this.em.merge(t);
+        this.em.getTransaction().begin();
+        this.em.merge(t);
+        this.em.getTransaction().commit();
+        return t;
     }
 }

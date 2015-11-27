@@ -23,7 +23,7 @@ public class Registration extends HttpServlet {
         req.getSession().setAttribute("userID",new PersonsDAO().getPersonByEmail(email).getId());
 
 
-        RequestDispatcher rd = req.getRequestDispatcher("/index.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/start");
         rd.forward(req,resp);
     }
 }

@@ -13,7 +13,11 @@
   <br><br>
   <input type="submit" value="Log In">
 </form>
-<%} %>
+<%} else {%>
+<p><a href="/profile">Profile</a> </p>
+<p><a href="/logout">Log out</a> </p>
+<%}%>
+
 <p></p>
 <c:forEach var="category" items="${categories}">
   <p>  <a href="/products?id=${category.getId()}">${category.getName()}</a> </p>

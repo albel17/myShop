@@ -67,6 +67,42 @@
         <url-pattern>/addToBin</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>myApp.servlets.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>profile</servlet-name>
+        <servlet-class>myApp.servlets.Profile</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>profile</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditUserInfo</servlet-name>
+        <servlet-class>myApp.servlets.EditUserInfo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditUserInfo</servlet-name>
+        <url-pattern>/edituserinfo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SubmitUserChange</servlet-name>
+        <servlet-class>myApp.servlets.SubmitUserChange</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SubmitUserChange</servlet-name>
+        <url-pattern>/submituserchange</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>start</welcome-file>
     </welcome-file-list>
