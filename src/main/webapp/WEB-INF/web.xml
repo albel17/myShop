@@ -130,6 +130,15 @@
         <url-pattern>/deleteaddress</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>Checkout</servlet-name>
+        <servlet-class>myApp.servlets.Checkout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Checkout</servlet-name>
+        <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>start</welcome-file>
     </welcome-file-list>

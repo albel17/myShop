@@ -22,6 +22,14 @@ public class Bin {
             items.add(item);
     }
 
+    public ArrayList<BinItem> getItems(){
+        return items;
+    }
+
+    public boolean ifEmpty(){
+        return items.isEmpty();
+    }
+
     @Override
     public String toString() {
         return "Bin{" +

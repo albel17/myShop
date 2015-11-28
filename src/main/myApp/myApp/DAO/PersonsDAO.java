@@ -6,9 +6,6 @@ import myApp.entity.ProductsEntity;
 import javax.persistence.Query;
 import java.util.ArrayList;
 
-/**
- * Created by Admin on 24.11.15.
- */
 public class PersonsDAO extends GenericDaoJpaImpl<PersonsEntity> {
 
     public PersonsEntity getPersonByEmail(String email){
