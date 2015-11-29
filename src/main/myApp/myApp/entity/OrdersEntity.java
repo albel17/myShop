@@ -1,13 +1,8 @@
 package myApp.entity;
 
-import myApp.bin.Cart;
-
 import javax.persistence.*;
 import java.util.Collection;
 
-/**
- * Created by Admin on 22.11.15.
- */
 @Entity
 @Table(name = "orders", schema = "", catalog = "mydb")
 public class OrdersEntity {

@@ -19,5 +19,7 @@
 <p><a href="/addresslist">Adress list</a></p>
 <p></p>
 <p><a href="/checkout">Checkout</a></p>
+<p></p>
+<p><a href="/myorders">Orders</a></p>
 </body>
 </html>
