@@ -1,8 +1,7 @@
 package myApp.servlets;
 
-import myApp.bin.Bin;
-import myApp.bin.OrderItem;
-import myApp.bin.OrderItemCollection;
+import myApp.bin.Cart;
+import myApp.bin.CartItem;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,17 +15,17 @@ public class Checkout extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Bin bin = (Bin) req.getSession().getAttribute("bin");
+        Cart cart = (Cart) req.getSession().getAttribute("cart");
         RequestDispatcher rd;
-        if (bin==null || bin.ifEmpty()){
+        if (cart == null || cart.ifEmpty()){
             rd = req.getRequestDispatcher("/profile");
         }
         else {
             rd = req.getRequestDispatcher("/checkout.jsp");
-            OrderItemCollection orderItemCollection = new OrderItemCollection((Bin) req.getSession().getAttribute("bin"));
-            ArrayList<OrderItem> orderItems = orderItemCollection.getOrderItems();
-            req.setAttribute("orderItems", orderItems);
+            ArrayList<CartItem> cartItems = cart.getItems();
+            req.setAttribute("cartItems", cartItems);
+            req.setAttribute("sum", cart.getSum());
         }
-        rd.forward(req,resp);
+        rd.forward(req, resp);
     }
 }

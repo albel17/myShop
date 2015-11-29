@@ -1,5 +1,7 @@
 package myApp.entity;
 
+import myApp.bin.Cart;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -15,13 +17,28 @@ public class OrdersEntity {
     private String orderStatus;
     private String creationDate;
     private String deliveryDate;
-    private String cost;
+    private int cost;
     private Collection<OrderItemEntity> orderItemsById;
     private PersonsEntity personsByClientId;
     private AddressesEntity addressesByAddressId;
 
+    public OrdersEntity(String paymentMethod, String deliveryMethod, String orderStatus, String creationDate, String deliveryDate, int cost, PersonsEntity person, AddressesEntity address) {
+        this.paymentMethod = paymentMethod;
+        this.deliveryMethod = deliveryMethod;
+        this.orderStatus = orderStatus;
+        this.creationDate = creationDate;
+        this.deliveryDate = deliveryDate;
+        this.cost = cost;
+        this.personsByClientId = person;
+        this.addressesByAddressId = address;
+    }
+
+    public OrdersEntity() {
+    }
+
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -82,11 +99,11 @@ public class OrdersEntity {
 
     @Basic
     @Column(name = "COST")
-    public String getCost() {
+    public int getCost() {
         return cost;
     }
 
-    public void setCost(String cost) {
+    public void setCost(int cost) {
         this.cost = cost;
     }
 
@@ -98,16 +115,15 @@ public class OrdersEntity {
         OrdersEntity that = (OrdersEntity) o;
 
         if (id != that.id) return false;
+        if (cost != that.cost) return false;
         if (paymentMethod != null ? !paymentMethod.equals(that.paymentMethod) : that.paymentMethod != null)
             return false;
         if (deliveryMethod != null ? !deliveryMethod.equals(that.deliveryMethod) : that.deliveryMethod != null)
             return false;
         if (orderStatus != null ? !orderStatus.equals(that.orderStatus) : that.orderStatus != null) return false;
         if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
-        if (deliveryDate != null ? !deliveryDate.equals(that.deliveryDate) : that.deliveryDate != null) return false;
-        if (cost != null ? !cost.equals(that.cost) : that.cost != null) return false;
+        return !(deliveryDate != null ? !deliveryDate.equals(that.deliveryDate) : that.deliveryDate != null);
 
-        return true;
     }
 
     @Override
@@ -118,7 +134,7 @@ public class OrdersEntity {
         result = 31 * result + (orderStatus != null ? orderStatus.hashCode() : 0);
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (deliveryDate != null ? deliveryDate.hashCode() : 0);
-        result = 31 * result + (cost != null ? cost.hashCode() : 0);
+        result = 31 * result + cost;
         return result;
     }
 

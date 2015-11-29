@@ -6,13 +6,24 @@ import javax.persistence.*;
 @Table(name = "order_item", schema = "", catalog = "mydb")
 public class OrderItemEntity {
     private int id;
-    private String amount;
-    private String price;
+    private int amount;
+    private int price;
     private OrdersEntity ordersByOrderId;
     private ProductsEntity productsByProductId;
 
+    public OrderItemEntity(int amount, int price, OrdersEntity ordersByOrderId, ProductsEntity productsByProductId) {
+        this.amount = amount;
+        this.price = price;
+        this.ordersByOrderId = ordersByOrderId;
+        this.productsByProductId = productsByProductId;
+    }
+
+    public OrderItemEntity() {
+    }
+
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -23,24 +34,23 @@ public class OrderItemEntity {
 
     @Basic
     @Column(name = "AMOUNT")
-    public String getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
     @Basic
     @Column(name = "PRICE")
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -50,17 +60,16 @@ public class OrderItemEntity {
         OrderItemEntity that = (OrderItemEntity) o;
 
         if (id != that.id) return false;
-        if (amount != null ? !amount.equals(that.amount) : that.amount != null) return false;
-        if (price != null ? !price.equals(that.price) : that.price != null) return false;
+        if (amount != that.amount) return false;
+        return price == that.price;
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (amount != null ? amount.hashCode() : 0);
-        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + amount;
+        result = 31 * result + price;
         return result;
     }
 

@@ -59,12 +59,12 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>addToBin</servlet-name>
-        <servlet-class>myApp.servlets.AddToBin</servlet-class>
+        <servlet-name>AddToCart</servlet-name>
+        <servlet-class>myApp.servlets.AddToCart</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>addToBin</servlet-name>
-        <url-pattern>/addToBin</url-pattern>
+        <servlet-name>AddToCart</servlet-name>
+        <url-pattern>/addtocart</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -137,6 +137,24 @@
     <servlet-mapping>
         <servlet-name>Checkout</servlet-name>
         <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CheckoutContinue</servlet-name>
+        <servlet-class>myApp.servlets.CheckoutContinue</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CheckoutContinue</servlet-name>
+        <url-pattern>/checkoutcontinue</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateOrder</servlet-name>
+        <servlet-class>myApp.servlets.CreateOrder</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateOrder</servlet-name>
+        <url-pattern>/createorder</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>

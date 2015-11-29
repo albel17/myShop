@@ -1,3 +1,4 @@
+<%@ page import="java.util.ArrayList" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -6,9 +7,11 @@
 </head>
 <body>
 <h2>Your order</h2>
-<c:forEach var="item" items="${orderItems}">
-  <p><a href="/productDescription?id=${item.getProductId()}">${item.getName()}</a> ${item.getAmount()}</p>
+<c:forEach var="item" items="${cartItems}">
+  <p><a href="/productDescription?id=${item.getProductId()}">${item.getProductName()}</a> ${item.getAmount()}</p>
 </c:forEach>
+<p></p>
+<p>Total: ${sum}</p>
 <p></p>
 <form action="/checkoutcontinue">
 <h2>Delivery method</h2>

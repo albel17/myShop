@@ -1,26 +1,27 @@
 package myApp.bin;
 
+import myApp.DAO.ProductsDAO;
 import myApp.entity.ProductsEntity;
 
-public class OrderItem {
+public class CartItem {
     private ProductsEntity product;
     private int amount;
 
-    public OrderItem(ProductsEntity product, int amount) {
+    public CartItem(ProductsEntity product, int amount) {
         this.product = product;
         this.amount = amount;
     }
 
-    public String getName(){
-        return product.getName();
+    public ProductsEntity getProduct() {
+        return product;
     }
 
-    public int getProductId(){
+    public int getProductId() {
         return product.getId();
     }
 
-    public ProductsEntity getProduct() {
-        return product;
+    public String getProductName() {
+        return product.getName();
     }
 
     public void setProduct(ProductsEntity product) {
@@ -33,5 +34,9 @@ public class OrderItem {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public int getId(){
+        return this.product.getId();
     }
 }

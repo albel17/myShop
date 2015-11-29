@@ -2,10 +2,10 @@ package myApp.bin;
 
 import java.util.ArrayList;
 
-public class Bin {
-    private ArrayList<BinItem> items = new ArrayList<BinItem>();
+public class Cart {
+    private ArrayList<CartItem> items = new ArrayList<CartItem>();
 
-    public void add(BinItem item){
+    public void add(CartItem item){
         boolean isFound = false;
         int i;
         for(i=0;i<items.size();i++){
@@ -22,7 +22,16 @@ public class Bin {
             items.add(item);
     }
 
-    public ArrayList<BinItem> getItems(){
+    public int getSum(){
+        int sum = 0;
+        for(CartItem item : items)
+        {
+            sum+=item.getAmount()*Integer.parseInt(item.getProduct().getCurrentPrice());
+        }
+        return sum;
+    }
+
+    public ArrayList<CartItem> getItems(){
         return items;
     }
 
@@ -32,7 +41,7 @@ public class Bin {
 
     @Override
     public String toString() {
-        return "Bin{" +
+        return "Cart{" +
                 "items=" + items +
                 '}';
     }
