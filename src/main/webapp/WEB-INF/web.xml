@@ -193,6 +193,61 @@
         <url-pattern>/editorderstatus</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AllCategories</servlet-name>
+        <servlet-class>myApp.servlets.AllCategories</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllCategories</servlet-name>
+        <url-pattern>/allcategories</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddCategory</servlet-name>
+        <servlet-class>myApp.servlets.AddCategory</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddCategory</servlet-name>
+        <url-pattern>/addcategory</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RemoveCategory</servlet-name>
+        <servlet-class>myApp.servlets.RemoveCategory</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RemoveCategory</servlet-name>
+        <url-pattern>/removecategory</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AllProducts</servlet-name>
+        <servlet-class>myApp.servlets.AllProducts</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AllProducts</servlet-name>
+        <url-pattern>/allproducts</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditProducts</servlet-name>
+        <servlet-class>myApp.servlets.EditProducts</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditProducts</servlet-name>
+        <url-pattern>/editproducts</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddProduct</servlet-name>
+        <servlet-class>myApp.servlets.AddProduct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddProduct</servlet-name>
+        <url-pattern>/addproduct</url-pattern>
+    </servlet-mapping>
+
+
     <welcome-file-list>
         <welcome-file>start</welcome-file>
     </welcome-file-list>

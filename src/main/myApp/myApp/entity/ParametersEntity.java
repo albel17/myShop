@@ -9,8 +9,18 @@ public class ParametersEntity {
     private String value;
     private ProductsEntity productsByProductId;
 
+    public ParametersEntity(String value, ProductsEntity productsByProductId, AttributesEntity attribute) {
+        this.value = value;
+        this.productsByProductId = productsByProductId;
+        this.attribute = attribute;
+    }
+
+    public ParametersEntity() {
+    }
+
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

@@ -3,9 +3,6 @@ package myApp.entity;
 import javax.persistence.*;
 import java.util.Collection;
 
-/**
- * Created by Admin on 22.11.15.
- */
 @Entity
 @Table(name = "attributes", schema = "", catalog = "mydb")
 public class AttributesEntity {
@@ -72,7 +69,7 @@ public class AttributesEntity {
     }
 
     @OneToMany(mappedBy = "attribute")
-    private Collection<ParametersEntity> attributes;
+    private Collection<ParametersEntity> getAttributes;
 
     public void setCategories(Collection<CategoriesEntity> categories) {
         this.categories = categories;

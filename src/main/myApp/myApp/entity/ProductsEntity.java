@@ -17,8 +17,21 @@ public class ProductsEntity {
     private Collection<ParametersEntity> parametersesById;
     private Collection<StorageEntity> storagesById;
 
+    public ProductsEntity(String name, String currentPrice, String size, String weight, String description, int categoryId) {
+        this.name = name;
+        this.currentPrice = currentPrice;
+        this.size = size;
+        this.weight = weight;
+        this.description = description;
+        this.categoryId = categoryId;
+    }
+
+    public ProductsEntity() {
+    }
+
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
