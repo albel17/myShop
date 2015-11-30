@@ -247,6 +247,24 @@
         <url-pattern>/addproduct</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>EditProduct</servlet-name>
+        <servlet-class>myApp.servlets.EditProduct</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditProduct</servlet-name>
+        <url-pattern>/editproduct</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SubmitProductChange</servlet-name>
+        <servlet-class>myApp.servlets.SubmitProductChange</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SubmitProductChange</servlet-name>
+        <url-pattern>/submitproductchange</url-pattern>
+    </servlet-mapping>
+
 
     <welcome-file-list>
         <welcome-file>start</welcome-file>

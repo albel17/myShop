@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by Admin on 25.11.15.
- */
 public class ProductsDAO extends GenericDaoJpaImpl<ProductsEntity> {
     public ArrayList<String> getAllNames(){
         Query query = em.createQuery("SELECT c FROM ProductsEntity c");
