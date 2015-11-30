@@ -11,8 +11,18 @@ public class AttributesEntity {
     private String description;
     private Collection<CategoriesEntity> categories;
 
+    public AttributesEntity(String name, String description, Collection<CategoriesEntity> categories) {
+        this.name = name;
+        this.description = description;
+        this.categories = categories;
+    }
+
+    public AttributesEntity() {
+    }
+
     @Id
     @Column(name = "ID")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

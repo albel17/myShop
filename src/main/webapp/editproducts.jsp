@@ -6,7 +6,7 @@
 </head>
 <body>
 <c:forEach var="product" items="${products}">
-  <p>  <a href="/editproduct?id=${product.getId()}">${product.getName()}</a> </p>
+  <p>  <a href="/editproduct?id=${product.getId()}">${product.getName()}</a> <a href="/removeproduct?id=${product.getId()}">delete</a></p>
 </c:forEach>
 <p></p>
 <form action="/addproduct">
