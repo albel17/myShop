@@ -1,8 +1,5 @@
 package myApp.servlets;
 
-import myApp.DAO.PersonsDAO;
-import myApp.entity.PersonsEntity;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,12 +11,7 @@ public class AdminLogin extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = (Integer) req.getSession().getAttribute("userID");
-        PersonsEntity person = new PersonsDAO().getPersonByID(id);
-        RequestDispatcher rd = req.getRequestDispatcher("/start");
-        if(person.getPersonType()==2){
-            rd = req.getRequestDispatcher("/admin.jsp");
-        }
-        rd.forward(req,resp);
+        RequestDispatcher rd = req.getRequestDispatcher("/admin/admin.jsp");
+        rd.forward(req, resp);
     }
 }

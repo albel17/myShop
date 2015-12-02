@@ -5,7 +5,7 @@
     <title></title>
 </head>
 <body>
-<form action="/submitproductchange">
+<form action="/admin/submitproductchange">
   Name:<br>
   <input type="text" name="name" value="${product.getName()}">
   <br>

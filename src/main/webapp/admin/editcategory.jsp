@@ -5,18 +5,19 @@
     <title></title>
 </head>
 <body>
-<c:forEach var="category" items="${categories}">
-  <p><a href="/editcategory?id=${category.getId()}">${category.getName()}</a>  <a href="/removecategory?id=${category.getId()}">delete</a></p>
+<c:forEach var="attribute" items="${attributes}">
+  <p>${attribute.getName()} <a href="/admin/removeattribute">delete</a></p>
 </c:forEach>
 <p></p>
-<form action="/addcategory">
+<form action="/admin/createattribute">
   Name:<br>
   <input type="text" name="name">
   <br>
   Description:<br>
   <input type="text" name="description">
-  <br><br>
-  <input type="submit" value="Add">
+  <input type="hidden" name="categoryId" value="${param["id"]}">
+  <br>
+  <input type="submit" value="Create">
 </form>
 </body>
 </html>

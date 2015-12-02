@@ -19,7 +19,7 @@ public class AllOrders extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Collection<OrdersEntity> orderslist = new OrdersDAO().getAllOrders();
         req.setAttribute("orderslist", orderslist);
-        RequestDispatcher rd = req.getRequestDispatcher("/allorders.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/admin/allorders.jsp");
         rd.forward(req,resp);
     }
 }

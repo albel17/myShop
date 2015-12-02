@@ -18,7 +18,7 @@ public class EditOrderStatus extends HttpServlet {
         OrdersEntity order = new OrdersDAO().getOrderByID(Integer.parseInt(req.getParameter("orderid")));
         order.setOrderStatus(newStatus);
         new OrdersDAO().update(order);
-        RequestDispatcher rd = req.getRequestDispatcher("/allorders");
-        rd.forward(req,resp);
+        RequestDispatcher rd = req.getRequestDispatcher("/admin/allorders");
+        rd.forward(req, resp);
     }
 }

@@ -29,8 +29,8 @@ public class AddProduct extends HttpServlet {
         String description = req.getParameter("description");
 
         CategoriesEntity category = new CategoriesDAO().getCategoryByID(Integer.parseInt(req.getParameter("categoryId")));
-        Collection<AttributesEntity> attributes = category.getAttributes();
-        Map<AttributesEntity,String> attributeNames = new HashMap<AttributesEntity,String>();
+        Collection<AttributesEntity> attributes = category.getAttributes(); //getting attribute list for category
+        Map<AttributesEntity,String> attributeNames = new HashMap<AttributesEntity,String>(); //creating a map of attributes and their values
         for(AttributesEntity attribute : attributes){
             attributeNames.put(attribute, req.getParameter(String.valueOf(attribute.getId())));
         }
@@ -42,7 +42,7 @@ public class AddProduct extends HttpServlet {
             new ParametersDAO().create(new ParametersEntity(entry.getValue(), newProduct, entry.getKey()));
         }
 
-        RequestDispatcher rd = req.getRequestDispatcher("/editproducts?id="+category.getId());
+        RequestDispatcher rd = req.getRequestDispatcher("/admin/editproducts?id="+category.getId());
         rd.forward(req,resp);
     }
 }

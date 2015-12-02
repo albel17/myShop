@@ -24,7 +24,7 @@ public class EditProducts extends HttpServlet {
         Collection<AttributesEntity> attributes = category.getAttributes();
         req.setAttribute("products", products);
         req.setAttribute("attributes", attributes);
-        RequestDispatcher rd = req.getRequestDispatcher("/editproducts.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/admin/editproducts.jsp");
         rd.forward(req,resp);
     }
 }

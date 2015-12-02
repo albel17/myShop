@@ -18,7 +18,7 @@ public class AllCategories extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ArrayList<CategoriesEntity> categories = new CategoriesDAO().getAll();
         req.setAttribute("categories", categories);
-        RequestDispatcher rd = req.getRequestDispatcher("/allcategories.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/admin/allcategories.jsp");
         rd.forward(req,resp);
     }
 }

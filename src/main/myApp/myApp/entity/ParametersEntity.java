@@ -8,6 +8,7 @@ public class ParametersEntity {
     private int id;
     private String value;
     private ProductsEntity productsByProductId;
+    private AttributesEntity attribute;
 
     public ParametersEntity(String value, ProductsEntity productsByProductId, AttributesEntity attribute) {
         this.value = value;
@@ -68,8 +69,6 @@ public class ParametersEntity {
     public void setProductsByProductId(ProductsEntity productsByProductId) {
         this.productsByProductId = productsByProductId;
     }
-
-    private AttributesEntity attribute;
 
     @ManyToOne(optional = false)
     public AttributesEntity getAttribute() {

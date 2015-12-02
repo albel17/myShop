@@ -33,7 +33,7 @@ public class EditProduct extends HttpServlet {
             values.add(new ParametersDAO().getParameterByAttributeIdProductId(attribute, product).getValue());
         }
         req.setAttribute("values", values);
-        RequestDispatcher rd = req.getRequestDispatcher("/editproduct.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/admin/editproduct.jsp");
         rd.forward(req, resp);
     }
 }

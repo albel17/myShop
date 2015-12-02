@@ -5,10 +5,10 @@
 </head>
 <body>
 <h2>ADMIN</h2>
-<p><a href="/allorders">Orders</a></p>
+<p><a href="/admin/allorders">Orders</a></p>
 <p></p>
-<p><a href="/allcategories">Categories</a></p>
+<p><a href="/admin/allcategories">Categories</a></p>
 <p></p>
-<p><a href="/allproducts">Products</a></p>
+<p><a href="/admin/allproducts">Products</a></p>
 </body>
 </html>

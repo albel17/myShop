@@ -29,7 +29,7 @@ public class CreateAttribute extends HttpServlet {
         attributes.add(attribute);
         category.setAttributes(attributes);
         new CategoriesDAO().update(category);
-        RequestDispatcher rd = req.getRequestDispatcher("/editcategory.jsp?id="+categoryId);
+        RequestDispatcher rd = req.getRequestDispatcher("/admin/editcategory.jsp?id="+categoryId);
         rd.forward(req, resp);
     }
 }

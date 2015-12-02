@@ -19,7 +19,7 @@ public class EditCategory extends HttpServlet {
         CategoriesEntity category = new CategoriesDAO().getCategoryByID(Integer.parseInt(req.getParameter("id")));
         Collection<AttributesEntity> attributes = category.getAttributes();
         req.setAttribute("attributes", attributes);
-        RequestDispatcher rd = req.getRequestDispatcher("/editcategory.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/admin/editcategory.jsp");
         rd.forward(req, resp);
     }
 }

@@ -51,7 +51,7 @@ public class SubmitProductChange extends HttpServlet {
             parametersDAO.update(parameter);
         }
 
-        RequestDispatcher rd = req.getRequestDispatcher("/editproduct?id="+product.getId());
+        RequestDispatcher rd = req.getRequestDispatcher("/admin/editproduct?id="+product.getId());
         rd.forward(req,resp);
     }
 }

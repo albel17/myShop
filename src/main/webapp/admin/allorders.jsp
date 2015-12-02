@@ -6,7 +6,7 @@
 </head>
 <body>
 <c:forEach var="order" items="${orderslist}">
-  <p>${order.getId()}, ${order.getOrderStatus()}, ${order.getCost()}<form action="/editorderstatus"><select name="status" required>
+  <p>${order.getId()}, ${order.getOrderStatus()}, ${order.getCost()}<form action="/admin/editorderstatus"><select name="status" required>
     <option value="created">Created</option>
     <option value="closed">Closed</option>
   </select><input type="hidden" name="orderid" value="${order.getId()}"><input type="submit" value="Edit"></form></p>

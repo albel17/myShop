@@ -16,10 +16,10 @@ public class AddCategory extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String description = req.getParameter("description");
-        CategoriesEntity category = new CategoriesEntity(name, description);
+        CategoriesEntity category = new CategoriesEntity(name, description); //create new category
         new CategoriesDAO().create(category);
 
-        RequestDispatcher rd = req.getRequestDispatcher("/allcategories");
+        RequestDispatcher rd = req.getRequestDispatcher("/admin/allcategories");
         rd.forward(req, resp);
     }
 }

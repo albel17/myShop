@@ -6,10 +6,10 @@
 </head>
 <body>
 <c:forEach var="product" items="${products}">
-  <p>  <a href="/editproduct?id=${product.getId()}">${product.getName()}</a> <a href="/removeproduct?id=${product.getId()}">delete</a></p>
+  <p>  <a href="/admin/editproduct?id=${product.getId()}">${product.getName()}</a> <a href="/admin/removeproduct?id=${product.getId()}">delete</a></p>
 </c:forEach>
 <p></p>
-<form action="/addproduct">
+<form action="/admin/addproduct">
     Name:<br>
     <input type="text" name="name">
     <br>

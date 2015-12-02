@@ -26,7 +26,7 @@ public class RemoveProduct extends HttpServlet {
             parametersDAO.delete(parameter.getId());
         }
         new ProductsDAO().delete(id);
-        RequestDispatcher rd = req.getRequestDispatcher("/editproducts?id="+categoryId);
+        RequestDispatcher rd = req.getRequestDispatcher("/admin/editproducts?id="+categoryId);
         rd.forward(req, resp);
     }
 }

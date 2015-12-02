@@ -22,8 +22,8 @@ public class AddAddress extends HttpServlet {
         String street = req.getParameter("street");
         String house = req.getParameter("house");
         String flat = req.getParameter("flat");
-        PersonsEntity person = new PersonsDAO().getPersonByID((Integer)req.getSession().getAttribute("userID"));
-        AddressesEntity address = new AddressesEntity(country,city,postalcode,street,house,flat,person);
+        PersonsEntity person = new PersonsDAO().getPersonByID((Integer)req.getSession().getAttribute("userID")); //get person by userID
+        AddressesEntity address = new AddressesEntity(country,city,postalcode,street,house,flat,person); //creating new address
         new AddressDAO().create(address);
 
         RequestDispatcher rd = req.getRequestDispatcher("/addresslist");

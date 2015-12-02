@@ -18,13 +18,13 @@ public class GenericDaoJpaImpl<T>
     private void getEntityManager(){
         if(em==null){
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("mydb");
-            this.em = emf.createEntityManager();
+            em = emf.createEntityManager();
         }
     }
 
-    private void getNewEntityManager(){
+    protected void getNewEntityManager(){
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("mydb");
-            this.em = emf.createEntityManager();
+            em = emf.createEntityManager();
     }
 
     public GenericDaoJpaImpl() {
@@ -36,30 +36,31 @@ public class GenericDaoJpaImpl<T>
     }
 
     public T create(final T t) {
-        this.em.getTransaction().begin();
-        this.em.persist(t);
-        this.em.flush();
-        this.em.getTransaction().commit();
+        em.getTransaction().begin();
+        em.persist(t);
+        em.flush();
+        em.getTransaction().commit();
         getNewEntityManager();
         return t;
     }
 
     public void delete(final Object id) {
-        this.em.getTransaction().begin();
-        this.em.remove(this.em.getReference(type, id));
-        this.em.flush();
-        this.em.getTransaction().commit();
+        em.getTransaction().begin();
+        em.remove(em.getReference(type, id));
+        em.flush();
+        em.getTransaction().commit();
         getNewEntityManager();
     }
 
     public T find(final Object id) {
-        return (T) this.em.find(type, id);
+        return (T) em.find(type, id);
     }
 
     public T update(final T t) {
-        this.em.getTransaction().begin();
-        this.em.merge(t);
-        this.em.getTransaction().commit();
+        em.getTransaction().begin();
+        em.merge(t);
+        em.getTransaction().commit();
+        getNewEntityManager();
         return t;
     }
 }

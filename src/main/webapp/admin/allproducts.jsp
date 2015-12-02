@@ -6,7 +6,7 @@
 </head>
 <body>
 <c:forEach var="category" items="${categories}">
-  <p>  <a href="/editproducts?id=${category.getId()}">${category.getName()}</a> </p>
+  <p>  <a href="/admin/editproducts?id=${category.getId()}">${category.getName()}</a> </p>
 </c:forEach>
 </body>
 </html>

@@ -16,7 +16,7 @@ public class RemoveCategory extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         new CategoriesDAO().delete(id);
-        RequestDispatcher rd = req.getRequestDispatcher("/allcategories");
+        RequestDispatcher rd = req.getRequestDispatcher("/admin/allcategories");
         rd.forward(req,resp);
     }
 }
