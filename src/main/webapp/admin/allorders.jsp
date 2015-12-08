@@ -3,16 +3,55 @@
 <html>
 <head>
     <title></title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<c:forEach var="order" items="${orderslist}">
-  <p>${order.getId()}, ${order.getOrderStatus()}, ${order.getCost()}<form action="/admin/editorderstatus"><select name="status" required>
-    <option value="created">Created</option>
-    <option value="closed">Closed</option>
-  </select><input type="hidden" name="orderid" value="${order.getId()}"><input type="submit" value="Edit"></form></p>
-  <c:forEach var="orderitem" items="${order.getOrderItemsById()}">
-    <p>----${orderitem.getProductsByProductId().getName()}, ${orderitem.getAmount()}, ${orderitem.getPrice()}</p>
-  </c:forEach>
-</c:forEach>
+<script src="../js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">My Shop</a>
+        </div>
+        <div class="navbar-right navbar-form btn-group">
+            <button class="btn btn-success" Type="BUTTON" Value="Logout" Onclick="window.location.href='/logout'">
+                Logout
+            </button>
+        </div>
+    </div>
+</div>
+<div class="jumbotron">
+    <div class="container">
+        <button class="btn down" Type="BUTTON" Value="Back" Onclick="window.location.href='/admin'">
+            Main
+        </button>
+    </div>
+</div>
+
+<div class="container">
+    <c:forEach var="order" items="${orderslist}">
+        <div class="list-group">
+            <p class="list-group-item">${order.getId()}, ${order.getOrderStatus()}, ${order.getCost()}
+
+            <form action="/admin/editorderstatus"><select name="status" required class="input-sm">
+                <option value="created">Created</option>
+                <option value="closed">Closed</option>
+            </select><input type="hidden" name="orderid" value="${order.getId()}"><input type="submit" value="Edit" class="btn">
+            </form>
+            </p>
+            <c:forEach var="orderitem" items="${order.getOrderItemsById()}">
+                <p class="list-group-item">
+                    ----${orderitem.getProductsByProductId().getName()}, ${orderitem.getAmount()}, ${orderitem.getPrice()}</p>
+            </c:forEach>
+        </div>
+    </c:forEach>
+</div>
 </body>
 </html>

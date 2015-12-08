@@ -65,6 +65,7 @@
     </form>
 </div>
 
+<!--
 <form action="/submituserchange">
     Name:<br>
     <input type="text" name="name" value="${person.getName()}">
@@ -86,5 +87,6 @@
     <br><br>
     <input type="submit" value="Edit">
 </form>
+-->
 </body>
 </html>
