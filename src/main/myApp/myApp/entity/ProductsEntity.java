@@ -12,18 +12,18 @@ public class ProductsEntity {
     private String size;
     private String weight;
     private String description;
-    private int categoryId;
+    private CategoriesEntity category;
     private Collection<OrderItemEntity> orderItemsById;
     private Collection<ParametersEntity> parametersesById;
     private Collection<StorageEntity> storagesById;
 
-    public ProductsEntity(String name, String currentPrice, String size, String weight, String description, int categoryId) {
+    public ProductsEntity(String name, String currentPrice, String size, String weight, String description, CategoriesEntity category) {
         this.name = name;
         this.currentPrice = currentPrice;
         this.size = size;
         this.weight = weight;
         this.description = description;
-        this.categoryId = categoryId;
+        this.category = category;
     }
 
     public ProductsEntity() {
@@ -31,7 +31,7 @@ public class ProductsEntity {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -90,14 +90,14 @@ public class ProductsEntity {
         this.description = description;
     }
 
-    @Basic
-    @Column(name = "CATEGORY_ID")
-    public int getCategoryId() {
-        return categoryId;
+    @ManyToOne
+    @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")
+    public CategoriesEntity getCategory() {
+        return category;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(CategoriesEntity category) {
+        this.category = category;
     }
 
     @Override
@@ -108,7 +108,6 @@ public class ProductsEntity {
         ProductsEntity that = (ProductsEntity) o;
 
         if (id != that.id) return false;
-        if (categoryId != that.categoryId) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (currentPrice != null ? !currentPrice.equals(that.currentPrice) : that.currentPrice != null) return false;
         if (size != null ? !size.equals(that.size) : that.size != null) return false;
@@ -126,7 +125,6 @@ public class ProductsEntity {
         result = 31 * result + (size != null ? size.hashCode() : 0);
         result = 31 * result + (weight != null ? weight.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + categoryId;
         return result;
     }
 

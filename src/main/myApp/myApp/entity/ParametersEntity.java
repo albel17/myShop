@@ -47,10 +47,8 @@ public class ParametersEntity {
 
         ParametersEntity that = (ParametersEntity) o;
 
-        if (id != that.id) return false;
-        if (value != null ? !value.equals(that.value) : that.value != null) return false;
+        return id == that.id && !(value != null ? !value.equals(that.value) : that.value != null);
 
-        return true;
     }
 
     @Override
@@ -70,10 +68,9 @@ public class ParametersEntity {
         this.productsByProductId = productsByProductId;
     }
 
-    @ManyToOne(optional = false)
-    public AttributesEntity getAttribute() {
-        return attribute;
-    }
+    @ManyToOne
+    @JoinColumn(name = "ATTRIBUTE_ID", referencedColumnName = "ID")
+    public AttributesEntity getAttribute(){return  attribute;}
 
     public void setAttribute(AttributesEntity attribute) {
         this.attribute = attribute;

@@ -1,12 +1,8 @@
 package myApp.servlets;
 
-import myApp.DAO.CategoriesDAO;
-import myApp.DAO.ParametersDAO;
-import myApp.DAO.ProductsDAO;
 import myApp.entity.AttributesEntity;
-import myApp.entity.CategoriesEntity;
-import myApp.entity.ParametersEntity;
-import myApp.entity.ProductsEntity;
+import myApp.services.CategoriesManager;
+import myApp.services.ProductManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,35 +10,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 
 public class AddProduct extends HttpServlet {
+    private ProductManager productManager = new ProductManager();
+    private CategoriesManager categoriesManager = new CategoriesManager();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        String currentprice = req.getParameter("currentprice");
-        String size = req.getParameter("size");
-        String weight = req.getParameter("weight");
-        String description = req.getParameter("description");
-
-        CategoriesEntity category = new CategoriesDAO().getCategoryByID(Integer.parseInt(req.getParameter("categoryId")));
-        Collection<AttributesEntity> attributes = category.getAttributes(); //getting attribute list for category
-        Map<AttributesEntity,String> attributeNames = new HashMap<AttributesEntity,String>(); //creating a map of attributes and their values
-        for(AttributesEntity attribute : attributes){
-            attributeNames.put(attribute, req.getParameter(String.valueOf(attribute.getId())));
+        HashMap<AttributesEntity, String> attributesAndValues = new HashMap<AttributesEntity, String>(); //creating a map of attributes and their values
+        for (AttributesEntity attribute : categoriesManager.find(Integer.parseInt(req.getParameter("categoryId"))).getAttributes()) {
+            attributesAndValues.put(attribute, req.getParameter(String.valueOf(attribute.getId())));
         }
 
-        ProductsEntity newProduct = new ProductsEntity(name,currentprice,size,weight,description,category.getId());
-        newProduct = new ProductsDAO().create(newProduct);
+        productManager.createWithParams(req.getParameter("name"), req.getParameter("currentprice"),
+                req.getParameter("size"), req.getParameter("weight"), req.getParameter("description"),
+                attributesAndValues, Integer.parseInt(req.getParameter("categoryId")));
 
-        for(Map.Entry<AttributesEntity,String> entry : attributeNames.entrySet()){
-            new ParametersDAO().create(new ParametersEntity(entry.getValue(), newProduct, entry.getKey()));
-        }
-
-        RequestDispatcher rd = req.getRequestDispatcher("/admin/editproducts?id="+category.getId());
-        rd.forward(req,resp);
+        RequestDispatcher rd = req.getRequestDispatcher("/admin/editproducts?id=" + Integer.parseInt(req.getParameter("categoryId")));
+        rd.forward(req, resp);
     }
 }

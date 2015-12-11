@@ -1,7 +1,6 @@
 package myApp.servlets;
 
-import myApp.DAO.AddressDAO;
-import myApp.DAO.CategoriesDAO;
+import myApp.services.CategoriesManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class RemoveCategory extends HttpServlet {
+    CategoriesManager categoriesManager = new CategoriesManager();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        new CategoriesDAO().delete(id);
+        categoriesManager.delete(req.getParameter("id"));
         RequestDispatcher rd = req.getRequestDispatcher("/admin/allcategories");
-        rd.forward(req,resp);
+        rd.forward(req, resp);
     }
 }

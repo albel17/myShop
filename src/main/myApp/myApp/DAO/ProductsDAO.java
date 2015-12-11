@@ -19,17 +19,6 @@ public class ProductsDAO extends GenericDaoJpaImpl<ProductsEntity> {
         return result;
     }
 
-    public ArrayList<String> getNamesByCategoryID(String category){
-        Query query = em.createQuery("SELECT c FROM ProductsEntity c where c.categoryId=:id");
-        query.setParameter("id", Integer.parseInt(category));
-        List<ProductsEntity> list = query.getResultList();
-        ArrayList<String> result = new ArrayList<String>();
-        for(ProductsEntity c : list){
-            result.add(c.getName());
-        }
-        return result;
-    }
-
     public ArrayList<String> getProductInfoByID(int id){
         Query query = em.createQuery("SELECT c FROM ProductsEntity c where c.id=:id");
         query.setParameter("id", id);
@@ -53,7 +42,7 @@ public class ProductsDAO extends GenericDaoJpaImpl<ProductsEntity> {
     }
 
     public ArrayList<ProductsEntity> getProductsByCategoryID(String category){
-        Query query = em.createQuery("SELECT c FROM ProductsEntity c where c.categoryId=:id");
+        Query query = em.createQuery("SELECT c FROM ProductsEntity c where c.category=:id");
         query.setParameter("id", Integer.parseInt(category));
         ArrayList<ProductsEntity> result = (ArrayList<ProductsEntity>) query.getResultList();
         return result;

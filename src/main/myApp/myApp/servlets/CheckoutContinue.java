@@ -1,8 +1,6 @@
 package myApp.servlets;
 
-import myApp.DAO.PersonsDAO;
-import myApp.entity.AddressesEntity;
-import myApp.entity.PersonsEntity;
+import myApp.services.AddressManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,10 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class CheckoutContinue extends HttpServlet {
+    private AddressManager addressManager = new AddressManager();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,10 +21,8 @@ public class CheckoutContinue extends HttpServlet {
         RequestDispatcher rd = req.getRequestDispatcher("/profile");
         if(deliverymethod.equals("delivery")){
             rd = req.getRequestDispatcher("/checkoutcontinue.jsp");
-            int id = (Integer) req.getSession().getAttribute("userID");
-            PersonsEntity person = new PersonsDAO().getPersonByID(id);
-            Collection<AddressesEntity> addresslist = person.getAddressesById();
-            req.setAttribute("addresslist",addresslist);
+            req.setAttribute("addresslist",
+                    addressManager.getAddressListByUserId((Integer) req.getSession().getAttribute("userID")));
         }
         rd.forward(req,resp);
     }

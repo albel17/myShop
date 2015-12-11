@@ -1,7 +1,6 @@
 package myApp.servlets;
 
-import myApp.DAO.ProductsDAO;
-import myApp.entity.ProductsEntity;
+import myApp.services.CategoriesManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,16 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Products extends HttpServlet {
+    private CategoriesManager categoriesManager = new CategoriesManager();
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        ArrayList<ProductsEntity> products = new ProductsDAO().getProductsByCategoryID(req.getParameter("id"));
-        req.setAttribute("products", products);
+        req.setAttribute("products", categoriesManager.getProductsById(Integer.parseInt(req.getParameter("id"))));
         RequestDispatcher rd = req.getRequestDispatcher("/products.jsp");
-        rd.forward(req,resp);
+        rd.forward(req, resp);
     }
 
 

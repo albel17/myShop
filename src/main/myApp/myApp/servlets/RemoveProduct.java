@@ -19,7 +19,7 @@ public class RemoveProduct extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         ProductsEntity product = new ProductsDAO().getProductByID(id);
-        int categoryId = product.getCategoryId();
+        int categoryId = product.getCategory().getId();
         Collection<ParametersEntity> parameters = product.getParametersesById();
         ParametersDAO parametersDAO = new ParametersDAO();
         for(ParametersEntity parameter : parameters){

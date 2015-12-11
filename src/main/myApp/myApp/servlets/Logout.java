@@ -11,8 +11,7 @@ public class Logout extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getSession().setAttribute("userID", null);
-        req.getSession().setAttribute("cart", null);
+        req.getSession().invalidate();
         RequestDispatcher rd = req.getRequestDispatcher("/start");
         rd.forward(req,resp);
     }

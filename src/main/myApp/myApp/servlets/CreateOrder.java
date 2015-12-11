@@ -33,7 +33,6 @@ public class CreateOrder extends HttpServlet {
         AddressesEntity address = new AddressDAO().getAddressByID(Integer.parseInt(req.getParameter("address")));
         OrdersEntity order = new OrdersEntity(paymentmethod, deliverymethod, "created", currentDate, date, 0, person, address);
         order = new OrdersDAO().create(order);
-        int orderId = order.getId();
         ArrayList<CartItem> items = cart.getItems();
         OrderItemDAO orderItemDAO = new OrderItemDAO();
         for(CartItem item : items){

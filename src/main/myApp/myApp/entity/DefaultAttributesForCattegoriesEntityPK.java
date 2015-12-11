@@ -4,9 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-/**
- * Created by Admin on 22.11.15.
- */
 public class DefaultAttributesForCattegoriesEntityPK implements Serializable {
     private int attributesId;
     private int categoriesId;

@@ -21,7 +21,6 @@ public class PersonsEntity {
 
     @Id
     @Column(name = "ID")
-    //@GeneratedValue(strategy=GenerationType.AUTO)
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -98,15 +97,8 @@ public class PersonsEntity {
 
         PersonsEntity that = (PersonsEntity) o;
 
-        if (id != that.id) return false;
-        if (personType != that.personType) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
-        if (birthdate != null ? !birthdate.equals(that.birthdate) : that.birthdate != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
+        return id == that.id && personType == that.personType && !(name != null ? !name.equals(that.name) : that.name != null) && !(surname != null ? !surname.equals(that.surname) : that.surname != null) && !(birthdate != null ? !birthdate.equals(that.birthdate) : that.birthdate != null) && !(email != null ? !email.equals(that.email) : that.email != null) && !(password != null ? !password.equals(that.password) : that.password != null);
 
-        return true;
     }
 
     @Override

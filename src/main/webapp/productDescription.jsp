@@ -56,13 +56,7 @@
         </button>
     </div>
 </div>
-<!--
-<h2>Products:</h2>
-<c:forEach var="info" items="${productInfo}">
-  <p>${info}</p>
-</c:forEach>
-<p></p>
--->
+
 <div class="container">
     <b>Name:</b><br><br>
 
@@ -100,9 +94,6 @@
             <p class="list-group-item">${values.get(theCount.index)}</p>
         </div>
     </c:forEach>
-
-   <!-- <a href="/addtocart?id=${product.getId()}">Add to the Cart</a>-->
-
 
 </div>
 </body>

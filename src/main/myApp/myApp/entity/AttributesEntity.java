@@ -10,6 +10,7 @@ public class AttributesEntity {
     private String name;
     private String description;
     private Collection<CategoriesEntity> categories;
+    private Collection<ParametersEntity> parameters;
 
     public AttributesEntity(String name, String description, Collection<CategoriesEntity> categories) {
         this.name = name;
@@ -22,7 +23,7 @@ public class AttributesEntity {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -78,10 +79,16 @@ public class AttributesEntity {
         return categories;
     }
 
-    @OneToMany(mappedBy = "attribute")
-    private Collection<ParametersEntity> getAttributes;
-
     public void setCategories(Collection<CategoriesEntity> categories) {
         this.categories = categories;
+    }
+
+    @OneToMany(mappedBy = "attribute")
+    public Collection<ParametersEntity> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Collection<ParametersEntity> parameters) {
+        this.parameters = parameters;
     }
 }

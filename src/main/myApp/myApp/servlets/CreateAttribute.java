@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class CreateAttribute extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int categoryId = Integer.parseInt(req.getParameter("categoryId"));

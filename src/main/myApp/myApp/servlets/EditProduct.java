@@ -23,11 +23,9 @@ public class EditProduct extends HttpServlet {
         ProductsDAO dao = new ProductsDAO();
         ProductsEntity product = dao.getProductByID(Integer.parseInt(req.getParameter("id")));
         req.setAttribute("product", product);
-        CategoriesEntity category = new CategoriesDAO().getCategoryByID(product.getCategoryId());
+        CategoriesEntity category = product.getCategory();
         Collection<AttributesEntity> attributes = category.getAttributes();
         req.setAttribute("attributes", attributes);
-        Collection<ParametersEntity> parameters = product.getParametersesById();
-        req.setAttribute("parameters", parameters);
         ArrayList<String> values = new ArrayList<String>();
         for(AttributesEntity attribute : attributes){
             values.add(new ParametersDAO().getParameterByAttributeIdProductId(attribute, product).getValue());

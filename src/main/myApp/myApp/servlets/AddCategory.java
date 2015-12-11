@@ -1,7 +1,6 @@
 package myApp.servlets;
 
-import myApp.DAO.CategoriesDAO;
-import myApp.entity.CategoriesEntity;
+import myApp.services.CategoriesManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,13 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AddCategory extends HttpServlet {
+    private CategoriesManager categoriesManager = new CategoriesManager();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        String description = req.getParameter("description");
-        CategoriesEntity category = new CategoriesEntity(name, description); //create new category
-        new CategoriesDAO().create(category);
+        categoriesManager.createByNameAndDescription(req.getParameter("name"), req.getParameter("description"));
 
         RequestDispatcher rd = req.getRequestDispatcher("/admin/allcategories");
         rd.forward(req, resp);

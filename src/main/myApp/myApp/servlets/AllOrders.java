@@ -1,9 +1,6 @@
 package myApp.servlets;
 
-import myApp.DAO.OrdersDAO;
-import myApp.DAO.PersonsDAO;
-import myApp.entity.OrdersEntity;
-import myApp.entity.PersonsEntity;
+import myApp.services.OrderManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,11 +11,11 @@ import java.io.IOException;
 import java.util.Collection;
 
 public class AllOrders extends HttpServlet {
+    private OrderManager orderManager = new OrderManager();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Collection<OrdersEntity> orderslist = new OrdersDAO().getAllOrders();
-        req.setAttribute("orderslist", orderslist);
+        req.setAttribute("orderslist", orderManager.getAll());
         RequestDispatcher rd = req.getRequestDispatcher("/admin/allorders.jsp");
         rd.forward(req,resp);
     }

@@ -10,6 +10,7 @@ public class CategoriesEntity {
     private String name;
     private String description;
     private Collection<AttributesEntity> attributes;
+    private Collection<ProductsEntity> products;
 
     public CategoriesEntity(String name, String description) {
         this.name = name;
@@ -21,7 +22,7 @@ public class CategoriesEntity {
 
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -82,6 +83,12 @@ public class CategoriesEntity {
         this.attributes = attributes;
     }
 
-    @OneToMany(mappedBy = "categoriesEntities")
-    private Collection<ProductsEntity> products;
+    @OneToMany(mappedBy = "category")
+    public Collection<ProductsEntity> getProducts() {
+        return this.products;
+    }
+
+    public void setProducts(Collection<ProductsEntity> products) {
+        this.products = products;
+    }
 }
