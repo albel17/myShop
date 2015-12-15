@@ -1,7 +1,6 @@
 package myApp.servlets;
 
-import myApp.DAO.AddressDAO;
-import myApp.entity.AddressesEntity;
+import myApp.services.AddressManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,12 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class DeleteAddress extends HttpServlet {
+    AddressManager addressManager = new AddressManager();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("id"));
-        new AddressDAO().delete(id);
+        addressManager.delete(Integer.parseInt(req.getParameter("id")));
         RequestDispatcher rd = req.getRequestDispatcher("/addresslist");
-        rd.forward(req,resp);
+        rd.forward(req, resp);
     }
 }

@@ -65,7 +65,7 @@
   <!-- Example row of columns -->
 <c:forEach var="category" items="${categories}">
   <div class="list-group">
-    <a href="/products?id=${category.getId()}" class="list-group-item">${category.getName()}</a>
+    <a href="/products?id=${category.id}" class="list-group-item">${category.getName()}</a>
   </div>
 </c:forEach>
 

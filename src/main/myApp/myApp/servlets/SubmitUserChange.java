@@ -24,7 +24,7 @@ public class SubmitUserChange extends HttpServlet {
                 user.setSurname(req.getParameter("surname"));
                 user.setBirthdate(req.getParameter("birthdate"));
                 user.setEmail(req.getParameter("email"));
-                if(req.getParameter("newpassword")!="")
+                if(!req.getParameter("newpassword").equals(""))
                 user.setPassword(req.getParameter("newpassword"));
                 personsDAO.update(user);
             }

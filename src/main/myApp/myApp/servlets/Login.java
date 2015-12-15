@@ -14,31 +14,12 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        process(req,resp);
-        /*
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
-        RequestDispatcher rd = req.getRequestDispatcher("/start");
-        try {
-            PersonsEntity user = new PersonsDAO().getPersonByEmail(login);
-            if (user.getPassword().equals(password))
-                req.getSession().setAttribute("userID", user.getId());
-            else throw new  Exception();
-
-        }
-        catch (Exception e){
-            rd = req.getRequestDispatcher("/registration.jsp");
-            req.setAttribute("error","Illegal Username or Password.");
-        }
-        finally {
-            rd.forward(req, resp);
-        }
-        */
+        process(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        process(req,resp);
+        process(req, resp);
     }
 
     public void process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -49,14 +30,12 @@ public class Login extends HttpServlet {
             PersonsEntity user = new PersonsDAO().getPersonByEmail(login);
             if (user.getPassword().equals(password))
                 req.getSession().setAttribute("userID", user.getId());
-            else throw new  Exception();
+            else throw new Exception();
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             rd = req.getRequestDispatcher("/registration.jsp");
-            req.setAttribute("error","Illegal Username or Password.");
-        }
-        finally {
+            req.setAttribute("error", "Illegal Username or Password.");
+        } finally {
             rd.forward(req, resp);
         }
     }

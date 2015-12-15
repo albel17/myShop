@@ -1,11 +1,9 @@
 package myApp.servlets;
 
-import myApp.DAO.CategoriesDAO;
 import myApp.DAO.ParametersDAO;
 import myApp.DAO.ProductsDAO;
 import myApp.entity.AttributesEntity;
 import myApp.entity.CategoriesEntity;
-import myApp.entity.ParametersEntity;
 import myApp.entity.ProductsEntity;
 
 import javax.servlet.RequestDispatcher;
@@ -27,7 +25,7 @@ public class EditProduct extends HttpServlet {
         Collection<AttributesEntity> attributes = category.getAttributes();
         req.setAttribute("attributes", attributes);
         ArrayList<String> values = new ArrayList<String>();
-        for(AttributesEntity attribute : attributes){
+        for (AttributesEntity attribute : attributes) {
             values.add(new ParametersDAO().getParameterByAttributeIdProductId(attribute, product).getValue());
         }
         req.setAttribute("values", values);

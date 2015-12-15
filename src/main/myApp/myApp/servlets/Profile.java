@@ -1,7 +1,6 @@
 package myApp.servlets;
 
-import myApp.DAO.PersonsDAO;
-import myApp.entity.PersonsEntity;
+import myApp.services.PersonManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,13 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class Profile extends HttpServlet {
+    private PersonManager personManager = new PersonManager();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = (Integer) req.getSession().getAttribute("userID");
-        PersonsEntity person = new PersonsDAO().getPersonByID(id);
-        req.setAttribute("person",person);
+        req.setAttribute("person", personManager.find(req.getSession().getAttribute("userID")));
         RequestDispatcher rd = req.getRequestDispatcher("/profile.jsp");
-        rd.forward(req,resp);
+        rd.forward(req, resp);
     }
 }

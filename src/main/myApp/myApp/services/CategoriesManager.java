@@ -1,5 +1,6 @@
 package myApp.services;
 
+import myApp.DAO.AttributesDAO;
 import myApp.DAO.CategoriesDAO;
 import myApp.entity.AttributesEntity;
 import myApp.entity.CategoriesEntity;
@@ -35,11 +36,22 @@ public class CategoriesManager implements GenericManager<CategoriesEntity> {
         return categoriesDAO.update(categoriesEntity);
     }
 
-    public Collection<AttributesEntity> getAttributesById(int id){
+    public Collection<AttributesEntity> getAttributesById(int id) {
         return categoriesDAO.getCategoryByID(id).getAttributes();
     }
 
-    public Collection<ProductsEntity> getProductsById(int id){
+    public Collection<ProductsEntity> getProductsById(int id) {
         return categoriesDAO.find(id).getProducts();
+    }
+
+    public void createAttribute(int id, String name, String description) {
+        Collection<CategoriesEntity> categories = new ArrayList<CategoriesEntity>();
+        Collection<AttributesEntity> attributes = new ArrayList<AttributesEntity>();
+        categories.add(categoriesDAO.find(id));
+        AttributesEntity attribute = new AttributesDAO().create(new AttributesEntity(name, description, categories));
+        CategoriesEntity category = categoriesDAO.find(id);
+        attributes.add(attribute);
+        category.setAttributes(attributes);
+        categoriesDAO.update(category);
     }
 }

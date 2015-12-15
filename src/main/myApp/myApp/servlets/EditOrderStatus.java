@@ -1,7 +1,6 @@
 package myApp.servlets;
 
-import myApp.DAO.OrdersDAO;
-import myApp.entity.OrdersEntity;
+import myApp.services.OrderManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,13 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class EditOrderStatus extends HttpServlet {
+    private OrderManager orderManager = new OrderManager();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String newStatus = req.getParameter("status");
-        OrdersEntity order = new OrdersDAO().getOrderByID(Integer.parseInt(req.getParameter("orderid")));
-        order.setOrderStatus(newStatus);
-        new OrdersDAO().update(order);
+        orderManager.changeStatus(Integer.parseInt(req.getParameter("orderid")), req.getParameter("status"));
         RequestDispatcher rd = req.getRequestDispatcher("/admin/allorders");
         rd.forward(req, resp);
     }

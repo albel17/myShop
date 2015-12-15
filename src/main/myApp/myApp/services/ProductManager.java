@@ -8,6 +8,7 @@ import myApp.entity.ParametersEntity;
 import myApp.entity.ProductsEntity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +20,12 @@ public class ProductManager implements GenericManager<ProductsEntity> {
     }
 
     public void delete(Object id) {
+        ProductsEntity product = productsDAO.find(id);
+        Collection<ParametersEntity> parameters = product.getParametersesById();
+        ParametersDAO parametersDAO = new ParametersDAO();
+        for(ParametersEntity parameter : parameters){
+            parametersDAO.delete(parameter.getId());
+        }
         productsDAO.delete(id);
     }
 
@@ -31,7 +38,8 @@ public class ProductManager implements GenericManager<ProductsEntity> {
     }
 
     public ProductsEntity createWithParams(String name, String currentprice, String size, String weight,
-                                           String description, HashMap<AttributesEntity, String> attributesAndValues, int categoryId) {
+                                           String description, HashMap<AttributesEntity, String> attributesAndValues,
+                                           int categoryId) {
 
         ProductsEntity newProduct = new ProductsEntity(name, currentprice, size, weight, description,
                 new CategoriesDAO().getCategoryByID(categoryId));
@@ -42,10 +50,13 @@ public class ProductManager implements GenericManager<ProductsEntity> {
         newProduct.setParametersesById(parametersEntities);
         newProduct = productsDAO.create(newProduct);
         ParametersDAO parametersDAO = new ParametersDAO();
-        for(ParametersEntity parametersEntity : parametersEntities){
+        for (ParametersEntity parametersEntity : parametersEntities) {
             parametersDAO.create(parametersEntity);
         }
-
         return newProduct;
+    }
+
+    public int getCategoryId(int id){
+        return productsDAO.getProductByID(id).getCategory().getId();
     }
 }
