@@ -1,5 +1,8 @@
 package myApp.DAO;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -7,14 +10,14 @@ import javax.persistence.PersistenceContext;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-public class GenericDaoJpaImpl<T>
+public abstract class GenericDaoJpaImpl<T>
         implements GenericDao<T> {
 
     private Class<T> type;
 
     @PersistenceContext
-    protected static EntityManager em;
-
+    protected EntityManager em;
+/*
     private void getEntityManager(){
         if(em==null){
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("mydb");
@@ -26,13 +29,14 @@ public class GenericDaoJpaImpl<T>
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("mydb");
             em = emf.createEntityManager();
     }
-
+*/
     public GenericDaoJpaImpl() {
+        System.out.println("INIT");
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         type = (Class) pt.getActualTypeArguments()[0];
 
-        getEntityManager();
+        //getEntityManager();
     }
 
     public T create(final T t) {
@@ -40,7 +44,7 @@ public class GenericDaoJpaImpl<T>
         em.persist(t);
         em.flush();
         em.getTransaction().commit();
-        getNewEntityManager();
+        //getNewEntityManager();
         return t;
     }
 
@@ -49,7 +53,7 @@ public class GenericDaoJpaImpl<T>
         em.remove(em.getReference(type, id));
         em.flush();
         em.getTransaction().commit();
-        getNewEntityManager();
+        //getNewEntityManager();
     }
 
     public T find(final Object id) {
@@ -60,7 +64,7 @@ public class GenericDaoJpaImpl<T>
         em.getTransaction().begin();
         em.merge(t);
         em.getTransaction().commit();
-        getNewEntityManager();
+        //getNewEntityManager();
         return t;
     }
 }

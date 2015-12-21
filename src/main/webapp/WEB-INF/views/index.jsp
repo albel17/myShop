@@ -1,10 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page isELIgnored="false" %>
 <html>
 <head>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<script src="js/bootstrap.min.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -28,7 +29,7 @@
         </div>
         <button type="submit" class="btn btn-success">Sign in</button>
         <FORM>
-          <INPUT class="btn btn-success" Type="BUTTON" Value="Registration" Onclick="window.location.href='registration.jsp'">
+          <INPUT class="btn btn-success" Type="BUTTON" Value="Registration" Onclick="window.location.href='../../registration.jsp'">
         </FORM>
       </form>
       <%} else {%>
@@ -75,13 +76,5 @@
     <p>&copy; Company 2015</p>
   </footer>
 </div> <!-- /container -->
-
-<!--
-<div>
-<c:forEach var="category" items="${categories}">
-  <p>  <a href="/products?id=${category.getId()}">${category.getName()}</a> </p>
-</c:forEach>
-</div>
--->
 </body>
 </html>

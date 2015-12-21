@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
-  <data-source name="MySQL - mydb@localhost" uuid="dd440833-68bd-47ee-bf5b-3d26034b1bbc">
+  <data-source name="MySQL - mydb@localhost" uuid="bf9ee971-3879-4c3e-9015-7f55f9b0d43d">
     <database-info product="MySQL" version="5.0.67-community-nt" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
@@ -8,119 +8,117 @@
     <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
     <schema name="" catalog="mydb"/>
     <table name="addresses" schema="" catalog="mydb" type="TABLE">
-      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="COUNTRY" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="CITY" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="POSTAL_CODE" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="STREET" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="HOUSE" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="FLAT" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="CITY" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="COUNTRY" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FLAT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="HOUSE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="POSTAL_CODE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STREET" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="CLIENT_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="ID"/>
-      <foreign-key name="CLIENT" columns="CLIENT_ID" ref-table="persons" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="ADDRESSES" table="orders" schema="" catalog="mydb" columns="ADDRESS_ID"/>
-      <index name="CLIENT_idx" unique="false" columns="CLIENT_ID"/>
+      <foreign-key name="FKcj9wid5nlf8m6iuca4hyafp3h" columns="CLIENT_ID" ref-table="persons" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FKknfhm0tmxgydhsb9n8oniqdb7" table="orders" schema="" catalog="mydb" columns="ADDRESS_ID"/>
+      <index name="FKcj9wid5nlf8m6iuca4hyafp3h" unique="false" columns="CLIENT_ID"/>
     </table>
     <table name="attributes" schema="" catalog="mydb" type="TABLE">
-      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="NAME" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="DESCRIPTION" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="ID"/>
-      <exported-key name="fk_ATTRIBUTES_has_CATEGORIES_ATTRIBUTES" table="default_attributes_for_cattegories" schema="" catalog="mydb" columns="ATTRIBUTES_ID"/>
-      <exported-key name="ATTRIBUTE" table="parameters" schema="" catalog="mydb" columns="ATTRIBUTE_ID"/>
+      <exported-key name="FK9aua647f79n8waubjynmnc3nl" table="default_attributes_for_cattegories" schema="" catalog="mydb" columns="ATTRIBUTES_ID"/>
+      <exported-key name="FKcbhxoiijjsgjlfcc7ywnbxtwk" table="parameters" schema="" catalog="mydb" columns="ATTRIBUTE_ID"/>
     </table>
     <table name="categories" schema="" catalog="mydb" type="TABLE">
-      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="NAME" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="DESCRIPTION" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="ID"/>
-      <exported-key name="fk_ATTRIBUTES_has_CATEGORIES_CATEGORIES1" table="default_attributes_for_cattegories" schema="" catalog="mydb" columns="CATEGORIES_ID"/>
-      <exported-key name="CATEGORY" table="products" schema="" catalog="mydb" columns="CATEGORY_ID"/>
+      <exported-key name="FK6ksmqtj0f7cyeqj1tvnxrg8aq" table="default_attributes_for_cattegories" schema="" catalog="mydb" columns="CATEGORIES_ID"/>
+      <exported-key name="FK89flbvp09klukqvnbbq6hmyhj" table="products" schema="" catalog="mydb" columns="CATEGORY_ID"/>
     </table>
     <table name="default_attributes_for_cattegories" schema="" catalog="mydb" type="TABLE">
-      <column name="ATTRIBUTES_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="CATEGORIES_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="ATTRIBUTES_ID,CATEGORIES_ID"/>
-      <foreign-key name="fk_ATTRIBUTES_has_CATEGORIES_ATTRIBUTES" columns="ATTRIBUTES_ID" ref-table="attributes" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="fk_ATTRIBUTES_has_CATEGORIES_CATEGORIES1" columns="CATEGORIES_ID" ref-table="categories" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="fk_ATTRIBUTES_has_CATEGORIES_ATTRIBUTES_idx" unique="false" columns="ATTRIBUTES_ID"/>
-      <index name="fk_ATTRIBUTES_has_CATEGORIES_CATEGORIES1_idx" unique="false" columns="CATEGORIES_ID"/>
+      <column name="ATTRIBUTES_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <foreign-key name="FK6ksmqtj0f7cyeqj1tvnxrg8aq" columns="CATEGORIES_ID" ref-table="categories" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK9aua647f79n8waubjynmnc3nl" columns="ATTRIBUTES_ID" ref-table="attributes" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK6ksmqtj0f7cyeqj1tvnxrg8aq" unique="false" columns="CATEGORIES_ID"/>
+      <index name="FK9aua647f79n8waubjynmnc3nl" unique="false" columns="ATTRIBUTES_ID"/>
     </table>
     <table name="order_item" schema="" catalog="mydb" type="TABLE">
-      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="AMOUNT" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="PRICE" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="PRODUCT_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="AMOUNT" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="PRICE" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="ORDER_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="PRODUCT_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="ID"/>
-      <foreign-key name="ORDERS" columns="ORDER_ID" ref-table="orders" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="PRODUCTSS" columns="PRODUCT_ID" ref-table="products" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="ORDER_idx" unique="false" columns="ORDER_ID"/>
-      <index name="PRODUCT_idx" unique="false" columns="PRODUCT_ID"/>
+      <foreign-key name="FKscltk7k1655ofxm46ge6j753i" columns="PRODUCT_ID" ref-table="products" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKo9qnkxug5bustwu012d38netd" columns="ORDER_ID" ref-table="orders" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FKo9qnkxug5bustwu012d38netd" unique="false" columns="ORDER_ID"/>
+      <index name="FKscltk7k1655ofxm46ge6j753i" unique="false" columns="PRODUCT_ID"/>
     </table>
     <table name="orders" schema="" catalog="mydb" type="TABLE">
-      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="PAYMENT_METHOD" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="DELIVERY_METHOD" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="ORDER_STATUS" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="CREATION_DATE" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="DELIVERY_DATE" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="CLIENT_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="COST" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="CREATION_DATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DELIVERY_DATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DELIVERY_METHOD" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ORDER_STATUS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PAYMENT_METHOD" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="ADDRESS_ID" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="COST" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="CLIENT_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="ID"/>
-      <foreign-key name="PERSONS" columns="CLIENT_ID" ref-table="persons" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="ADDRESSES" columns="ADDRESS_ID" ref-table="addresses" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="ORDERS" table="order_item" schema="" catalog="mydb" columns="ORDER_ID"/>
-      <index name="ADDRESS_ID_idx2" unique="false" columns="ADDRESS_ID"/>
-      <index name="CLIENT_ID_idx2" unique="false" columns="CLIENT_ID"/>
+      <foreign-key name="FKimdvtquhk3n6j0n7e6drrcd86" columns="CLIENT_ID" ref-table="persons" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKknfhm0tmxgydhsb9n8oniqdb7" columns="ADDRESS_ID" ref-table="addresses" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FKo9qnkxug5bustwu012d38netd" table="order_item" schema="" catalog="mydb" columns="ORDER_ID"/>
+      <index name="FKimdvtquhk3n6j0n7e6drrcd86" unique="false" columns="CLIENT_ID"/>
+      <index name="FKknfhm0tmxgydhsb9n8oniqdb7" unique="false" columns="ADDRESS_ID"/>
     </table>
     <table name="parameters" schema="" catalog="mydb" type="TABLE">
-      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="VALUE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ATTRIBUTE_ID" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="PRODUCT_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="ATTRIBUTE_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="VALUE" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="ID"/>
-      <foreign-key name="PRODUCT" columns="PRODUCT_ID" ref-table="products" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
-      <foreign-key name="ATTRIBUTE" columns="ATTRIBUTE_ID" ref-table="attributes" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="ATTRIBUTE_idx" unique="false" columns="ATTRIBUTE_ID"/>
-      <index name="PRODUCT_idx" unique="false" columns="PRODUCT_ID"/>
+      <foreign-key name="FKm479nrde9t5bi9rfr2rj2x1ik" columns="PRODUCT_ID" ref-table="products" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FKcbhxoiijjsgjlfcc7ywnbxtwk" columns="ATTRIBUTE_ID" ref-table="attributes" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FKcbhxoiijjsgjlfcc7ywnbxtwk" unique="false" columns="ATTRIBUTE_ID"/>
+      <index name="FKm479nrde9t5bi9rfr2rj2x1ik" unique="false" columns="PRODUCT_ID"/>
     </table>
     <table name="persons" schema="" catalog="mydb" type="TABLE">
-      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="NAME" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="SURNAME" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="BIRTHDATE" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="EMAIL" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="PASSWORD" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="PERSON_TYPE" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="BIRTHDATE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMAIL" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PASSWORD" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PERSON_TYPE" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="SURNAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="ID"/>
-      <exported-key name="CLIENT" table="addresses" schema="" catalog="mydb" columns="CLIENT_ID"/>
-      <exported-key name="PERSONS" table="orders" schema="" catalog="mydb" columns="CLIENT_ID"/>
-      <index name="EMAIL_UNIQUE" unique="true" columns="EMAIL"/>
+      <exported-key name="FKcj9wid5nlf8m6iuca4hyafp3h" table="addresses" schema="" catalog="mydb" columns="CLIENT_ID"/>
+      <exported-key name="FKimdvtquhk3n6j0n7e6drrcd86" table="orders" schema="" catalog="mydb" columns="CLIENT_ID"/>
     </table>
     <table name="products" schema="" catalog="mydb" type="TABLE">
-      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="NAME" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
-      <column name="CURRENT_PRICE" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="SIZE" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="WEIGHT" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
-      <column name="DESCRIPTION" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
-      <column name="CATEGORY_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="CURRENT_PRICE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="SIZE" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="WEIGHT" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CATEGORY_ID" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="ID"/>
-      <foreign-key name="CATEGORY" columns="CATEGORY_ID" ref-table="categories" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
-      <exported-key name="PRODUCTSS" table="order_item" schema="" catalog="mydb" columns="PRODUCT_ID"/>
-      <exported-key name="PRODUCT" table="parameters" schema="" catalog="mydb" columns="PRODUCT_ID"/>
-      <exported-key name="PRODUCTS" table="storage" schema="" catalog="mydb" columns="PRODUCT_ID"/>
-      <index name="CATEGORY_ID_idx" unique="false" columns="CATEGORY_ID"/>
+      <foreign-key name="FK89flbvp09klukqvnbbq6hmyhj" columns="CATEGORY_ID" ref-table="categories" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FKscltk7k1655ofxm46ge6j753i" table="order_item" schema="" catalog="mydb" columns="PRODUCT_ID"/>
+      <exported-key name="FKm479nrde9t5bi9rfr2rj2x1ik" table="parameters" schema="" catalog="mydb" columns="PRODUCT_ID"/>
+      <exported-key name="FKqwiullveaw93k45hvv9t6g1el" table="storage" schema="" catalog="mydb" columns="PRODUCT_ID"/>
+      <index name="FK89flbvp09klukqvnbbq6hmyhj" unique="false" columns="CATEGORY_ID"/>
     </table>
     <table name="storage" schema="" catalog="mydb" type="TABLE">
       <column name="ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="AMOUNT" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="PRODUCT_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="AMOUNT" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="ID"/>
-      <foreign-key name="PRODUCTS" columns="PRODUCT_ID" ref-table="products" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
-      <index name="PRODUCT_ID_idx1" unique="false" columns="PRODUCT_ID"/>
+      <foreign-key name="FKqwiullveaw93k45hvv9t6g1el" columns="PRODUCT_ID" ref-table="products" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FKqwiullveaw93k45hvv9t6g1el" unique="false" columns="PRODUCT_ID"/>
     </table>
   </data-source>
 </component>

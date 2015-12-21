@@ -5,12 +5,21 @@ import myApp.DAO.CategoriesDAO;
 import myApp.entity.AttributesEntity;
 import myApp.entity.CategoriesEntity;
 import myApp.entity.ProductsEntity;
+import org.hibernate.service.spi.InjectService;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Component
 public class CategoriesManager implements GenericManager<CategoriesEntity> {
-    private CategoriesDAO categoriesDAO = new CategoriesDAO();
+    //private CategoriesDAO categoriesDAO = new CategoriesDAO();
+    @Inject
+    private CategoriesDAO categoriesDAO;
 
     public ArrayList<CategoriesEntity> getAll() {
         return categoriesDAO.getAll();

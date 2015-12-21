@@ -1,22 +1,18 @@
 package myApp.DAO;
 
 import myApp.entity.CategoriesEntity;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import javax.persistence.Query;
 import java.util.ArrayList;
-import java.util.List;
 
+@Component
 public class CategoriesDAO extends GenericDaoJpaImpl<CategoriesEntity> {
-    public ArrayList<String> getAllNames() {
-        Query query = em.createQuery("SELECT c FROM CategoriesEntity c");
-        List<CategoriesEntity> list = query.getResultList();
-        ArrayList<String> result = new ArrayList<String>();
-        for (CategoriesEntity c : list) {
-            result.add(c.getName());
-        }
-        return result;
-    }
-
     public ArrayList<CategoriesEntity> getAll() {
         Query query = em.createQuery("SELECT c FROM CategoriesEntity c");
         return (ArrayList<CategoriesEntity>) query.getResultList();
