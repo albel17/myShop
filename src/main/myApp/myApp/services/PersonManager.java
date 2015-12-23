@@ -3,11 +3,16 @@ package myApp.services;
 import myApp.DAO.PersonsDAO;
 import myApp.entity.OrdersEntity;
 import myApp.entity.PersonsEntity;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 
+@Service
 public class PersonManager implements GenericManager<PersonsEntity> {
-    private PersonsDAO personsDAO = new PersonsDAO();
+
+    @Resource
+    private PersonsDAO personsDAO;
 
     public PersonsEntity create(PersonsEntity personsEntity) {
         return personsDAO.create(personsEntity);

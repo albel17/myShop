@@ -30,7 +30,7 @@ public class ProductDescription extends HttpServlet {
         req.setAttribute("values", values);
         req.setAttribute("categoryId", category.getId());
 
-        RequestDispatcher rd = req.getRequestDispatcher("/productDescription.jsp");
+        RequestDispatcher rd = req.getRequestDispatcher("/productdescription.jsp");
         rd.forward(req, resp);
     }
 }

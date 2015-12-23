@@ -1,13 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page isELIgnored="false" %>
 <html>
 <head>
     <title></title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
+    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
-<script src="js/bootstrap.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -31,7 +32,7 @@
             <button type="submit" class="btn btn-success">Sign in</button>
             <FORM>
                 <INPUT class="btn btn-success" Type="BUTTON" Value="Registration"
-                       Onclick="window.location.href='registration.jsp'">
+                       Onclick="window.location.href='../../registration.jsp'">
             </FORM>
         </form>
         <%} else {%>
@@ -58,7 +59,7 @@
     <h2>Products:</h2>
     <c:forEach var="product" items="${products}">
         <div class="list-group">
-            <a href="/productDescription?id=${product.getId()}" class="list-group-item">${product.getName()}</a>
+            <a href="/myshop/productdescription?id=${product.id}" class="list-group-item">${product.name}</a>
         </div>
     </c:forEach>
 </div>

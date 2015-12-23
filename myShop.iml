@@ -17,8 +17,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="NewPersistenceUnit" value="dd440833-68bd-47ee-bf5b-3d26034b1bbc" />
-          <factory-entry name="entityManagerFactory" />
-          <factory-entry name="mydb" />
+          <factory-entry name="entityManagerFactory" value="bf9ee971-3879-4c3e-9015-7f55f9b0d43d" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>

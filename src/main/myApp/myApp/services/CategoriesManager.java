@@ -5,21 +5,27 @@ import myApp.DAO.CategoriesDAO;
 import myApp.entity.AttributesEntity;
 import myApp.entity.CategoriesEntity;
 import myApp.entity.ProductsEntity;
+import myApp.services.GenericManager;
+import myApp.services.CategoriesManager;
 import org.hibernate.service.spi.InjectService;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Component
+@Service
 public class CategoriesManager implements GenericManager<CategoriesEntity> {
-    //private CategoriesDAO categoriesDAO = new CategoriesDAO();
-    @Inject
+    @Resource
     private CategoriesDAO categoriesDAO;
+
+    @Resource
+    private AttributesDAO attributesDAO;
 
     public ArrayList<CategoriesEntity> getAll() {
         return categoriesDAO.getAll();
@@ -57,7 +63,7 @@ public class CategoriesManager implements GenericManager<CategoriesEntity> {
         Collection<CategoriesEntity> categories = new ArrayList<CategoriesEntity>();
         Collection<AttributesEntity> attributes = new ArrayList<AttributesEntity>();
         categories.add(categoriesDAO.find(id));
-        AttributesEntity attribute = new AttributesDAO().create(new AttributesEntity(name, description, categories));
+        AttributesEntity attribute = attributesDAO.create(new AttributesEntity(name, description, categories));
         CategoriesEntity category = categoriesDAO.find(id);
         attributes.add(attribute);
         category.setAttributes(attributes);

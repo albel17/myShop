@@ -2,9 +2,15 @@ package myApp.services;
 
 import myApp.DAO.AttributesDAO;
 import myApp.entity.AttributesEntity;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
+
+@Service
 public class AttributeManager implements GenericManager<AttributesEntity> {
-    private AttributesDAO attributesDAO = new AttributesDAO();
+
+    @Resource
+    private AttributesDAO attributesDAO;
 
     public AttributesEntity create(AttributesEntity attributesEntity) {
         return attributesDAO.create(attributesEntity);

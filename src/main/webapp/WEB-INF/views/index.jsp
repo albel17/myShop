@@ -2,10 +2,10 @@
 <%@page isELIgnored="false" %>
 <html>
 <head>
-  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+  <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
 </head>
 <body>
-<script src="../../js/bootstrap.min.js"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -40,24 +40,6 @@
       <%}%>
   </div>
 </div>
-<!--
-<h2>Welcome to my shop!</h2>
-<% if(session.getAttribute("userID")==null) {%>
-<p><a href="registration.jsp">Registration</a> </p>
-<form action="/login" method="post">
-  Login:<br>
-  <input class="span2" type="text" name="login">
-  <br>
-  Password:<br>
-  <input class="span2" type="text" name="password">
-  <br><br>
-  <input type="submit" value="Log In">
-</form>
-<%} else {%>
-<p><a href="/profile">Profile</a> </p>
-<p><a href="/logout">Log out</a> </p>
-<%}%>
--->
 <div class="jumbotron">
 </div>
 
@@ -66,7 +48,7 @@
   <!-- Example row of columns -->
 <c:forEach var="category" items="${categories}">
   <div class="list-group">
-    <a href="/products?id=${category.id}" class="list-group-item">${category.getName()}</a>
+    <a href="/myshop/products?id=${category.id}" class="list-group-item">${category.getName()}</a>
   </div>
 </c:forEach>
 

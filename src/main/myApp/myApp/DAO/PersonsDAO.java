@@ -1,9 +1,11 @@
 package myApp.DAO;
 
 import myApp.entity.PersonsEntity;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Query;
 
+@Component
 public class PersonsDAO extends GenericDaoJpaImpl<PersonsEntity> {
 
     public PersonsEntity getPersonByEmail(String email){

@@ -6,14 +6,24 @@ import myApp.DAO.ProductsDAO;
 import myApp.entity.AttributesEntity;
 import myApp.entity.ParametersEntity;
 import myApp.entity.ProductsEntity;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class ProductManager implements GenericManager<ProductsEntity> {
-    private ProductsDAO productsDAO = new ProductsDAO();
+    @Resource
+    private ProductsDAO productsDAO;
+
+    @Resource
+    private ParametersDAO parametersDAO;
+
+    @Resource
+    private CategoriesDAO categoriesDAO;
 
     public ProductsEntity create(ProductsEntity productsEntity) {
         return productsDAO.create(productsEntity);
@@ -22,7 +32,6 @@ public class ProductManager implements GenericManager<ProductsEntity> {
     public void delete(Object id) {
         ProductsEntity product = productsDAO.find(id);
         Collection<ParametersEntity> parameters = product.getParametersesById();
-        ParametersDAO parametersDAO = new ParametersDAO();
         for(ParametersEntity parameter : parameters){
             parametersDAO.delete(parameter.getId());
         }
@@ -42,14 +51,13 @@ public class ProductManager implements GenericManager<ProductsEntity> {
                                            int categoryId) {
 
         ProductsEntity newProduct = new ProductsEntity(name, currentprice, size, weight, description,
-                new CategoriesDAO().getCategoryByID(categoryId));
+                categoriesDAO.getCategoryByID(categoryId));
         ArrayList<ParametersEntity> parametersEntities = new ArrayList<ParametersEntity>();
         for (Map.Entry<AttributesEntity, String> entry : attributesAndValues.entrySet()) {
             parametersEntities.add(new ParametersEntity(entry.getValue(), newProduct, entry.getKey()));
         }
         newProduct.setParametersesById(parametersEntities);
         newProduct = productsDAO.create(newProduct);
-        ParametersDAO parametersDAO = new ParametersDAO();
         for (ParametersEntity parametersEntity : parametersEntities) {
             parametersDAO.create(parametersEntity);
         }
@@ -58,5 +66,9 @@ public class ProductManager implements GenericManager<ProductsEntity> {
 
     public int getCategoryId(int id){
         return productsDAO.getProductByID(id).getCategory().getId();
+    }
+
+    public String getParameterByAttributeIdProductId(AttributesEntity atr, ProductsEntity prod){
+        return parametersDAO.getParameterByAttributeIdProductId(atr, prod).getValue();
     }
 }

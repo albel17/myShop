@@ -121,6 +121,6 @@
         </configuration>
       </plugin>
     </plugins>
-    <finalName>myShop</finalName>
+    <finalName>myshop</finalName>
   </build>
 </project>

@@ -2,9 +2,11 @@ package myApp.DAO;
 
 import myApp.entity.AddressesEntity;
 import myApp.entity.PersonsEntity;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Query;
 
+@Component
 public class AddressDAO extends GenericDaoJpaImpl<AddressesEntity> {
 
     public AddressesEntity getAddressByID(int id){

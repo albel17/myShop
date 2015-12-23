@@ -17,26 +17,12 @@ public abstract class GenericDaoJpaImpl<T>
 
     @PersistenceContext
     protected EntityManager em;
-/*
-    private void getEntityManager(){
-        if(em==null){
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("mydb");
-            em = emf.createEntityManager();
-        }
-    }
 
-    protected void getNewEntityManager(){
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("mydb");
-            em = emf.createEntityManager();
-    }
-*/
     public GenericDaoJpaImpl() {
         System.out.println("INIT");
         Type t = getClass().getGenericSuperclass();
         ParameterizedType pt = (ParameterizedType) t;
         type = (Class) pt.getActualTypeArguments()[0];
-
-        //getEntityManager();
     }
 
     public T create(final T t) {
@@ -44,7 +30,6 @@ public abstract class GenericDaoJpaImpl<T>
         em.persist(t);
         em.flush();
         em.getTransaction().commit();
-        //getNewEntityManager();
         return t;
     }
 
@@ -64,7 +49,6 @@ public abstract class GenericDaoJpaImpl<T>
         em.getTransaction().begin();
         em.merge(t);
         em.getTransaction().commit();
-        //getNewEntityManager();
         return t;
     }
 }
