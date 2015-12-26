@@ -1,7 +1,12 @@
 package myApp.bin;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 
+@Component
+//@Scope("session")
 public class Cart {
     private ArrayList<CartItem> items = new ArrayList<CartItem>();
 

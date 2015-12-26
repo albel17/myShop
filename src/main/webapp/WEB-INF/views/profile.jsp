@@ -29,7 +29,7 @@
 </div>
 <div class="jumbotron">
     <div class="container">
-        <button class="btn down" Type="BUTTON" Value="Back" Onclick="window.location.href='/start'">
+        <button class="btn down" Type="BUTTON" Value="Back" Onclick="window.location.href='/myshop'">
             Main
         </button>
     </div>

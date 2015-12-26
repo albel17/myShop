@@ -1,5 +1,7 @@
 package myApp.controller;
 
+import myApp.bin.Cart;
+import myApp.bin.CartItem;
 import myApp.entity.AttributesEntity;
 import myApp.entity.CategoriesEntity;
 import myApp.entity.ProductsEntity;
@@ -19,6 +21,9 @@ public class ShoppingController {
 
     @Resource
     private CategoriesManager categoriesManager;
+
+    @Resource
+    private Cart cart;
 
     @Resource
     private ProductManager productManager;
@@ -50,5 +55,18 @@ public class ShoppingController {
         model.addAttribute("values", values);
         model.addAttribute("categoryId", category.getId());
         return "productdescription";
+    }
+
+    @RequestMapping(value = "/profile")
+    public String profile(Model model){
+        return "profile";
+    }
+
+    @RequestMapping(value = "/addtocart")
+    public String addToCart(Model model, @RequestParam(value = "id") int id){
+        ProductsEntity product = productManager.find(id);
+        cart.add(new CartItem(product, 1));
+        model.addAttribute("id", id);
+        return "redirect:/productdescription";
     }
 }

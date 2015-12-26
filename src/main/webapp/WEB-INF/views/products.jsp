@@ -22,9 +22,10 @@
             <a class="navbar-brand" href="#">My Shop</a>
         </div>
         <% if (session.getAttribute("userID") == null) {%>
-        <form class="navbar-form navbar-right" role="form" action="/login" method="post">
+        <s:url var="authUrl" value="/static/j_spring_security_check"/>
+        <form class="navbar-form navbar-right" role="form" action="${authUrl}" method="post">
             <div class="form-group">
-                <input type="text" placeholder="Email" class="form-control" name="login">
+                <input type="text" placeholder="Email" class="form-control" name="username">
             </div>
             <div class="form-group">
                 <input type="password" placeholder="Password" class="form-control" name="password">
@@ -49,7 +50,7 @@
 </div>
 <div class="jumbotron">
     <div class="container">
-        <button class="btn down" Type="BUTTON" Value="Back" Onclick="window.location.href='/start'">
+        <button class="btn down" Type="BUTTON" Value="Back" Onclick="window.location.href='/myshop'">
             Back
         </button>
     </div>
