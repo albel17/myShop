@@ -4,6 +4,7 @@ import myApp.DAO.PersonsDAO;
 import myApp.entity.OrdersEntity;
 import myApp.entity.PersonsEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Collection;
@@ -37,5 +38,9 @@ public class PersonManager implements GenericManager<PersonsEntity> {
 
     public Collection<OrdersEntity> getOrders(int userId) {
         return personsDAO.find(userId).getOrdersesById();
+    }
+
+    public PersonsEntity getPersonByEmail(String email){
+        return personsDAO.getPersonByEmail(email);
     }
 }

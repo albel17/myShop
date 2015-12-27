@@ -1,5 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@page isELIgnored="false" %>
 <html>
 <head>
@@ -21,31 +22,34 @@
             </button>
             <a class="navbar-brand" href="#">My Shop</a>
         </div>
-        <% if (session.getAttribute("userID") == null) {%>
-        <s:url var="authUrl" value="/static/j_spring_security_check"/>
-        <form class="navbar-form navbar-right" role="form" action="${authUrl}" method="post">
-            <div class="form-group">
-                <input type="text" placeholder="Email" class="form-control" name="username">
+        <security:authorize access="isAnonymous()">
+            <s:url var="authUrl" value="/static/spring_security_check"/>
+            <form class="navbar-form navbar-right" role="form" action="${authUrl}" method="post">
+                <div class="form-group">
+                    <input type="text" placeholder="Email" class="form-control" name="username">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control" name="password">
+                </div>
+                <button type="submit" class="btn btn-success">Sign in</button>
+                <FORM>
+                    <INPUT class="btn btn-success" Type="BUTTON" Value="Registration"
+                           Onclick="window.location.href='/myshop/registration'">
+                </FORM>
+            </form>
+        </security:authorize>
+        <security:authorize access="isAuthenticated()">
+            <div class="navbar-right navbar-form btn-group">
+                <button class="btn btn-success" Type="BUTTON" Value="Profile"
+                        Onclick="window.location.href='/myshop/profile'">
+                    Profile
+                </button>
+                <button class="btn btn-success" Type="BUTTON" Value="Logout"
+                        Onclick="window.location.href='/myshop/static/spring_logout'">
+                    Logout
+                </button>
             </div>
-            <div class="form-group">
-                <input type="password" placeholder="Password" class="form-control" name="password">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-            <FORM>
-                <INPUT class="btn btn-success" Type="BUTTON" Value="Registration"
-                       Onclick="window.location.href='../../registration.jsp'">
-            </FORM>
-        </form>
-        <%} else {%>
-        <div class="navbar-right navbar-form btn-group">
-            <button class="btn btn-success" Type="BUTTON" Value="Profile" Onclick="window.location.href='/profile'">
-                Profile
-            </button>
-            <button class="btn btn-success" Type="BUTTON" Value="Logout" Onclick="window.location.href='/logout'">
-                Logout
-            </button>
-        </div>
-        <%}%>
+        </security:authorize>
     </div>
 </div>
 <div class="jumbotron">

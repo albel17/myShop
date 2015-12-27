@@ -1,6 +1,6 @@
 package myApp.services;
 
-import myApp.DAO.CategoriesDAO;
+import myApp.DAO.API.CategoriesDAO;
 import myApp.DAO.ParametersDAO;
 import myApp.DAO.ProductsDAO;
 import myApp.entity.AttributesEntity;

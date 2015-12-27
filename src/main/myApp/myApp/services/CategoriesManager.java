@@ -1,27 +1,20 @@
 package myApp.services;
 
 import myApp.DAO.AttributesDAO;
-import myApp.DAO.CategoriesDAO;
+import myApp.DAO.API.CategoriesDAO;
 import myApp.entity.AttributesEntity;
 import myApp.entity.CategoriesEntity;
 import myApp.entity.ProductsEntity;
-import myApp.services.GenericManager;
-import myApp.services.CategoriesManager;
-import org.hibernate.service.spi.InjectService;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
 public class CategoriesManager implements GenericManager<CategoriesEntity> {
-    @Resource
+    @Resource//(name="categoriesDAOIMPL")
     private CategoriesDAO categoriesDAO;
 
     @Resource

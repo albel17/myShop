@@ -19,17 +19,25 @@ public abstract class GenericDaoJpaImpl<T>
     protected EntityManager em;
 
     public GenericDaoJpaImpl() {
-        System.out.println("INIT");
+        //Type t = getClass().getGenericSuperclass();
+        //ParameterizedType pt = (ParameterizedType) t;
+        //type = (Class) pt.getActualTypeArguments()[0];
         Type t = getClass().getGenericSuperclass();
-        ParameterizedType pt = (ParameterizedType) t;
+
+        ParameterizedType pt = null;
+        while (pt == null) {
+            if (t instanceof ParameterizedType) {
+                pt = (ParameterizedType) t;
+            } else {
+                t = ((Class<?>) t).getGenericSuperclass();
+            }
+        }
         type = (Class) pt.getActualTypeArguments()[0];
     }
 
+    //@Transactional
     public T create(final T t) {
-        em.getTransaction().begin();
         em.persist(t);
-        em.flush();
-        em.getTransaction().commit();
         return t;
     }
 
@@ -38,7 +46,6 @@ public abstract class GenericDaoJpaImpl<T>
         em.remove(em.getReference(type, id));
         em.flush();
         em.getTransaction().commit();
-        //getNewEntityManager();
     }
 
     public T find(final Object id) {

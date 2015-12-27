@@ -27,6 +27,9 @@
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <import resource="spring-security.xml"/>
-
+    <tx:annotation-driven/>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean>
 
 </beans>

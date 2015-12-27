@@ -23,7 +23,7 @@
             <a class="navbar-brand" href="#">My Shop</a>
         </div>
         <security:authorize access="isAnonymous()">
-            <s:url var="authUrl" value="/static/j_spring_security_check"/>
+            <s:url var="authUrl" value="/static/spring_security_check"/>
             <form class="navbar-form navbar-right" role="form" action="${authUrl}" method="post">
                 <div class="form-group">
                     <input type="text" placeholder="Email" class="form-control" name="username">
@@ -34,16 +34,18 @@
                 <button type="submit" class="btn btn-success">Sign in</button>
                 <FORM>
                     <INPUT class="btn btn-success" Type="BUTTON" Value="Registration"
-                           Onclick="window.location.href='../../registration.jsp'">
+                           Onclick="window.location.href='/myshop/registration'">
                 </FORM>
             </form>
         </security:authorize>
         <security:authorize access="isAuthenticated()">
             <div class="navbar-right navbar-form btn-group">
-                <button class="btn btn-success" Type="BUTTON" Value="Profile" Onclick="window.location.href='/myshop/profile'">
+                <button class="btn btn-success" Type="BUTTON" Value="Profile"
+                        Onclick="window.location.href='/myshop/profile'">
                     Profile
                 </button>
-                <button class="btn btn-success" Type="BUTTON" Value="Logout" Onclick="window.location.href='/myshop/static/spring_logout'">
+                <button class="btn btn-success" Type="BUTTON" Value="Logout"
+                        Onclick="window.location.href='/myshop/static/spring_logout'">
                     Logout
                 </button>
             </div>
