@@ -1,5 +1,7 @@
 package myApp.controller;
 
+import myApp.bin.Cart;
+import myApp.bin.CartItem;
 import myApp.entity.AddressesEntity;
 import myApp.entity.PersonsEntity;
 import myApp.services.AddressManager;
@@ -12,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 
 @Controller
 @Transactional
@@ -23,6 +27,9 @@ public class UserController {
 
     @Resource
     private AddressManager addressManager;
+
+    @Resource
+    private Cart cart;
 
     @RequestMapping(value = "/registration")
     public String registration(Model model) {
@@ -66,6 +73,37 @@ public class UserController {
                 address.getStreet(), address.getHouse(), address.getFlat(),
                 personManager.getPersonByEmail(user.getUsername()).getId());
         return "redirect:/profile/addresslist";
+    }
+
+    @RequestMapping(value = "/profile/deleteaddress")
+    public String deleteaddress(@RequestParam(value = "id") int id) {
+        addressManager.delete(id);
+        return "redirect:/profile/addresslist";
+    }
+
+    @RequestMapping(value = "/profile/checkout")
+    public String checkout(Model model) {
+        if (cart.ifEmpty()) {
+            return "redirect:/profile/";
+        } else {
+            ArrayList<CartItem> cartItems = cart.getItems();
+            model.addAttribute("cartItems", cartItems);
+            model.addAttribute("sum", cart.getSum());
+            return "checkout";
+        }
+    }
+
+    @RequestMapping(value = "/profile/checkoutcontinue")
+    public String checkoutcontinue(Model model, @RequestParam(value = "deliverymethod") String deliverymethod,
+                                   @RequestParam(value = "paymentmethod") String paymentmethod) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("paymentmethod", paymentmethod);
+        model.addAttribute("deliverymethod", deliverymethod);
+        if (deliverymethod.equals("delivery")) {
+            model.addAttribute("addresslist",
+                    addressManager.getAddressListByUserId(personManager.getPersonByEmail(user.getUsername()).getId()));
+        }
+        return "checkoutcontinue";
     }
 
 }

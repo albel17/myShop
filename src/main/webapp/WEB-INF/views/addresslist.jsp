@@ -45,7 +45,7 @@
         <div class="list-group">
             <p class="list-group-item">${address.country}, ${address.city}, ${address.street}, ${address.house}, ${address.flat}.
                 Postal code:${address.postalCode}</p>
-            <button class="btn btn-warning" Onclick="window.location.href='/deleteaddress?id=${address.id}'">delete
+            <button class="btn btn-warning" Onclick="window.location.href='/myshop/profile/deleteaddress?id=${address.id}'">delete
             </button>
         </div>
     </c:forEach>

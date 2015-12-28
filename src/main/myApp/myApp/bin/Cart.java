@@ -1,12 +1,13 @@
 package myApp.bin;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 @Component
-//@Scope("session")
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Cart {
     private ArrayList<CartItem> items = new ArrayList<CartItem>();
 
