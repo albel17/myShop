@@ -139,4 +139,17 @@ public class PersonsEntity {
         this.password = password;
         this.personType = personType;
     }
+
+    @Override
+    public String toString() {
+        return "PersonsEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthdate='" + birthdate + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", personType=" + personType +
+                '}';
+    }
 }

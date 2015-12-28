@@ -40,16 +40,16 @@
 <div class="container">
     <div class="list-group">
         <div class="list-group">
-            <a href="/edituserinfo" class="list-group-item">Your info</a>
+            <a href="/myshop/profile/edituserinfo" class="list-group-item">Your info</a>
         </div>
         <div class="list-group">
-            <a href="/addresslist" class="list-group-item">Adress list</a>
+            <a href="/myshop/profile/addresslist" class="list-group-item">Adress list</a>
         </div>
         <div class="list-group">
-            <a href="/checkout" class="list-group-item">Checkout</a>
+            <a href="/myshop/profile/checkout" class="list-group-item">Checkout</a>
         </div>
         <div class="list-group">
-            <a href="/myorders" class="list-group-item">Orders</a>
+            <a href="/myshop/profile/myorders" class="list-group-item">Orders</a>
         </div>
     </div>
 </div>

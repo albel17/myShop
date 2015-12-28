@@ -35,17 +35,14 @@ public abstract class GenericDaoJpaImpl<T>
         type = (Class) pt.getActualTypeArguments()[0];
     }
 
-    //@Transactional
     public T create(final T t) {
+        System.out.println(t);
         em.persist(t);
         return t;
     }
 
     public void delete(final Object id) {
-        em.getTransaction().begin();
         em.remove(em.getReference(type, id));
-        em.flush();
-        em.getTransaction().commit();
     }
 
     public T find(final Object id) {
@@ -53,9 +50,7 @@ public abstract class GenericDaoJpaImpl<T>
     }
 
     public T update(final T t) {
-        em.getTransaction().begin();
         em.merge(t);
-        em.getTransaction().commit();
         return t;
     }
 }

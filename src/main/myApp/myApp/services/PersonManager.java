@@ -28,7 +28,13 @@ public class PersonManager implements GenericManager<PersonsEntity> {
     }
 
     public PersonsEntity update(PersonsEntity personsEntity) {
-        return personsDAO.update(personsEntity);
+        PersonsEntity person = personsDAO.getPersonByEmail(personsEntity.getEmail());
+        person.setName(personsEntity.getName());
+        person.setSurname(personsEntity.getSurname());
+        person.setBirthdate(personsEntity.getBirthdate());
+        person.setEmail(personsEntity.getEmail());
+        person.setPassword(personsEntity.getPassword());
+        return personsDAO.update(person);
     }
 
     public int createWithParams(String name, String surname, String birthdate, String email, String password) {
