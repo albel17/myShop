@@ -113,7 +113,7 @@ public class PersonsEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "personsByClientId")
+    @OneToMany(mappedBy = "personsByClientId", fetch = FetchType.EAGER)
     public Collection<AddressesEntity> getAddressesById() {
         return addressesById;
     }

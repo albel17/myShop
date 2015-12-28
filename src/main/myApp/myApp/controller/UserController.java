@@ -1,6 +1,8 @@
 package myApp.controller;
 
+import myApp.entity.AddressesEntity;
 import myApp.entity.PersonsEntity;
+import myApp.services.AddressManager;
 import myApp.services.PersonManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -18,6 +20,9 @@ import javax.annotation.Resource;
 public class UserController {
     @Resource
     private PersonManager personManager;
+
+    @Resource
+    private AddressManager addressManager;
 
     @RequestMapping(value = "/registration")
     public String registration(Model model) {
@@ -41,10 +46,26 @@ public class UserController {
     }
 
     @RequestMapping(value = "/profile/submituserchange")
-    public String submituserchange(ModelMap model, @ModelAttribute PersonsEntity person) {
+    public String submituserchange(@ModelAttribute PersonsEntity person) {
         personManager.update(person);
         return "redirect:/profile/edituserinfo";
     }
 
+    @RequestMapping(value = "/profile/addresslist")
+    public String addresslist(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("addresslist", personManager.getPersonByEmail(user.getUsername()).getAddressesById());
+        model.addAttribute("newaddress", new AddressesEntity());
+        return "addresslist";
+    }
+
+    @RequestMapping(value = "/profile/addaddress")
+    public String addaddress(@ModelAttribute AddressesEntity address) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        addressManager.createWithParams(address.getCountry(), address.getCity(), address.getPostalCode(),
+                address.getStreet(), address.getHouse(), address.getFlat(),
+                personManager.getPersonByEmail(user.getUsername()).getId());
+        return "redirect:/profile/addresslist";
+    }
 
 }
