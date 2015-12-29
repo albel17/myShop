@@ -45,4 +45,29 @@ public class AdminController {
         model.addAttribute("categories", categories);
         return "allcategories";
     }
+
+    @RequestMapping(value = "/admin/addcategory")
+    public String addcategory(@RequestParam String name, @RequestParam String description) {
+        categoriesManager.createByNameAndDescription(name, description);
+        return "redirect:/admin/allcategories";
+    }
+
+    @RequestMapping(value = "/admin/removecategory")
+    public String removecategory(@RequestParam int id) {
+        categoriesManager.delete(id);
+        return "redirect:/admin/allcategories";
+    }
+
+    @RequestMapping(value = "/admin/allproducts")
+    public String allproducts(Model model) {
+        model.addAttribute("categories", categoriesManager.getAll());
+        return "allproducts";
+    }
+
+    @RequestMapping(value = "/admin/editproducts")
+    public String editproducts(Model model, @RequestParam int id) {
+        model.addAttribute("products", categoriesManager.getProductsById(id));
+        model.addAttribute("attributes", categoriesManager.getAttributesById(id));
+        return "editproducts";
+    }
 }
