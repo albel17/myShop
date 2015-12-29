@@ -45,6 +45,10 @@ public class Cart {
         return items.isEmpty();
     }
 
+    public void nullify(){
+        items=new ArrayList<CartItem>();
+    }
+
     @Override
     public String toString() {
         return "Cart{" +

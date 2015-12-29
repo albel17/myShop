@@ -122,7 +122,7 @@ public class PersonsEntity {
         this.addressesById = addressesById;
     }
 
-    @OneToMany(mappedBy = "personsByClientId")
+    @OneToMany(mappedBy = "personsByClientId", fetch = FetchType.EAGER)
     public Collection<OrdersEntity> getOrdersesById() {
         return ordersesById;
     }

@@ -133,7 +133,7 @@ public class OrdersEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "ordersByOrderId")
+    @OneToMany(mappedBy = "ordersByOrderId", fetch = FetchType.EAGER)
     public Collection<OrderItemEntity> getOrderItemsById() {
         return orderItemsById;
     }

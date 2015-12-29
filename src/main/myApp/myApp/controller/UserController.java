@@ -5,6 +5,7 @@ import myApp.bin.CartItem;
 import myApp.entity.AddressesEntity;
 import myApp.entity.PersonsEntity;
 import myApp.services.AddressManager;
+import myApp.services.OrderManager;
 import myApp.services.PersonManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Controller
 @Transactional
@@ -27,6 +29,9 @@ public class UserController {
 
     @Resource
     private AddressManager addressManager;
+
+    @Resource
+    private OrderManager orderManager;
 
     @Resource
     private Cart cart;
@@ -104,6 +109,24 @@ public class UserController {
                     addressManager.getAddressListByUserId(personManager.getPersonByEmail(user.getUsername()).getId()));
         }
         return "checkoutcontinue";
+    }
+
+    @RequestMapping(value = "/profile/createorder")
+    public String createorder(@RequestParam(value = "paymentmethod") String paymentmethod,
+                              @RequestParam(value = "deliverymethod") String deliverymethod,
+                              @RequestParam(value = "address") int address) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        orderManager.createWithParams(paymentmethod, deliverymethod, String.valueOf(new Date()), cart,
+                personManager.getPersonByEmail(user.getUsername()).getId(),address);
+        cart.nullify();
+        return "redirect:/profile/";
+    }
+
+    @RequestMapping(value = "/profile/myorders")
+    public String myorders(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("orderslist", personManager.getOrders(personManager.getPersonByEmail(user.getUsername()).getId()));
+        return "myorders";
     }
 
 }

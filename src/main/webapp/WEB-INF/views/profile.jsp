@@ -43,7 +43,7 @@
             <a href="/myshop/profile/edituserinfo" class="list-group-item">Your info</a>
         </div>
         <div class="list-group">
-            <a href="/myshop/profile/addresslist" class="list-group-item">Adress list</a>
+            <a href="/myshop/profile/addresslist" class="list-group-item">Address list</a>
         </div>
         <div class="list-group">
             <a href="/myshop/profile/checkout" class="list-group-item">Checkout</a>

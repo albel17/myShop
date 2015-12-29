@@ -55,7 +55,7 @@
 <p></p>
 
 <div class="container">
-    <form action="/myshop/profile/checkoutcontinue">
+    <form action="/myshop/profile/checkoutcontinue" method="post">
         <h2>Delivery method</h2>
         <input type="radio" name="deliverymethod" value="self" checked>Customer Pickup
         <br>

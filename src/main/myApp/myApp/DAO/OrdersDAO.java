@@ -14,11 +14,4 @@ public class OrdersDAO extends GenericDaoJpaImpl<OrdersEntity> {
         Query query = em.createQuery("SELECT c FROM OrdersEntity c");
         return (ArrayList<OrdersEntity>) query.getResultList();
     }
-
-    public OrdersEntity getOrderByID(int id){
-        Query query = em.createQuery("SELECT c FROM OrdersEntity c where c.id=:id");
-        query.setParameter("id", id);
-        OrdersEntity result = (OrdersEntity) query.getSingleResult();
-        return result;
-    }
 }
