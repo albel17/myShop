@@ -25,6 +25,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             authList.add(new SimpleGrantedAuthority("ROLE_USER"));
         if (person.getPersonType() == 2)
             authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        return new User(person.getEmail(), person.getPassword(), true, true, true, true, authList);
+        return new User(person.getEmail(), person.getPassword(), authList);
     }
 }

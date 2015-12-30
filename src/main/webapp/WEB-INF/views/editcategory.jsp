@@ -1,13 +1,15 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@page isELIgnored="false" %>
 <html>
 <head>
     <title></title>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet">
+    <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
-<script src="../js/bootstrap.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -21,7 +23,8 @@
             <a class="navbar-brand" href="#">My Shop</a>
         </div>
         <div class="navbar-right navbar-form btn-group">
-            <button class="btn btn-success" Type="BUTTON" Value="Logout" Onclick="window.location.href='/logout'">
+            <button class="btn btn-success" Type="BUTTON" Value="Logout"
+                    Onclick="window.location.href='/myshop/static/spring_logout'">
                 Logout
             </button>
         </div>
@@ -29,8 +32,8 @@
 </div>
 <div class="jumbotron">
     <div class="container">
-        <button class="btn down" Type="BUTTON" Value="Back" Onclick="window.location.href='/admin/allcategories'">
-            Main
+        <button class="btn down" Type="BUTTON" Value="Back" Onclick="window.location.href='/myshop/admin/allcategories'">
+            Back
         </button>
     </div>
 </div>
@@ -39,13 +42,13 @@
     <c:forEach var="attribute" items="${attributes}">
         <div class="list-group">
                 <p class="list-group-item">${attribute.getName()}</p>
-            <button class="btn btn-warning" Onclick="window.location.href='/admin/removeattribute'">delete</button>
+            <button class="btn btn-warning" Onclick="window.location.href='/myshop/admin/removeattribute'">delete</button>
         </div>
     </c:forEach>
 </div>
 
 <div class="container">
-    <form action="/admin/createattribute">
+    <form action="/myshop/admin/createattribute">
         <b>Name:</b><br><br>
 
         <div class="form-group">

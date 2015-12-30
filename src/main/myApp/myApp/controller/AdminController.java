@@ -1,6 +1,8 @@
 package myApp.controller;
 
+import myApp.entity.AttributesEntity;
 import myApp.entity.CategoriesEntity;
+import myApp.entity.ProductsEntity;
 import myApp.services.CategoriesManager;
 import myApp.services.OrderManager;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Controller
 @Transactional
@@ -68,6 +71,33 @@ public class AdminController {
     public String editproducts(Model model, @RequestParam int id) {
         model.addAttribute("products", categoriesManager.getProductsById(id));
         model.addAttribute("attributes", categoriesManager.getAttributesById(id));
+        model.addAttribute("newProduct", new ProductsEntity());
         return "editproducts";
     }
+
+    @RequestMapping(value = "/admin/editcategory")
+    public String editcategory(Model model, @RequestParam int id) {
+        model.addAttribute("attributes", categoriesManager.getAttributesById(id));
+        return "editcategory";
+    }
+
+    @RequestMapping(value = "/admin/createattribute")
+    public String createattribute(@RequestParam int categoryId, @RequestParam String name, @RequestParam String description) {
+        categoriesManager.createAttribute(categoryId, name, description);
+        return "redirect:/admin/editcategory?id="+categoryId;
+    }
+
+    /*@RequestMapping(value = "/admin/addproduct")
+    public String addproduct(@RequestParam int categoryId){
+        HashMap<AttributesEntity, String> attributesAndValues = new HashMap<AttributesEntity, String>();
+        for (AttributesEntity attribute : categoriesManager.find(categoryId).getAttributes()) {
+            attributesAndValues.put(attribute, req.getParameter(String.valueOf(attribute.getId())));
+        }
+
+        productManager.createWithParams(req.getParameter("name"), req.getParameter("currentprice"),
+                req.getParameter("size"), req.getParameter("weight"), req.getParameter("description"),
+                attributesAndValues, Integer.parseInt(req.getParameter("categoryId")));
+
+        return "redirect:/admin/editproducts?id="+categoryId;
+    }*/
 }

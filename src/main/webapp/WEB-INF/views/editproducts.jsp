@@ -42,7 +42,7 @@
     <c:forEach var="product" items="${products}">
         <div class="list-group">
             <a href="/admin/editproduct?id=${product.getId()}" class="list-group-item">${product.getName()}</a>
-            <button class="btn btn-warning" Onclick="window.location.href='/admin/removeproduct?id=${product.getId()}'">
+            <button class="btn btn-warning" Onclick="window.location.href='/myshop/admin/removeproduct?id=${product.getId()}'">
                 delete
             </button>
         </div>
@@ -52,7 +52,7 @@
 <div class="container">
     <h2>New Product</h2>
 
-    <form action="/admin/addproduct">
+    <form action="/myshop/admin/addproduct">
         <b>Name:</b><br><br>
 
         <div class="form-group">
@@ -84,10 +84,10 @@
         </div>
         <input type="hidden" name="categoryId" value="${param["id"]}">
         <c:forEach var="attribute" items="${attributes}">
-            <b>${attribute.getName()}:</b><br><br>
+            <b>${attribute.name}:</b><br><br>
 
             <div class="form-group">
-                <input type="text" name="${attribute.getId()}" class="form-control">
+                <input type="text" name="${attribute.id}" class="form-control">
             </div>
         </c:forEach>
         <br><br>
