@@ -1,6 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page isELIgnored="false" %>
 <html>
 <head>
@@ -41,8 +42,8 @@
 <div class="container">
     <c:forEach var="product" items="${products}">
         <div class="list-group">
-            <a href="/admin/editproduct?id=${product.getId()}" class="list-group-item">${product.getName()}</a>
-            <button class="btn btn-warning" Onclick="window.location.href='/myshop/admin/removeproduct?id=${product.getId()}'">
+            <a href="/admin/editproduct?id=${product.id}" class="list-group-item">${product.name}</a>
+            <button class="btn btn-warning" Onclick="window.location.href='/myshop/admin/removeproduct?id=${product.id}'">
                 delete
             </button>
         </div>
@@ -52,47 +53,47 @@
 <div class="container">
     <h2>New Product</h2>
 
-    <form action="/myshop/admin/addproduct">
+    <form:form action="/myshop/admin/addproduct" modelAttribute="newProduct">
         <b>Name:</b><br><br>
 
         <div class="form-group">
-            <input type="text" name="name" class="form-control">
+            <form:input type="text" name="name" class="form-control" path="name"/>
         </div>
 
         <b>Current price:</b><br><br>
 
         <div class="form-group">
-            <input type="text" name="currentprice" class="form-control">
+            <form:input type="text" name="currentprice" class="form-control" path="currentPrice"/>
         </div>
 
         <b>Size:</b><br><br>
 
         <div class="form-group">
-            <input type="text" name="size" class="form-control">
+            <form:input type="text" name="size" class="form-control" path="size"/>
         </div>
 
         <b>Weight:</b><br><br>
 
         <div class="form-group">
-            <input type="text" name="weight" class="form-control">
+            <form:input type="text" name="weight" class="form-control" path="weight"/>
         </div>
 
         <b>Description:</b><br><br>
 
         <div class="form-group">
-            <input type="text" name="description" class="form-control">
+            <form:input type="text" name="description" class="form-control" path="description"/>
         </div>
         <input type="hidden" name="categoryId" value="${param["id"]}">
-        <c:forEach var="attribute" items="${attributes}">
+        <c:forEach var="attribute" items="${attributes}" varStatus="status">
             <b>${attribute.name}:</b><br><br>
 
             <div class="form-group">
-                <input type="text" name="${attribute.id}" class="form-control">
+                <form:input type="text" name="${attribute.id}" class="form-control" path="newAttributes[${status.index}]"/>
             </div>
         </c:forEach>
         <br><br>
         <input type="submit" value="Add">
-    </form>
+    </form:form>
 </div>
 </body>
 </html>

@@ -1,19 +1,26 @@
 package myApp.controller;
 
+import myApp.DAO.ParametersDAO;
+import myApp.DAO.ProductsDAO;
 import myApp.entity.AttributesEntity;
 import myApp.entity.CategoriesEntity;
+import myApp.entity.NewProduct;
 import myApp.entity.ProductsEntity;
 import myApp.services.CategoriesManager;
 import myApp.services.OrderManager;
+import myApp.services.ProductManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @Transactional
@@ -23,6 +30,15 @@ public class AdminController {
 
     @Resource
     private CategoriesManager categoriesManager;
+
+    @Resource
+    private ProductManager productManager;
+
+    @Resource
+    private ProductsDAO productsDAO;
+
+    @Resource
+    private ParametersDAO parametersDAO;
 
     @RequestMapping(value = "/admin")
     public String admin() {
@@ -71,7 +87,7 @@ public class AdminController {
     public String editproducts(Model model, @RequestParam int id) {
         model.addAttribute("products", categoriesManager.getProductsById(id));
         model.addAttribute("attributes", categoriesManager.getAttributesById(id));
-        model.addAttribute("newProduct", new ProductsEntity());
+        model.addAttribute("newProduct", new NewProduct());
         return "editproducts";
     }
 
@@ -84,20 +100,42 @@ public class AdminController {
     @RequestMapping(value = "/admin/createattribute")
     public String createattribute(@RequestParam int categoryId, @RequestParam String name, @RequestParam String description) {
         categoriesManager.createAttribute(categoryId, name, description);
-        return "redirect:/admin/editcategory?id="+categoryId;
+        return "redirect:/admin/editcategory?id=" + categoryId;
     }
 
-    /*@RequestMapping(value = "/admin/addproduct")
-    public String addproduct(@RequestParam int categoryId){
+    @RequestMapping(value = "/admin/removeproduct")
+    public String removeproduct(@RequestParam int id) {
+        productManager.delete(id);
+        return "redirect:/admin/editproducts?id=" + productManager.getCategoryId(id);
+    }
+
+    @RequestMapping(value = "/admin/editproduct")
+    public String editproduct(Model model, @RequestParam int id) {
+        ProductsEntity product = productsDAO.getProductByID(id);
+        model.addAttribute("product", product);
+        CategoriesEntity category = product.getCategory();
+        Collection<AttributesEntity> attributes = category.getAttributes();
+        model.addAttribute("attributes", attributes);
+        ArrayList<String> values = new ArrayList<String>();
+        for (AttributesEntity attribute : attributes) {
+            values.add(parametersDAO.getParameterByAttributeIdProductId(attribute, product).getValue());
+        }
+        model.addAttribute("values", values);
+        return "editproduct";
+    }
+
+    @RequestMapping(value = "/admin/addproduct")
+    public String addproduct(@RequestParam int categoryId, @ModelAttribute NewProduct newProduct) {
         HashMap<AttributesEntity, String> attributesAndValues = new HashMap<AttributesEntity, String>();
+        int i = 0;
         for (AttributesEntity attribute : categoriesManager.find(categoryId).getAttributes()) {
-            attributesAndValues.put(attribute, req.getParameter(String.valueOf(attribute.getId())));
+            attributesAndValues.put(attribute, newProduct.getNewAttributes().get(i));
         }
 
-        productManager.createWithParams(req.getParameter("name"), req.getParameter("currentprice"),
-                req.getParameter("size"), req.getParameter("weight"), req.getParameter("description"),
-                attributesAndValues, Integer.parseInt(req.getParameter("categoryId")));
+        productManager.createWithParams(newProduct.getName(), newProduct.getCurrentPrice(),
+                newProduct.getSize(), newProduct.getWeight(), newProduct.getDescription(),
+                attributesAndValues, categoryId);
 
-        return "redirect:/admin/editproducts?id="+categoryId;
-    }*/
+        return "redirect:/admin/editproducts?id=" + categoryId;
+    }
 }
