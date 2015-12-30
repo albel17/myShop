@@ -105,8 +105,9 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/removeproduct")
     public String removeproduct(@RequestParam int id) {
+        int i = productManager.getCategoryId(id);
         productManager.delete(id);
-        return "redirect:/admin/editproducts?id=" + productManager.getCategoryId(id);
+        return "redirect:/admin/editproducts?id=" + i;
     }
 
     @RequestMapping(value = "/admin/editproduct")
