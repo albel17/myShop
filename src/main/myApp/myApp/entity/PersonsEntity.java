@@ -1,6 +1,7 @@
 package myApp.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Collection;
 
 @Entity
@@ -9,7 +10,7 @@ public class PersonsEntity {
     private int id;
     private String name;
     private String surname;
-    private String birthdate;
+    private Date birthdate;
     private String email;
     private String password;
     private int personType;
@@ -52,11 +53,11 @@ public class PersonsEntity {
 
     @Basic
     @Column(name = "BIRTHDATE")
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -131,7 +132,7 @@ public class PersonsEntity {
         this.ordersesById = ordersesById;
     }
 
-    public PersonsEntity(String name, String surname, String birthdate, String email, String password, int personType) {
+    public PersonsEntity(String name, String surname, Date birthdate, String email, String password, int personType) {
         this.name = name;
         this.surname = surname;
         this.birthdate = birthdate;

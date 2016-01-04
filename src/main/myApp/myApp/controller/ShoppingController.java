@@ -36,13 +36,13 @@ public class ShoppingController {
     }
 
     @RequestMapping(value = "/products")
-    public String products(Model model, @RequestParam(value = "id") int id) {
+    public String products(Model model, @RequestParam int id) {
         model.addAttribute("products", categoriesManager.getProductsById(id));
         return "products";
     }
 
     @RequestMapping(value = "/productdescription")
-    public String productDescription(Model model, @RequestParam(value = "id") int id) {
+    public String productDescription(Model model, @RequestParam int id) {
         ProductsEntity product = productManager.find(id);
         model.addAttribute("product", product);
         CategoriesEntity category = product.getCategory();
@@ -58,12 +58,12 @@ public class ShoppingController {
     }
 
     @RequestMapping(value = "/profile")
-    public String profile(Model model){
+    public String profile() {
         return "profile";
     }
 
     @RequestMapping(value = "/addtocart")
-    public String addToCart(Model model, @RequestParam(value = "id") int id){
+    public String addToCart(Model model, @RequestParam(value = "id") int id) {
         ProductsEntity product = productManager.find(id);
         cart.add(new CartItem(product, 1));
         model.addAttribute("id", id);

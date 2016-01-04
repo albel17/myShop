@@ -11,7 +11,7 @@ import javax.persistence.Query;
 @Component
 public class ParametersDAO extends GenericDaoJpaImpl<ParametersEntity> {
 
-    public ParametersEntity getParameterByAttributeIdProductId(AttributesEntity atr, ProductsEntity prod){
+    public ParametersEntity getParameterByAttributeIdProductId(AttributesEntity atr, ProductsEntity prod) {
         Query query = em.createQuery("SELECT c FROM ParametersEntity c where c.attribute=:attribute and c.productsByProductId=:product");
         query.setParameter("attribute", atr);
         query.setParameter("product", prod);

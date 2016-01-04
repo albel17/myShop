@@ -72,7 +72,7 @@
         <b>BirthDate:</b><br><br>
 
         <div class="form-group">
-            <form:input type="text" class="form-control" path="birthdate"/>
+            <form:input type="date" class="form-control" path="birthdate"/>
         </div>
         <b>Email:</b><br><br>
 

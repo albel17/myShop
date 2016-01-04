@@ -1,6 +1,7 @@
 package myApp.services;
 
 import myApp.entity.PersonsEntity;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

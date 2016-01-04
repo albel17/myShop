@@ -22,7 +22,7 @@ public class SubmitUserChange extends HttpServlet {
             if (user.getPassword().equals(password)) {
                 user.setName(req.getParameter("name"));
                 user.setSurname(req.getParameter("surname"));
-                user.setBirthdate(req.getParameter("birthdate"));
+                //user.setBirthdate(req.getParameter("birthdate"));
                 user.setEmail(req.getParameter("email"));
                 if(!req.getParameter("newpassword").equals(""))
                 user.setPassword(req.getParameter("newpassword"));

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.sql.Date;
 import java.util.Collection;
 
 @Service
@@ -37,7 +38,7 @@ public class PersonManager implements GenericManager<PersonsEntity> {
         return personsDAO.update(person);
     }
 
-    public int createWithParams(String name, String surname, String birthdate, String email, String password) {
+    public int createWithParams(String name, String surname, Date birthdate, String email, String password) {
         PersonsEntity person = personsDAO.create(new PersonsEntity(name, surname, birthdate, email, password, 1));
         return person.getId();
     }

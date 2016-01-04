@@ -23,9 +23,9 @@ public class Registration extends HttpServlet {
     }
 
     public void process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.getSession().setAttribute("userID", personManager.createWithParams(req.getParameter("name"),
-                req.getParameter("surname"), req.getParameter("birthdate"), req.getParameter("email"),
-                req.getParameter("password")));
+//        req.getSession().setAttribute("userID", personManager.createWithParams(req.getParameter("name"),
+//                req.getParameter("surname"), req.getParameter("birthdate"), req.getParameter("email"),
+//                req.getParameter("password")));
         RequestDispatcher rd = req.getRequestDispatcher("/start");
         rd.forward(req, resp);
     }

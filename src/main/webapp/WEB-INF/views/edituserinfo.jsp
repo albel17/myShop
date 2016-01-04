@@ -54,7 +54,7 @@
         <b>BirthDate:</b><br><br>
 
         <div class="form-group">
-            <form:input type="text" class="form-control" name="birthdate" path="birthdate"/>
+            <form:input type="date" class="form-control" name="birthdate" path="birthdate"/>
         </div>
         <b>Email:</b><br><br>
 
