@@ -54,15 +54,20 @@
 </div>
 <div class="jumbotron">
     <div class="container">
-        <button class="btn down" Type="BUTTON" Value="Back" Onclick="window.location.href='/myshop/products?id=${categoryId}'">
+        <button class="btn down" Type="BUTTON" Value="Back"
+                Onclick="window.location.href='/myshop/products?id=${categoryId}'">
             Back
         </button>
-        <button class="btn down" Type="BUTTON" Value="Back" Onclick="window.location.href='/myshop/addtocart?id=${product.id}'">
+        <button class="btn down" Type="BUTTON" Value="Back"
+                Onclick="window.location.href='/myshop/addtocart?id=${product.id}'">
             Add to the Cart
         </button>
-        <button class="btn down" Type="BUTTON" Value="Back" Onclick="window.location.href='/myshop/removefromcart?id=${product.id}'">
+        <% if ((Boolean) request.getAttribute("inBin")) {%>
+        <button class="btn down" Type="BUTTON" Value="Back"
+                Onclick="window.location.href='/myshop/removefromcart?id=${product.id}'">
             Remove from the Cart
         </button>
+        <%}%>
     </div>
 </div>
 

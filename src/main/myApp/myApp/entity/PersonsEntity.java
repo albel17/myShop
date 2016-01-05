@@ -13,7 +13,6 @@ public class PersonsEntity {
     private String surname;
     private Date birthdate;
     private String email;
-    @Size(min=3, max=20, message="Password must be between 3 and 20 characters long.")
     private String password;
     private int personType;
     private Collection<AddressesEntity> addressesById;

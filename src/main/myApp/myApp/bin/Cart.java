@@ -1,5 +1,6 @@
 package myApp.bin;
 
+import myApp.entity.ProductsEntity;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -43,6 +44,19 @@ public class Cart {
             else
                 items.remove(i);
         }
+    }
+
+    public boolean hasItem(ProductsEntity product){
+        CartItem item = new CartItem(product, 1);
+        boolean isFound = false;
+        int i;
+        for (i = 0; i < items.size(); i++) {
+            if (items.get(i).getId() == item.getId()) {
+                isFound = true;
+                break;
+            }
+        }
+        return isFound;
     }
 
     public int getSum() {

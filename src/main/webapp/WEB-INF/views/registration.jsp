@@ -63,16 +63,17 @@
 
 <div class="container">
     <form:form role="form" modelAttribute="person" action="/myshop/reg" method="post">
-        <form:errors path="*" element="div"/>
         <b>Name:</b><br><br>
 
         <div class="form-group">
             <form:input type="text" class="form-control" path="name"/>
+            <form:errors path="name" cssClass="text-danger"/>
         </div>
         <b>Surname:</b><br><br>
 
         <div class="form-group">
             <form:input type="text" class="form-control" path="surname"/>
+            <form:errors path="surname" cssClass="text-danger"/>
         </div>
         <b>BirthDate:</b><br><br>
 
@@ -83,12 +84,16 @@
 
         <div class="form-group">
             <form:input type="text" class="form-control" path="email"/>
+            <form:errors path="email" cssClass="text-danger"/>
+            <%if ((boolean) request.getAttribute("emailExists")) {%>
+            <div class="text-danger">Email exists.</div>
+            <%}%>
         </div>
         <b>Password:</b><br><br>
 
         <div class="form-group">
             <form:input type="text" class="form-control" path="password"/>
-            <form:errors path="password"/>
+            <form:errors path="password" cssClass="text-danger"/>
         </div>
         <button type="submit">Register</button>
     </form:form>

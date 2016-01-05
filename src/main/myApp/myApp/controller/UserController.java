@@ -4,11 +4,16 @@ import myApp.bin.Cart;
 import myApp.bin.CartItem;
 import myApp.entity.AddressesEntity;
 import myApp.entity.PersonsEntity;
+import myApp.form.RegistrationForm;
 import myApp.services.AddressManager;
 import myApp.services.OrderManager;
 import myApp.services.PersonManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -36,22 +41,35 @@ public class UserController {
     private OrderManager orderManager;
 
     @Resource
+    private UserDetailsService userDetailsService;
+
+    @Resource
     private Cart cart;
 
     @RequestMapping(value = "/registration")
     public String registration(Model model) {
-        PersonsEntity person = new PersonsEntity();
+        RegistrationForm person = new RegistrationForm();
         model.addAttribute("person", person);
+        model.addAttribute("emailExists", false);
         return "registration";
     }
 
     @RequestMapping(value = "/reg")
-    public String reg(@ModelAttribute("person") @Valid PersonsEntity person, BindingResult bindingResult, Model model) {
-        if (!bindingResult.hasErrors()) {
-            personManager.createWithParams(person.getName(), person.getSurname(), person.getBirthdate(), person.getEmail(),
-                    person.getPassword());
+    public String reg(@ModelAttribute("person") @Valid RegistrationForm person, BindingResult bindingResult, Model model) {
+
+        if (!bindingResult.hasErrors() && !personManager.hasPerson(person.getEmail())) {
+            personManager.createWithParams(person.getName(), person.getSurname(), person.getBirthdate(),
+                    person.getEmail(), person.getPassword());
+            UserDetails userDetails = userDetailsService.loadUserByUsername(person.getEmail());
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
+                    userDetails, person.getPassword(), userDetails.getAuthorities()));
             return "profile";
         }
+        boolean emailExists = false;
+        if (personManager.hasPerson(person.getEmail())) {
+            emailExists = true;
+        }
+        model.addAttribute("emailExists", emailExists);
         model.addAttribute("person", person);
         return "registration";
     }

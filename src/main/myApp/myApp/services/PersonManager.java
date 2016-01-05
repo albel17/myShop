@@ -50,4 +50,13 @@ public class PersonManager implements GenericManager<PersonsEntity> {
     public PersonsEntity getPersonByEmail(String email){
         return personsDAO.getPersonByEmail(email);
     }
+
+    public boolean hasPerson(String email){
+        try {
+            personsDAO.getPersonByEmail(email);
+        } catch (Exception e){
+            return false;
+        }
+        return true;
+    }
 }

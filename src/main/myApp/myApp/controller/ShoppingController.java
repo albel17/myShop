@@ -54,7 +54,7 @@ public class ShoppingController {
         }
         model.addAttribute("values", values);
         model.addAttribute("categoryId", category.getId());
-        model.addAttribute(cart);
+        model.addAttribute("inBin", cart.hasItem(product));
         return "productdescription";
     }
 
