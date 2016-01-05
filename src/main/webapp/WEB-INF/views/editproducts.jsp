@@ -92,6 +92,11 @@
             </div>
         </c:forEach>
         <br><br>
+        <%--<b>Amount:</b><br><br>--%>
+
+        <%--<div class="form-group">--%>
+            <%--<form:input type="text" name="amount" class="form-control" path="storagesById.amount"/>--%>
+        <%--</div><br><br>--%>
         <input type="submit" value="Add">
     </form:form>
 </div>

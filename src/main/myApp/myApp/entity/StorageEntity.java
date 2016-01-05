@@ -1,5 +1,6 @@
 package myApp.entity;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +11,7 @@ public class StorageEntity {
     private ProductsEntity productsByProductId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     public int getId() {
         return id;
@@ -49,7 +51,7 @@ public class StorageEntity {
         return result;
     }
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID", nullable = false)
     public ProductsEntity getProductsByProductId() {
         return productsByProductId;
@@ -57,5 +59,20 @@ public class StorageEntity {
 
     public void setProductsByProductId(ProductsEntity productsByProductId) {
         this.productsByProductId = productsByProductId;
+    }
+
+    public StorageEntity(int amount, ProductsEntity productsByProductId) {
+        this.amount = amount;
+        this.productsByProductId = productsByProductId;
+    }
+
+    public StorageEntity(){}
+
+    @Override
+    public String toString() {
+        return "StorageEntity{" +
+                "id=" + id +
+                ", amount=" + amount +
+                '}';
     }
 }

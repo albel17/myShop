@@ -54,6 +54,7 @@ public class ShoppingController {
         }
         model.addAttribute("values", values);
         model.addAttribute("categoryId", category.getId());
+        model.addAttribute(cart);
         return "productdescription";
     }
 
@@ -66,6 +67,14 @@ public class ShoppingController {
     public String addToCart(Model model, @RequestParam(value = "id") int id) {
         ProductsEntity product = productManager.find(id);
         cart.add(new CartItem(product, 1));
+        model.addAttribute("id", id);
+        return "redirect:/productdescription";
+    }
+
+    @RequestMapping(value = "/removefromcart")
+    public String removefromcart(Model model, @RequestParam(value = "id") int id) {
+        ProductsEntity product = productManager.find(id);
+        cart.remove(new CartItem(product, 1));
         model.addAttribute("id", id);
         return "redirect:/productdescription";
     }

@@ -3,9 +3,11 @@ package myApp.services;
 import myApp.DAO.API.CategoriesDAO;
 import myApp.DAO.ParametersDAO;
 import myApp.DAO.ProductsDAO;
+import myApp.DAO.StorageDAO;
 import myApp.entity.AttributesEntity;
 import myApp.entity.ParametersEntity;
 import myApp.entity.ProductsEntity;
+import myApp.entity.StorageEntity;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -24,6 +26,9 @@ public class ProductManager implements GenericManager<ProductsEntity> {
 
     @Resource
     private CategoriesDAO categoriesDAO;
+
+    @Resource
+    private StorageDAO storageDAO;
 
     public ProductsEntity create(ProductsEntity productsEntity) {
         return productsDAO.create(productsEntity);
@@ -61,6 +66,8 @@ public class ProductManager implements GenericManager<ProductsEntity> {
         for (ParametersEntity parametersEntity : parametersEntities) {
             parametersDAO.create(parametersEntity);
         }
+        StorageEntity storage = new StorageEntity(100, newProduct);
+        storageDAO.create(storage);
         return newProduct;
     }
 

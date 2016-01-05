@@ -36,7 +36,6 @@ public abstract class GenericDaoJpaImpl<T>
     }
 
     public T create(final T t) {
-        System.out.println(t);
         em.persist(t);
         return t;
     }

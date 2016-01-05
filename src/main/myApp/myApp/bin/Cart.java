@@ -11,42 +11,58 @@ import java.util.ArrayList;
 public class Cart {
     private ArrayList<CartItem> items = new ArrayList<CartItem>();
 
-    public void add(CartItem item){
+    public void add(CartItem item) {
         boolean isFound = false;
         int i;
-        for(i=0;i<items.size();i++){
-            if(items.get(i).getId()==item.getId()){
-                isFound=true;
+        for (i = 0; i < items.size(); i++) {
+            if (items.get(i).getId() == item.getId()) {
+                isFound = true;
                 break;
             }
         }
 
-        if(isFound){
-            items.get(i).setAmount(items.get(i).getAmount()+1);
-        }
-        else
+        if (isFound) {
+            items.get(i).setAmount(items.get(i).getAmount() + 1);
+        } else
             items.add(item);
     }
 
-    public int getSum(){
+    public void remove(CartItem item) {
+        boolean isFound = false;
+        int i;
+        for (i = 0; i < items.size(); i++) {
+            if (items.get(i).getId() == item.getId()) {
+                isFound = true;
+                break;
+            }
+        }
+
+        if (isFound) {
+            if (items.get(i).getAmount() > 1)
+                items.get(i).setAmount(items.get(i).getAmount() - 1);
+            else
+                items.remove(i);
+        }
+    }
+
+    public int getSum() {
         int sum = 0;
-        for(CartItem item : items)
-        {
-            sum+=item.getAmount()*Integer.parseInt(item.getProduct().getCurrentPrice());
+        for (CartItem item : items) {
+            sum += item.getAmount() * Integer.parseInt(item.getProduct().getCurrentPrice());
         }
         return sum;
     }
 
-    public ArrayList<CartItem> getItems(){
+    public ArrayList<CartItem> getItems() {
         return items;
     }
 
-    public boolean ifEmpty(){
+    public boolean ifEmpty() {
         return items.isEmpty();
     }
 
-    public void nullify(){
-        items=new ArrayList<CartItem>();
+    public void nullify() {
+        items = new ArrayList<CartItem>();
     }
 
     @Override

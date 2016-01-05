@@ -23,42 +23,47 @@
             </button>
             <a class="navbar-brand" href="#">My Shop</a>
         </div>
-        <% if (session.getAttribute("userID") == null) {%>
-        <form class="navbar-form navbar-right" role="form" action="/login" method="post">
-            <div class="form-group">
-                <input type="text" placeholder="Email" class="form-control" name="login">
+        <security:authorize access="isAnonymous()">
+            <s:url var="authUrl" value="/static/spring_security_check"/>
+            <form class="navbar-form navbar-right" role="form" action="${authUrl}" method="post">
+                <div class="form-group">
+                    <input type="text" placeholder="Email" class="form-control" name="username">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control" name="password">
+                </div>
+                <button type="submit" class="btn btn-success">Sign in</button>
+                <FORM>
+                    <INPUT class="btn btn-success" Type="BUTTON" Value="Registration"
+                           Onclick="window.location.href='/myshop/registration'">
+                </FORM>
+            </form>
+        </security:authorize>
+        <security:authorize access="isAuthenticated()">
+            <div class="navbar-right navbar-form btn-group">
+                <button class="btn btn-success" Type="BUTTON" Value="Profile"
+                        Onclick="window.location.href='/myshop/profile'">
+                    Profile
+                </button>
+                <button class="btn btn-success" Type="BUTTON" Value="Logout"
+                        Onclick="window.location.href='/myshop/static/spring_logout'">
+                    Logout
+                </button>
             </div>
-            <div class="form-group">
-                <input type="password" placeholder="Password" class="form-control" name="password">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-            <FORM>
-                <INPUT class="btn btn-success" Type="BUTTON" Value="Registration"
-                       Onclick="window.location.href='registration.jsp'">
-            </FORM>
-        </form>
-        <%} else {%>
-        <div class="navbar-right navbar-form btn-group">
-            <button class="btn btn-success" Type="BUTTON" Value="Profile" Onclick="window.location.href='/profile'">
-                Profile
-            </button>
-            <button class="btn btn-success" Type="BUTTON" Value="Logout" Onclick="window.location.href='/logout'">
-                Logout
-            </button>
-        </div>
-        <%}%>
+        </security:authorize>
     </div>
 </div>
 <div class="jumbotron">
     <div class="container">
         <button class="btn down" Type="BUTTON" Value="Back" Onclick="window.location.href='/myshop'">
-            Back
+            Main
         </button>
     </div>
 </div>
 
 <div class="container">
-    <form:form role="form" modelAttribute="userForm" action="/myshop/reg" method="post">
+    <form:form role="form" modelAttribute="person" action="/myshop/reg" method="post">
+        <form:errors path="*" element="div"/>
         <b>Name:</b><br><br>
 
         <div class="form-group">
@@ -83,6 +88,7 @@
 
         <div class="form-group">
             <form:input type="text" class="form-control" path="password"/>
+            <form:errors path="password"/>
         </div>
         <button type="submit">Register</button>
     </form:form>

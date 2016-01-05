@@ -17,9 +17,10 @@ public class ProductsEntity {
     private CategoriesEntity category;
     private Collection<OrderItemEntity> orderItemsById;
     private Collection<ParametersEntity> parametersesById;
-    private Collection<StorageEntity> storagesById;
+    private StorageEntity storagesById;
 
-    public ProductsEntity(String name, String currentPrice, String size, String weight, String description, CategoriesEntity category) {
+    public ProductsEntity(String name, String currentPrice, String size, String weight, String description,
+                          CategoriesEntity category) {
         this.name = name;
         this.currentPrice = currentPrice;
         this.size = size;
@@ -148,12 +149,12 @@ public class ProductsEntity {
         this.parametersesById = parametersesById;
     }
 
-    @OneToMany(mappedBy = "productsByProductId")
-    public Collection<StorageEntity> getStoragesById() {
+    @OneToOne(mappedBy = "productsByProductId")
+    public StorageEntity getStoragesById() {
         return storagesById;
     }
 
-    public void setStoragesById(Collection<StorageEntity> storagesById) {
+    public void setStoragesById(StorageEntity storagesById) {
         this.storagesById = storagesById;
     }
 

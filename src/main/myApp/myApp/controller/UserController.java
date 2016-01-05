@@ -13,11 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -38,16 +40,20 @@ public class UserController {
 
     @RequestMapping(value = "/registration")
     public String registration(Model model) {
-        PersonsEntity user = new PersonsEntity();
-        model.addAttribute("userForm", user);
+        PersonsEntity person = new PersonsEntity();
+        model.addAttribute("person", person);
         return "registration";
     }
 
     @RequestMapping(value = "/reg")
-    public String reg(@ModelAttribute PersonsEntity person) {
-        personManager.createWithParams(person.getName(), person.getSurname(), person.getBirthdate(), person.getEmail(),
-                person.getPassword());
-        return "profile";
+    public String reg(@ModelAttribute("person") @Valid PersonsEntity person, BindingResult bindingResult, Model model) {
+        if (!bindingResult.hasErrors()) {
+            personManager.createWithParams(person.getName(), person.getSurname(), person.getBirthdate(), person.getEmail(),
+                    person.getPassword());
+            return "profile";
+        }
+        model.addAttribute("person", person);
+        return "registration";
     }
 
     @RequestMapping(value = "/profile/edituserinfo")
@@ -117,13 +123,13 @@ public class UserController {
                               @RequestParam(value = "address") int address) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         orderManager.createWithParams(paymentmethod, deliverymethod, String.valueOf(new Date()), cart,
-                personManager.getPersonByEmail(user.getUsername()).getId(),address);
+                personManager.getPersonByEmail(user.getUsername()).getId(), address);
         cart.nullify();
         return "redirect:/profile/";
     }
 
     @RequestMapping(value = "/profile/myorders")
-    public String myorders(Model model){
+    public String myorders(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("orderslist", personManager.getOrders(personManager.getPersonByEmail(user.getUsername()).getId()));
         return "myorders";

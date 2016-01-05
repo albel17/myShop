@@ -60,6 +60,9 @@
         <button class="btn down" Type="BUTTON" Value="Back" Onclick="window.location.href='/myshop/addtocart?id=${product.id}'">
             Add to the Cart
         </button>
+        <button class="btn down" Type="BUTTON" Value="Back" Onclick="window.location.href='/myshop/removefromcart?id=${product.id}'">
+            Remove from the Cart
+        </button>
     </div>
 </div>
 

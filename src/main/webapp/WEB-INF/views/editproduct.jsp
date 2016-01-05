@@ -43,39 +43,39 @@
         <b>Name:</b><br><br>
 
         <div class="form-group">
-            <input type="text" name="name" value="${product.getName()}" class="form-control">
+            <input type="text" name="name" value="${product.name}" class="form-control">
         </div>
 
         <b>Current Price:</b><br><br>
 
         <div class="form-group">
-            <input type="text" name="currentprice" value="${product.getCurrentPrice()}" class="form-control">
+            <input type="text" name="currentprice" value="${product.currentPrice}" class="form-control">
         </div>
 
         <b>Size:</b><br><br>
 
         <div class="form-group">
-            <input type="text" name="size" value="${product.getSize()}" class="form-control">
+            <input type="text" name="size" value="${product.size}" class="form-control">
         </div>
 
         <b>Weight:</b><br><br>
 
         <div class="form-group">
-            <input type="text" name="weight" value="${product.getWeight()}" class="form-control">
+            <input type="text" name="weight" value="${product.weight}" class="form-control">
         </div>
 
         <b>Description:</b><br><br>
 
         <div class="form-group">
-            <input type="text" name="description" value="${product.getDescription()}" class="form-control">
+            <input type="text" name="description" value="${product.description}" class="form-control">
         </div>
         <input type="hidden" name="productId" value="${param["id"]}">
         <c:forEach var="attribute" items="${attributes}" varStatus="theCount">
             <br>
-            <b>${attribute.getName()}:</b><br><br>
+            <b>${attribute.name}:</b><br><br>
 
             <div class="form-group">
-                <input type="text" name="${attribute.getId()}" value="${values.get(theCount.index)}" class="form-control">
+                <input type="text" name="${attribute.id}" value="${values.get(theCount.index)}" class="form-control">
             </div>
         </c:forEach>
         <br><br>
