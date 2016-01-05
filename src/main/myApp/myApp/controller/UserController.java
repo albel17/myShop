@@ -77,14 +77,37 @@ public class UserController {
     @RequestMapping(value = "/profile/edituserinfo")
     public String edituserinfo(ModelMap model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("person", personManager.getPersonByEmail(user.getUsername()));
+        RegistrationForm form = new RegistrationForm();
+        PersonsEntity person = personManager.getPersonByEmail(user.getUsername());
+        form.setName(person.getName());
+        form.setSurname(person.getSurname());
+        form.setBirthdate(person.getBirthdate());
+        form.setEmail(person.getEmail());
+        form.setNewEmail(person.getEmail());
+        model.addAttribute("person", form);
         return "edituserinfo";
     }
 
     @RequestMapping(value = "/profile/submituserchange")
-    public String submituserchange(@ModelAttribute PersonsEntity person) {
-        personManager.update(person);
-        return "redirect:/profile/edituserinfo";
+    public String submituserchange(@ModelAttribute(value = "person") @Valid RegistrationForm form,
+                                   BindingResult bindingResult, Model model) {
+        if(!bindingResult.hasErrors()) {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            PersonsEntity person = personManager.getPersonByEmail(user.getUsername());
+            System.out.println(person.getPassword());
+            System.out.println(form.getPassword());
+            if (person.getPassword().equals(form.getPassword())) {
+                person.setName(form.getName());
+                person.setSurname(form.getSurname());
+                person.setBirthdate(form.getBirthdate());
+                person.setEmail(form.getEmail());
+                person.setPassword(form.getNewPassword());
+                personManager.update(person);
+            }
+            return "redirect:/profile/edituserinfo";
+        }
+        model.addAttribute("person", form);
+        return "edituserinfo";
     }
 
     @RequestMapping(value = "/profile/addresslist")

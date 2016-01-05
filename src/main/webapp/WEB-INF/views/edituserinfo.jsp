@@ -45,11 +45,13 @@
 
         <div class="form-group">
             <form:input type="text" class="form-control" name="name" path="name"/>
+            <form:errors path="name" cssClass="text-danger"/>
         </div>
         <b>Surname:</b><br><br>
 
         <div class="form-group">
             <form:input type="text" class="form-control" name="surname" path="surname"/>
+            <form:errors path="surname" cssClass="text-danger"/>
         </div>
         <b>BirthDate:</b><br><br>
 
@@ -60,18 +62,21 @@
 
         <div class="form-group">
             <form:input type="text" class="form-control" name="email" path="email"/>
+            <form:errors path="email" cssClass="text-danger"/>
         </div>
-        <!--
+
         <b>New password:</b><br><br>
 
         <div class="form-group">
-            <input type="text" class="form-control" name="newpassword">
+            <form:input type="text" class="form-control" name="newPassword" path="newPassword"/>
+            <form:errors path="newPassword" cssClass="text-danger"/>
         </div>
-        -->
+
         <b>Password:</b><br><br>
 
         <div class="form-group">
             <form:input type="text" class="form-control" value="" name="password" path="password"/>
+            <form:errors path="password" cssClass="text-danger"/>
         </div>
         <button type="submit">Edit</button>
     </form:form>

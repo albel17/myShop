@@ -23,9 +23,23 @@ public class RegistrationForm {
             message = "Must be email.")
     private String email;
 
+    private String newEmail;
+
     @NotNull(message = "Enter password.")
     @Size(min = 3, max = 20, message = "Password must be between 3 and 20 characters long.")
     private String password;
+
+    @NotNull(message = "Enter password.")
+    @Size(min = 3, max = 20, message = "Password must be between 3 and 20 characters long.")
+    private String newPassword;
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
 
     public String getName() {
         return name;
@@ -66,4 +80,13 @@ public class RegistrationForm {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getNewEmail() {
+        return newEmail;
+    }
+
+    public void setNewEmail(String newEmail) {
+        this.newEmail = newEmail;
+    }
+
 }
