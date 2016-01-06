@@ -4,6 +4,7 @@ import myApp.bin.Cart;
 import myApp.bin.CartItem;
 import myApp.entity.AddressesEntity;
 import myApp.entity.PersonsEntity;
+import myApp.form.AddressForm;
 import myApp.form.RegistrationForm;
 import myApp.services.AddressManager;
 import myApp.services.OrderManager;
@@ -84,29 +85,33 @@ public class UserController {
         form.setBirthdate(person.getBirthdate());
         form.setEmail(person.getEmail());
         form.setNewEmail(person.getEmail());
+        form.setPassword(person.getPassword());
         model.addAttribute("person", form);
+        model.addAttribute("emailExists", false);
         return "edituserinfo";
     }
 
     @RequestMapping(value = "/profile/submituserchange")
     public String submituserchange(@ModelAttribute(value = "person") @Valid RegistrationForm form,
                                    BindingResult bindingResult, Model model) {
-        if(!bindingResult.hasErrors()) {
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(bindingResult.getAllErrors());
+        if (!bindingResult.hasErrors()) {
             PersonsEntity person = personManager.getPersonByEmail(user.getUsername());
-            System.out.println(person.getPassword());
-            System.out.println(form.getPassword());
-            if (person.getPassword().equals(form.getPassword())) {
-                person.setName(form.getName());
-                person.setSurname(form.getSurname());
-                person.setBirthdate(form.getBirthdate());
-                person.setEmail(form.getEmail());
-                person.setPassword(form.getNewPassword());
-                personManager.update(person);
-            }
+            person.setName(form.getName());
+            person.setSurname(form.getSurname());
+            person.setBirthdate(form.getBirthdate());
+            person.setEmail(form.getEmail());
+            person.setPassword(form.getNewPassword());
+            personManager.update(person);
             return "redirect:/profile/edituserinfo";
         }
+        boolean emailExists = false;
+        if (personManager.hasPerson(form.getEmail())) {
+            emailExists = true;
+        }
         model.addAttribute("person", form);
+        model.addAttribute("emailExists", emailExists);
         return "edituserinfo";
     }
 
@@ -114,17 +119,29 @@ public class UserController {
     public String addresslist(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("addresslist", personManager.getPersonByEmail(user.getUsername()).getAddressesById());
-        model.addAttribute("newaddress", new AddressesEntity());
+        model.addAttribute("newaddress", new AddressForm());
         return "addresslist";
     }
 
     @RequestMapping(value = "/profile/addaddress")
-    public String addaddress(@ModelAttribute AddressesEntity address) {
+    public String addaddress(@ModelAttribute(value = "newaddress") @Valid AddressForm form, BindingResult bindingResult, Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        addressManager.createWithParams(address.getCountry(), address.getCity(), address.getPostalCode(),
-                address.getStreet(), address.getHouse(), address.getFlat(),
-                personManager.getPersonByEmail(user.getUsername()).getId());
-        return "redirect:/profile/addresslist";
+        if (!bindingResult.hasErrors()) {
+            AddressesEntity address = new AddressesEntity();
+            address.setCountry(form.getCountry());
+            address.setCity(form.getCity());
+            address.setPostalCode(form.getPostalCode());
+            address.setStreet(form.getStreet());
+            address.setHouse(form.getHouse());
+            address.setFlat(form.getFlat());
+            addressManager.createWithParams(address.getCountry(), address.getCity(), address.getPostalCode(),
+                    address.getStreet(), address.getHouse(), address.getFlat(),
+                    personManager.getPersonByEmail(user.getUsername()).getId());
+            return "redirect:/profile/addresslist";
+        }
+        model.addAttribute("newaddress", form);
+        model.addAttribute("addresslist", personManager.getPersonByEmail(user.getUsername()).getAddressesById());
+        return "addresslist";
     }
 
     @RequestMapping(value = "/profile/deleteaddress")
@@ -147,10 +164,12 @@ public class UserController {
 
     @RequestMapping(value = "/profile/checkoutcontinue")
     public String checkoutcontinue(Model model, @RequestParam(value = "deliverymethod") String deliverymethod,
-                                   @RequestParam(value = "paymentmethod") String paymentmethod) {
+                                   @RequestParam(value = "paymentmethod") String paymentmethod,
+                                   @RequestParam(value = "deliverydate") java.sql.Date deliverydate) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("paymentmethod", paymentmethod);
         model.addAttribute("deliverymethod", deliverymethod);
+        model.addAttribute("deliverydate", deliverydate);
         if (deliverymethod.equals("delivery")) {
             model.addAttribute("addresslist",
                     addressManager.getAddressListByUserId(personManager.getPersonByEmail(user.getUsername()).getId()));
@@ -161,9 +180,10 @@ public class UserController {
     @RequestMapping(value = "/profile/createorder")
     public String createorder(@RequestParam(value = "paymentmethod") String paymentmethod,
                               @RequestParam(value = "deliverymethod") String deliverymethod,
-                              @RequestParam(value = "address") int address) {
+                              @RequestParam(value = "address") int address,
+                              @RequestParam(value = "deliverydate") java.sql.Date deliverydate) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        orderManager.createWithParams(paymentmethod, deliverymethod, String.valueOf(new Date()), cart,
+        orderManager.createWithParams(paymentmethod, deliverymethod, deliverydate, cart,
                 personManager.getPersonByEmail(user.getUsername()).getId(), address);
         cart.nullify();
         return "redirect:/profile/";

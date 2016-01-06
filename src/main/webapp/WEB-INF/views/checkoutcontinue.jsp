@@ -40,13 +40,28 @@
 </div>
 
 <div class="container">
+    <%if (request.getAttribute("paymentmethod").equals("card")) {%>
+    <form role="form" method="post">
+        <h2>Card number:</h2><br><br>
+
+        <div class="form-group">
+            <input type="text" class="form-control" id="cardid"/>
+        </div><br><br>
+        <h2>CIV:</h2><br><br>
+
+        <div class="form-group">
+            <input type="text" class="form-control" id="civ"/>
+        </div><br><br>
+    </form>
+    <%}%>
+    <%if (request.getAttribute("deliverymethod").equals("delivery")) {%>
     <h2>Select Address</h2>
 
     <p></p>
     <select name="address" required form="addressanddate" class="form-control">
         <c:forEach var="address" items="${addresslist}">
             <option value="${address.id}">${address.country}, ${address.city}, ${address.street},
-            ${address.house}, ${address.flat}</option>
+                    ${address.house}, ${address.flat}</option>
         </c:forEach>
     </select>
 
@@ -60,8 +75,21 @@
         <br>
         <input type="hidden" name="paymentmethod" value="${paymentmethod}" class="form-control">
         <input type="hidden" name="deliverymethod" value="${deliverymethod}" class="form-control">
+        <input type="hidden" name="deliverydate" value="${deliverydate}" class="form-control">
         <input type="submit" value="Submit">
     </form>
+    <%} else {%>
+    <div class="form-control">Our address is ULITSA PUSHKINA, DOM KOLOTUSHKINA.</div>
+    <br><br>
+
+    <form action="/myshop/profile/createorder" id="addressanddate" method="post">
+        <input type="hidden" name="paymentmethod" value="${paymentmethod}" class="form-control">
+        <input type="hidden" name="deliverymethod" value="${deliverymethod}" class="form-control">
+        <input type="hidden" name="deliverydate" value="${deliverydate}" class="form-control">
+        <input type="hidden" name="address" value="-1" class="form-control">
+        <input type="submit" value="Continue">
+    </form>
+    <%}%>
 </div>
 </body>
 </html>

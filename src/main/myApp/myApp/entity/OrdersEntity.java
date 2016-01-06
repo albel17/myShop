@@ -1,6 +1,7 @@
 package myApp.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Collection;
 
 @Entity
@@ -10,14 +11,15 @@ public class OrdersEntity {
     private String paymentMethod;
     private String deliveryMethod;
     private String orderStatus;
-    private String creationDate;
-    private String deliveryDate;
+    private Date creationDate;
+    private Date deliveryDate;
     private int cost;
     private Collection<OrderItemEntity> orderItemsById;
     private PersonsEntity personsByClientId;
     private AddressesEntity addressesByAddressId;
 
-    public OrdersEntity(String paymentMethod, String deliveryMethod, String orderStatus, String creationDate, String deliveryDate, int cost, PersonsEntity person, AddressesEntity address) {
+    public OrdersEntity(String paymentMethod, String deliveryMethod, String orderStatus, Date creationDate,
+                        Date deliveryDate, int cost, PersonsEntity person, AddressesEntity address) {
         this.paymentMethod = paymentMethod;
         this.deliveryMethod = deliveryMethod;
         this.orderStatus = orderStatus;
@@ -74,21 +76,21 @@ public class OrdersEntity {
 
     @Basic
     @Column(name = "CREATION_DATE")
-    public String getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(String creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
     @Basic
     @Column(name = "DELIVERY_DATE")
-    public String getDeliveryDate() {
+    public Date getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(String deliveryDate) {
+    public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 

@@ -15,10 +15,10 @@ public class CreateOrder extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        orderManager.createWithParams((String) req.getSession().getAttribute("paymentmethod"),
-                (String) req.getSession().getAttribute("deliverymethod"), req.getParameter("date"),
-                (Cart) req.getSession().getAttribute("cart"), (Integer) req.getSession().getAttribute("userID"),
-                Integer.parseInt(req.getParameter("address")));
+//        orderManager.createWithParams((String) req.getSession().getAttribute("paymentmethod"),
+//                (String) req.getSession().getAttribute("deliverymethod"), req.getParameter("date"),
+//                (Cart) req.getSession().getAttribute("cart"), (Integer) req.getSession().getAttribute("userID"),
+//                Integer.parseInt(req.getParameter("address")));
         req.getSession().setAttribute("cart", null);
         RequestDispatcher rd = req.getRequestDispatcher("/profile");
         rd.forward(req, resp);

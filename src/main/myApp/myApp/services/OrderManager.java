@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
+import java.sql.Date;
 
 @Service
 public class OrderManager implements GenericManager<OrdersEntity> {
@@ -56,9 +56,17 @@ public class OrderManager implements GenericManager<OrdersEntity> {
         return ordersDAO.update(order);
     }
 
-    public void createWithParams(String paymentmethod, String deliverymethod, String date, Cart cart, int userId, int addressId) {
-        OrdersEntity order = ordersDAO.create(new OrdersEntity(paymentmethod, deliverymethod, "created",
-                new Date().toString(), date, 0, personsDAO.find(userId), addressDAO.find(addressId)));
+    public void createWithParams(String paymentmethod, String deliverymethod, Date deliverydate, Cart cart,
+                                 int userId, int addressId) {
+        OrdersEntity order;
+        if (addressId == -1) {
+            order = ordersDAO.create(new OrdersEntity(paymentmethod, deliverymethod, "created",
+                    new Date(new java.util.Date().getTime()), deliverydate, 0, personsDAO.find(userId), null));
+        } else {
+            order = ordersDAO.create(new OrdersEntity(paymentmethod, deliverymethod, "created",
+                    new Date(new java.util.Date().getTime()), deliverydate, 0, personsDAO.find(userId),
+                    addressDAO.find(addressId)));
+        }
         ArrayList<CartItem> items = cart.getItems();
         for (CartItem item : items) {
             OrderItemEntity orderItemEntity = new OrderItemEntity(item.getAmount(),

@@ -58,24 +58,28 @@
         <div class="form-group">
             <form:input type="date" class="form-control" name="birthdate" path="birthdate"/>
         </div>
-        <b>Email:</b><br><br>
+        <%--<b>Email:</b><br><br>--%>
 
         <div class="form-group">
-            <form:input type="text" class="form-control" name="email" path="email"/>
-            <form:errors path="email" cssClass="text-danger"/>
+            <form:input type="hidden" class="form-control" name="email" path="email"/>
+            <%--<%if ((boolean) request.getAttribute("emailExists")) {%>--%>
+            <%--<div class="text-danger">Email exists.</div>--%>
+            <%--<%}%>--%>
+            <%--<form:errors path="email" cssClass="text-danger"/>--%>
         </div>
 
-        <b>New password:</b><br><br>
+        <%--<b>New password:</b><br><br>--%>
 
-        <div class="form-group">
-            <form:input type="text" class="form-control" name="newPassword" path="newPassword"/>
-            <form:errors path="newPassword" cssClass="text-danger"/>
-        </div>
+        <%--<div class="form-group">--%>
+            <%--<form:input type="text" class="form-control" name="newPassword" path="newPassword"/>--%>
+            <%--<form:errors path="newPassword" cssClass="text-danger"/>--%>
+        <%--</div>--%>
 
         <b>Password:</b><br><br>
 
         <div class="form-group">
-            <form:input type="text" class="form-control" value="" name="password" path="password"/>
+            <form:input type="text" class="form-control" value="" name="password" path="newPassword"/>
+            <form:input type="hidden" class="form-control" value="" name="password" path="password"/>
             <form:errors path="password" cssClass="text-danger"/>
         </div>
         <button type="submit">Edit</button>

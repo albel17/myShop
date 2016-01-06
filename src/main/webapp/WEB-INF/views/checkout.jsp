@@ -66,6 +66,10 @@
         <input type="radio" name="paymentmethod" value="cash" checked>Cash
         <br>
         <input type="radio" name="paymentmethod" value="card">Non-cash
+        <p></p>
+
+        <h2>Delivery date</h2>
+        <input type="date" name="deliverydate"/>
         <br><br>
         <input type="submit" value="Continue">
     </form>

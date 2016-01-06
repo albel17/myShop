@@ -93,7 +93,6 @@
 
         <div class="form-group">
             <form:input type="text" class="form-control" path="password"/>
-            <form:input type="hidden" class="form-control" path="newPassword" value="12345"/>
             <form:errors path="password" cssClass="text-danger"/>
         </div>
         <button type="submit">Register</button>

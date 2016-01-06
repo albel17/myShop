@@ -60,36 +60,42 @@
 
         <div class="form-group">
             <form:input type="text" name="country" class="form-control" path="country"/>
+            <form:errors path="country" cssClass="text-danger"/>
         </div>
 
         <b>City:</b><br><br>
 
         <div class="form-group">
             <form:input type="text" name="city" class="form-control" path="city"/>
+            <form:errors path="city" cssClass="text-danger"/>
         </div>
 
         <b>Postal Code:</b><br><br>
 
         <div class="form-group">
             <form:input type="text" name="postalcode" class="form-control" path="postalCode"/>
+            <form:errors path="postalCode" cssClass="text-danger"/>
         </div>
 
         <b>Street:</b><br><br>
 
         <div class="form-group">
             <form:input type="text" name="street" class="form-control" path="street"/>
+            <form:errors path="street" cssClass="text-danger"/>
         </div>
 
         <b>House:</b><br><br>
 
         <div class="form-group">
             <form:input type="text" name="house" class="form-control" path="house"/>
+            <form:errors path="house" cssClass="text-danger"/>
         </div>
 
         <b>Flat:</b><br><br>
 
         <div class="form-group">
             <form:input type="text" name="flat" class="form-control" path="flat"/>
+            <form:errors path="flat" cssClass="text-danger"/>
         </div>
         <input type="submit" value="Add">
     </form:form>

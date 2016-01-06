@@ -29,8 +29,6 @@ public class RegistrationForm {
     @Size(min = 3, max = 20, message = "Password must be between 3 and 20 characters long.")
     private String password;
 
-    @NotNull(message = "Enter password.")
-    @Size(min = 3, max = 20, message = "Password must be between 3 and 20 characters long.")
     private String newPassword;
 
     public String getNewPassword() {
