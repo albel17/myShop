@@ -158,6 +158,7 @@ public class UserController {
             ArrayList<CartItem> cartItems = cart.getItems();
             model.addAttribute("cartItems", cartItems);
             model.addAttribute("sum", cart.getSum());
+            model.addAttribute("isFuture", true);
             return "checkout";
         }
     }
@@ -166,6 +167,13 @@ public class UserController {
     public String checkoutcontinue(Model model, @RequestParam(value = "deliverymethod") String deliverymethod,
                                    @RequestParam(value = "paymentmethod") String paymentmethod,
                                    @RequestParam(value = "deliverydate") java.sql.Date deliverydate) {
+        if(deliverydate.getTime()<(new Date().getTime())){
+            ArrayList<CartItem> cartItems = cart.getItems();
+            model.addAttribute("cartItems", cartItems);
+            model.addAttribute("sum", cart.getSum());
+            model.addAttribute("isFuture", false);
+            return "checkout";
+        }
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("paymentmethod", paymentmethod);
         model.addAttribute("deliverymethod", deliverymethod);

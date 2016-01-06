@@ -70,6 +70,9 @@
 
         <h2>Delivery date</h2>
         <input type="date" name="deliverydate"/>
+        <%if(!(boolean)request.getAttribute("isFuture")){%>
+        <div class="text-danger">Enter future date.</div>
+        <%}%>
         <br><br>
         <input type="submit" value="Continue">
     </form>

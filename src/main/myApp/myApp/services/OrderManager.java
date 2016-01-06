@@ -60,10 +60,10 @@ public class OrderManager implements GenericManager<OrdersEntity> {
                                  int userId, int addressId) {
         OrdersEntity order;
         if (addressId == -1) {
-            order = ordersDAO.create(new OrdersEntity(paymentmethod, deliverymethod, "created",
+            order = ordersDAO.create(new OrdersEntity(paymentmethod, deliverymethod, "shipped",
                     new Date(new java.util.Date().getTime()), deliverydate, 0, personsDAO.find(userId), null));
         } else {
-            order = ordersDAO.create(new OrdersEntity(paymentmethod, deliverymethod, "created",
+            order = ordersDAO.create(new OrdersEntity(paymentmethod, deliverymethod, "shipped",
                     new Date(new java.util.Date().getTime()), deliverydate, 0, personsDAO.find(userId),
                     addressDAO.find(addressId)));
         }
@@ -73,6 +73,9 @@ public class OrderManager implements GenericManager<OrdersEntity> {
                     Integer.parseInt(item.getProduct().getCurrentPrice()), order, item.getProduct());
             orderItemDAO.create(orderItemEntity);
             order.setCost(order.getCost() + orderItemEntity.getAmount() * orderItemEntity.getPrice());
+        }
+        if(paymentmethod.equals("card")){
+            order.setOrderStatus("payed");
         }
         ordersDAO.update(order);
     }
