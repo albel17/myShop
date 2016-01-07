@@ -19,4 +19,10 @@ public class CategoriesDAOIMPL extends CategoriesDAO {
         query.setParameter("id", id);
         return (CategoriesEntity) query.getSingleResult();
     }
+
+    public CategoriesEntity getCategoryByName(String name){
+        Query query = em.createQuery("SELECT c FROM CategoriesEntity c where c.name=:name");
+        query.setParameter("name", name);
+        return (CategoriesEntity) query.getSingleResult();
+    }
 }

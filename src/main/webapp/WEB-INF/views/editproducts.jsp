@@ -63,19 +63,19 @@
         <b>Current price:</b><br><br>
 
         <div class="form-group">
-            <form:input type="text" name="currentprice" class="form-control" path="currentPrice"/>
+            <form:input type="number" name="currentprice" class="form-control" path="currentPrice"/>
         </div>
 
         <b>Size:</b><br><br>
 
         <div class="form-group">
-            <form:input type="text" name="size" class="form-control" path="size"/>
+            <form:input type="number" name="size" class="form-control" path="size"/>
         </div>
 
         <b>Weight:</b><br><br>
 
         <div class="form-group">
-            <form:input type="text" name="weight" class="form-control" path="weight"/>
+            <form:input type="number" name="weight" class="form-control" path="weight"/>
         </div>
 
         <b>Description:</b><br><br>
@@ -91,12 +91,11 @@
                 <form:input type="text" name="${attribute.id}" class="form-control" path="newAttributes[${status.index}]"/>
             </div>
         </c:forEach>
-        <br><br>
-        <%--<b>Amount:</b><br><br>--%>
+        <b>Amount:</b><br><br>
 
-        <%--<div class="form-group">--%>
-            <%--<form:input type="text" name="amount" class="form-control" path="storagesById.amount"/>--%>
-        <%--</div><br><br>--%>
+        <div class="form-group">
+            <input type="number" name="amount" class="form-control"/>
+        </div><br><br>
         <input type="submit" value="Add">
     </form:form>
 </div>

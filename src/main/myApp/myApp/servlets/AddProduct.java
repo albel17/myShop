@@ -23,9 +23,9 @@ public class AddProduct extends HttpServlet {
             attributesAndValues.put(attribute, req.getParameter(String.valueOf(attribute.getId())));
         }
 
-        productManager.createWithParams(req.getParameter("name"), req.getParameter("currentprice"),
-                req.getParameter("size"), req.getParameter("weight"), req.getParameter("description"),
-                attributesAndValues, Integer.parseInt(req.getParameter("categoryId")));
+//        productManager.createWithParams(req.getParameter("name"), req.getParameter("currentprice"),
+//                req.getParameter("size"), req.getParameter("weight"), req.getParameter("description"),
+//                attributesAndValues, Integer.parseInt(req.getParameter("categoryId")));
 
         RequestDispatcher rd = req.getRequestDispatcher("/admin/editproducts?id=" + Integer.parseInt(req.getParameter("categoryId")));
         rd.forward(req, resp);

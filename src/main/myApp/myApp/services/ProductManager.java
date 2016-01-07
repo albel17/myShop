@@ -53,7 +53,7 @@ public class ProductManager implements GenericManager<ProductsEntity> {
 
     public ProductsEntity createWithParams(String name, String currentprice, String size, String weight,
                                            String description, HashMap<AttributesEntity, String> attributesAndValues,
-                                           int categoryId) {
+                                           int categoryId, int amount) {
 
         ProductsEntity newProduct = new ProductsEntity(name, currentprice, size, weight, description,
                 categoriesDAO.getCategoryByID(categoryId));
@@ -66,7 +66,7 @@ public class ProductManager implements GenericManager<ProductsEntity> {
         for (ParametersEntity parametersEntity : parametersEntities) {
             parametersDAO.create(parametersEntity);
         }
-        StorageEntity storage = new StorageEntity(100, newProduct);
+        StorageEntity storage = new StorageEntity(amount, newProduct);
         storageDAO.create(storage);
         return newProduct;
     }

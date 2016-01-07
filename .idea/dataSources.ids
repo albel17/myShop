@@ -26,6 +26,7 @@
       <column name="NAME" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
       <column name="DESCRIPTION" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="ID"/>
+      <exported-key name="FK9aua647f79n8waubjynmnc3nl" table="default_attributes_for_cattegories" schema="" catalog="mydb" columns="ATTRIBUTES_ID"/>
       <exported-key name="fk_ATTRIBUTES_has_CATEGORIES_ATTRIBUTES" table="default_attributes_for_cattegories" schema="" catalog="mydb" columns="ATTRIBUTES_ID"/>
       <exported-key name="ATTRIBUTE" table="parameters" schema="" catalog="mydb" columns="ATTRIBUTE_ID"/>
     </table>
@@ -34,6 +35,7 @@
       <column name="NAME" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
       <column name="DESCRIPTION" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="ID"/>
+      <exported-key name="FK6ksmqtj0f7cyeqj1tvnxrg8aq" table="default_attributes_for_cattegories" schema="" catalog="mydb" columns="CATEGORIES_ID"/>
       <exported-key name="fk_ATTRIBUTES_has_CATEGORIES_CATEGORIES1" table="default_attributes_for_cattegories" schema="" catalog="mydb" columns="CATEGORIES_ID"/>
       <exported-key name="CATEGORY" table="products" schema="" catalog="mydb" columns="CATEGORY_ID"/>
     </table>
@@ -41,6 +43,8 @@
       <column name="ATTRIBUTES_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="CATEGORIES_ID" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="ATTRIBUTES_ID,CATEGORIES_ID"/>
+      <foreign-key name="FK6ksmqtj0f7cyeqj1tvnxrg8aq" columns="CATEGORIES_ID" ref-table="categories" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK9aua647f79n8waubjynmnc3nl" columns="ATTRIBUTES_ID" ref-table="attributes" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="fk_ATTRIBUTES_has_CATEGORIES_ATTRIBUTES" columns="ATTRIBUTES_ID" ref-table="attributes" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="fk_ATTRIBUTES_has_CATEGORIES_CATEGORIES1" columns="CATEGORIES_ID" ref-table="categories" ref-schema="" ref-catalog="mydb" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
       <index name="fk_ATTRIBUTES_has_CATEGORIES_ATTRIBUTES_idx" unique="false" columns="ATTRIBUTES_ID"/>

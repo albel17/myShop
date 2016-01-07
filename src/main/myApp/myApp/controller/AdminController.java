@@ -6,6 +6,7 @@ import myApp.entity.AttributesEntity;
 import myApp.entity.CategoriesEntity;
 import myApp.entity.NewProduct;
 import myApp.entity.ProductsEntity;
+import myApp.services.AttributeManager;
 import myApp.services.CategoriesManager;
 import myApp.services.OrderManager;
 import myApp.services.ProductManager;
@@ -35,6 +36,9 @@ public class AdminController {
     private ProductManager productManager;
 
     @Resource
+    private AttributeManager attributeManager;
+
+    @Resource
     private ProductsDAO productsDAO;
 
     @Resource
@@ -62,12 +66,27 @@ public class AdminController {
     public String allcategories(Model model) {
         ArrayList<CategoriesEntity> categories = categoriesManager.getAll();
         model.addAttribute("categories", categories);
+        model.addAttribute("isEmpty", false);
+        model.addAttribute("isUnique", true);
         return "allcategories";
     }
 
     @RequestMapping(value = "/admin/addcategory")
-    public String addcategory(@RequestParam String name, @RequestParam String description) {
-        categoriesManager.createByNameAndDescription(name, description);
+    public String addcategory(Model model, @RequestParam String name, @RequestParam String description) {
+        if (!name.equals("") && !description.equals("") && !categoriesManager.hasCategory(name)) {
+            categoriesManager.createByNameAndDescription(name, description);
+        } else {
+            model.addAttribute("isEmpty", false);
+            model.addAttribute("isUnique", true);
+            if (name.equals("") || description.equals("")) {
+                model.addAttribute("isEmpty", true);
+            } else {
+                model.addAttribute("isUnique", false);
+            }
+            ArrayList<CategoriesEntity> categories = categoriesManager.getAll();
+            model.addAttribute("categories", categories);
+            return "allcategories";
+        }
         return "redirect:/admin/allcategories";
     }
 
@@ -92,15 +111,23 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/editcategory")
-    public String editcategory(Model model, @RequestParam int id) {
+    public String editcategory(Model model, @RequestParam int id, @RequestParam String isEmpty) {
         model.addAttribute("attributes", categoriesManager.getAttributesById(id));
+        if (isEmpty.equals("true"))
+            model.addAttribute("isEmpty", true);
+        else
+            model.addAttribute("isEmpty", false);
         return "editcategory";
     }
 
     @RequestMapping(value = "/admin/createattribute")
     public String createattribute(@RequestParam int categoryId, @RequestParam String name, @RequestParam String description) {
-        categoriesManager.createAttribute(categoryId, name, description);
-        return "redirect:/admin/editcategory?id=" + categoryId;
+        if (!name.equals("") && !description.equals("")) {
+            categoriesManager.createAttribute(categoryId, name, description);
+            return "redirect:/admin/editcategory?id=" + categoryId + "&isEmpty=false";
+        } else {
+            return "redirect:/admin/editcategory?id=" + categoryId + "&isEmpty=true";
+        }
     }
 
     @RequestMapping(value = "/admin/removeproduct")
@@ -108,6 +135,21 @@ public class AdminController {
         int i = productManager.getCategoryId(id);
         productManager.delete(id);
         return "redirect:/admin/editproducts?id=" + i;
+    }
+
+    @RequestMapping(value = "/admin/removeattribute")
+    public String removeattribute(@RequestParam int id) {
+        AttributesEntity attribute = attributeManager.find(id);
+        CategoriesEntity category = new CategoriesEntity();
+        for (CategoriesEntity categoriesEntity : attribute.getCategories()) {
+            category = categoriesEntity;
+        }
+        Collection<AttributesEntity> attributes = category.getAttributes();
+        attributes.remove(attribute);
+        category.setAttributes(attributes);
+        categoriesManager.update(category);
+        attributeManager.delete(id);
+        return "redirect:/admin/editcategory?id=" + category.getId() + "&isEmpty=false";
     }
 
     @RequestMapping(value = "/admin/editproduct")
@@ -126,7 +168,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/admin/addproduct")
-    public String addproduct(@RequestParam int categoryId, @ModelAttribute NewProduct newProduct) {
+    public String addproduct(@RequestParam int amount, @RequestParam int categoryId, @ModelAttribute NewProduct newProduct) {
         HashMap<AttributesEntity, String> attributesAndValues = new HashMap<AttributesEntity, String>();
         int i = 0;
         for (AttributesEntity attribute : categoriesManager.find(categoryId).getAttributes()) {
@@ -135,7 +177,7 @@ public class AdminController {
 
         productManager.createWithParams(newProduct.getName(), newProduct.getCurrentPrice(),
                 newProduct.getSize(), newProduct.getWeight(), newProduct.getDescription(),
-                attributesAndValues, categoryId);
+                attributesAndValues, categoryId, amount);
 
         return "redirect:/admin/editproducts?id=" + categoryId;
     }

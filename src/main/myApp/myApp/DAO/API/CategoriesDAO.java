@@ -10,4 +10,6 @@ public abstract class CategoriesDAO extends GenericDaoJpaImpl<CategoriesEntity> 
     public abstract ArrayList<CategoriesEntity> getAll();
 
     public abstract CategoriesEntity getCategoryByID(int id);
+
+    public abstract CategoriesEntity getCategoryByName(String name);
 }

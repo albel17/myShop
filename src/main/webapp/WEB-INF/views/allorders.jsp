@@ -44,9 +44,9 @@
             <p class="list-group-item">${order.getId()}, ${order.getOrderStatus()}, ${order.getCost()}
 
             <form action="/myshop/admin/editorderstatus"><select name="status" required class="input-sm">
-                <option value="created">shipped</option>
-                <option value="closed">delivered</option>
-            <option value="closed">payed</option>
+                <option value="shipped">shipped</option>
+                <option value="delivered">delivered</option>
+            <option value="payed">payed</option>
             </select><input type="hidden" name="orderid" value="${order.getId()}">
             <input type="submit" value="Edit" class="btn">
             </form>

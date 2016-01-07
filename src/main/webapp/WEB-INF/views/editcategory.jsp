@@ -32,7 +32,8 @@
 </div>
 <div class="jumbotron">
     <div class="container">
-        <button class="btn down" Type="BUTTON" Value="Back" Onclick="window.location.href='/myshop/admin/allcategories'">
+        <button class="btn down" Type="BUTTON" Value="Back"
+                Onclick="window.location.href='/myshop/admin/allcategories'">
             Back
         </button>
     </div>
@@ -41,13 +42,19 @@
 <div class="container">
     <c:forEach var="attribute" items="${attributes}">
         <div class="list-group">
-                <p class="list-group-item">${attribute.getName()}</p>
-            <button class="btn btn-warning" Onclick="window.location.href='/myshop/admin/removeattribute'">delete</button>
+            <p class="list-group-item">${attribute.name}</p>
+            <button class="btn btn-warning"
+                    Onclick="window.location.href='/myshop/admin/removeattribute?id=${attribute.id}'">delete
+            </button>
         </div>
     </c:forEach>
 </div>
 
 <div class="container">
+    <h2>New Attribute</h2>
+    <%if ((boolean) request.getAttribute("isEmpty")) {%>
+    <div class="text-danger">Name and description must not be empty.</div>
+    <%}%>
     <form action="/myshop/admin/createattribute">
         <b>Name:</b><br><br>
 

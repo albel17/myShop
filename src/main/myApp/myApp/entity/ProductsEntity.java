@@ -149,7 +149,7 @@ public class ProductsEntity {
         this.parametersesById = parametersesById;
     }
 
-    @OneToOne(mappedBy = "productsByProductId")
+    @OneToOne(mappedBy = "productsByProductId", cascade = CascadeType.ALL)
     public StorageEntity getStoragesById() {
         return storagesById;
     }

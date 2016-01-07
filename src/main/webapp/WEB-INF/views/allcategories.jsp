@@ -41,7 +41,8 @@
 <div class="container">
     <c:forEach var="category" items="${categories}">
         <div class="list-group">
-            <a class="list-group-item" href="/myshop/admin/editcategory?id=${category.getId()}">${category.getName()}</a>
+            <a class="list-group-item"
+               href="/myshop/admin/editcategory?id=${category.getId()}&isEmpty=false">${category.getName()}</a>
             <button class="btn btn-warning"
                     Onclick="window.location.href='/myshop/admin/removecategory?id=${category.getId()}'">delete
             </button>
@@ -49,6 +50,12 @@
     </c:forEach>
 
     <h2>New Category</h2>
+    <%if (!(boolean) request.getAttribute("isUnique")) {%>
+    <div class="text-danger">Category name must be unique.</div>
+    <%}%>
+    <%if ((boolean) request.getAttribute("isEmpty")) {%>
+    <div class="text-danger">Name and description must not be empty.</div>
+    <%}%>
 
     <form action="/myshop/admin/addcategory">
         <b>Name:</b><br><br>

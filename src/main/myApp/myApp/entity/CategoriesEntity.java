@@ -73,8 +73,10 @@ public class CategoriesEntity {
         return result;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "default_attributes_for_cattegories", catalog = "mydb", schema = "", joinColumns = @JoinColumn(name = "CATEGORIES_ID", referencedColumnName = "ID", nullable = false), inverseJoinColumns = @JoinColumn(name = "ATTRIBUTES_ID", referencedColumnName = "ID", nullable = false))
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "default_attributes_for_cattegories", catalog = "mydb", schema = "",
+            joinColumns = @JoinColumn(name = "CATEGORIES_ID", referencedColumnName = "ID", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "ATTRIBUTES_ID", referencedColumnName = "ID", nullable = false))
     public Collection<AttributesEntity> getAttributes() {
         return attributes;
     }
@@ -83,7 +85,7 @@ public class CategoriesEntity {
         this.attributes = attributes;
     }
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Collection<ProductsEntity> getProducts() {
         return this.products;
     }

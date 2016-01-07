@@ -59,7 +59,17 @@ public class CategoriesManager implements GenericManager<CategoriesEntity> {
         AttributesEntity attribute = attributesDAO.create(new AttributesEntity(name, description, categories));
         CategoriesEntity category = categoriesDAO.find(id);
         attributes.add(attribute);
+        attributes.addAll(category.getAttributes());
         category.setAttributes(attributes);
         categoriesDAO.update(category);
+    }
+
+    public boolean hasCategory(String name){
+        try {
+            categoriesDAO.getCategoryByName(name);
+        } catch (Exception e){
+            return false;
+        }
+        return true;
     }
 }
