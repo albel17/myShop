@@ -21,20 +21,6 @@ public class ProductsDAO extends GenericDaoJpaImpl<ProductsEntity> {
         return result;
     }
 
-    public ArrayList<String> getProductInfoByID(int id){
-        Query query = em.createQuery("SELECT c FROM ProductsEntity c where c.id=:id");
-        query.setParameter("id", id);
-        ProductsEntity product = (ProductsEntity) query.getSingleResult();
-        ArrayList<String> result = new ArrayList<String>();
-        result.add(product.getName());
-        result.add(product.getCurrentPrice());
-        result.add(product.getDescription());
-        Collection<ParametersEntity> parameters = product.getParametersesById();
-        for(ParametersEntity p : parameters){
-            result.add(p.getValue());
-        }
-        return result;
-    }
 
     public ProductsEntity getProductByID(int id){
         Query query = em.createQuery("SELECT c FROM ProductsEntity c where c.id=:id");

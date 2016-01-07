@@ -62,7 +62,7 @@ public class Cart {
     public int getSum() {
         int sum = 0;
         for (CartItem item : items) {
-            sum += item.getAmount() * Integer.parseInt(item.getProduct().getCurrentPrice());
+            sum += item.getAmount() * item.getProduct().getCurrentPrice();
         }
         return sum;
     }

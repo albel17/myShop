@@ -51,6 +51,10 @@
     <div class="list-group">
         <a href="/myshop/admin/allproducts" class="list-group-item">Products</a>
     </div>
+
+    <div class="list-group">
+        <a href="/myshop/admin/statistics" class="list-group-item">Statistics</a>
+    </div>
 </div>
 </body>
 </html>

@@ -39,7 +39,7 @@
 </div>
 
 <div class="container">
-    <form action="/admin/submitproductchange">
+    <form action="/myshop/admin/submitproductchange">
         <b>Name:</b><br><br>
 
         <div class="form-group">
@@ -49,25 +49,31 @@
         <b>Current Price:</b><br><br>
 
         <div class="form-group">
-            <input type="text" name="currentprice" value="${product.currentPrice}" class="form-control">
+            <input type="number" name="currentprice" value="${product.currentPrice}" class="form-control">
         </div>
 
         <b>Size:</b><br><br>
 
         <div class="form-group">
-            <input type="text" name="size" value="${product.size}" class="form-control">
+            <input type="number" name="size" value="${product.size}" class="form-control">
         </div>
 
         <b>Weight:</b><br><br>
 
         <div class="form-group">
-            <input type="text" name="weight" value="${product.weight}" class="form-control">
+            <input type="number" name="weight" value="${product.weight}" class="form-control">
         </div>
 
         <b>Description:</b><br><br>
 
         <div class="form-group">
             <input type="text" name="description" value="${product.description}" class="form-control">
+        </div>
+
+        <b>Amount:</b><br><br>
+
+        <div class="form-group">
+            <input type="text" name="amount" value="${amount}" class="form-control">
         </div>
         <input type="hidden" name="productId" value="${param["id"]}">
         <c:forEach var="attribute" items="${attributes}" varStatus="theCount">

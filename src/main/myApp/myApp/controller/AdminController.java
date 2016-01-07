@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -164,6 +165,7 @@ public class AdminController {
             values.add(parametersDAO.getParameterByAttributeIdProductId(attribute, product).getValue());
         }
         model.addAttribute("values", values);
+        model.addAttribute("amount", product.getStoragesById().getAmount());
         return "editproduct";
     }
 
@@ -180,5 +182,14 @@ public class AdminController {
                 attributesAndValues, categoryId, amount);
 
         return "redirect:/admin/editproducts?id=" + categoryId;
+    }
+
+    @RequestMapping(value = "/admin/submitproductchange")
+    public String submitproductchange(@RequestParam int productId, @RequestParam String name,
+                                      @RequestParam int currentprice, @RequestParam int size, @RequestParam int weight,
+                                      @RequestParam String description, @RequestParam int amount,
+                                      HttpServletRequest request) {
+        productManager.changeProduct(productId, name, currentprice, size, weight, description, amount, request);
+        return "redirect:/admin/editproduct?id=" + productId;
     }
 }

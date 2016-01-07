@@ -44,13 +44,16 @@
     <c:forEach var="item" items="${cartItems}">
         <div class="list-group">
             <a class="list-group-item"
-               href="/myshop/profile/productDescription?id=${item.id}">${item.getProductName()}</a>
-            <h4>${item.getAmount()}</h4>
+               href="/myshop/productdescription?id=${item.id}">${item.productName}</a>
+            <h4>${item.amount}</h4>
         </div>
     </c:forEach>
     <p></p>
 
     <p>Total: ${sum}</p>
+    <%if(!request.getAttribute("amountErrorString").equals("")){%>
+    <p><div class="text-danger">${amountErrorString}</div></p>
+    <%}%>
 </div>
 <p></p>
 
@@ -69,7 +72,7 @@
         <p></p>
 
         <h2>Delivery date</h2>
-        <input type="date" name="deliverydate"/>
+        <input type="date" name="deliverydate" required/>
         <%if(!(boolean)request.getAttribute("isFuture")){%>
         <div class="text-danger">Enter future date.</div>
         <%}%>

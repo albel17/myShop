@@ -42,7 +42,7 @@
 <div class="container">
     <c:forEach var="product" items="${products}">
         <div class="list-group">
-            <a href="/admin/editproduct?id=${product.id}" class="list-group-item">${product.name}</a>
+            <a href="/myshop/admin/editproduct?id=${product.id}" class="list-group-item">${product.name}</a>
             <button class="btn btn-warning" Onclick="window.location.href='/myshop/admin/removeproduct?id=${product.id}'">
                 delete
             </button>

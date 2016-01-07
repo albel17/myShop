@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class NewProduct {
     private String name;
-    private String currentPrice;
-    private String size;
-    private String weight;
+    private int currentPrice;
+    private int size;
+    private int weight;
     private String description;
     private ArrayList<String> newAttributes = new ArrayList<String>();
 
@@ -18,27 +18,27 @@ public class NewProduct {
         this.name = name;
     }
 
-    public String getCurrentPrice() {
+    public int getCurrentPrice() {
         return currentPrice;
     }
 
-    public void setCurrentPrice(String currentPrice) {
+    public void setCurrentPrice(int currentPrice) {
         this.currentPrice = currentPrice;
     }
 
-    public String getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(int size) {
         this.size = size;
     }
 
-    public String getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 

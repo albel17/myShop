@@ -159,6 +159,7 @@ public class UserController {
             model.addAttribute("cartItems", cartItems);
             model.addAttribute("sum", cart.getSum());
             model.addAttribute("isFuture", true);
+            model.addAttribute("amountErrorString", "");
             return "checkout";
         }
     }
@@ -167,13 +168,31 @@ public class UserController {
     public String checkoutcontinue(Model model, @RequestParam(value = "deliverymethod") String deliverymethod,
                                    @RequestParam(value = "paymentmethod") String paymentmethod,
                                    @RequestParam(value = "deliverydate") java.sql.Date deliverydate) {
-        if(deliverydate.getTime()<(new Date().getTime())){
+        if (deliverydate.getTime() < (new Date().getTime())) {
             ArrayList<CartItem> cartItems = cart.getItems();
             model.addAttribute("cartItems", cartItems);
             model.addAttribute("sum", cart.getSum());
             model.addAttribute("isFuture", false);
             return "checkout";
         }
+        boolean hadAmountErrors = false;
+        String amountErrorString = "";
+        for (CartItem cartItem : cart.getItems()) {
+            if (cartItem.getProduct().getStoragesById().getAmount() < cartItem.getAmount()) {
+                amountErrorString += "We have only " + cartItem.getProduct().getStoragesById().getAmount() + " "
+                        + cartItem.getProduct().getName() + " right now.\n";
+                hadAmountErrors = true;
+            }
+        }
+        if (hadAmountErrors) {
+            ArrayList<CartItem> cartItems = cart.getItems();
+            model.addAttribute("cartItems", cartItems);
+            model.addAttribute("sum", cart.getSum());
+            model.addAttribute("isFuture", true);
+            model.addAttribute("amountErrorString", amountErrorString);
+            return "checkout";
+        }
+
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("paymentmethod", paymentmethod);
         model.addAttribute("deliverymethod", deliverymethod);

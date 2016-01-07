@@ -23,9 +23,9 @@ public class SubmitProductChange extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("productId"));
         ProductsEntity product = new ProductsDAO().getProductByID(id);
         product.setName(req.getParameter("name"));
-        product.setCurrentPrice(req.getParameter("currentprice"));
-        product.setSize(req.getParameter("size"));
-        product.setWeight(req.getParameter("weight"));
+//        product.setCurrentPrice(req.getParameter("currentprice"));
+//        product.setSize(req.getParameter("size"));
+//        product.setWeight(req.getParameter("weight"));
         product.setDescription(req.getParameter("description"));
 
         CategoriesEntity category = new ProductsDAO().getProductByID(Integer.parseInt(req.getParameter("productId"))).getCategory();

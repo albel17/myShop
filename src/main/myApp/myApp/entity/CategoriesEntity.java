@@ -85,7 +85,7 @@ public class CategoriesEntity {
         this.attributes = attributes;
     }
 
-    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, orphanRemoval = true)
     public Collection<ProductsEntity> getProducts() {
         return this.products;
     }

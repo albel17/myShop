@@ -10,16 +10,16 @@ import java.util.List;
 public class ProductsEntity {
     private int id;
     private String name;
-    private String currentPrice;
-    private String size;
-    private String weight;
+    private int currentPrice;
+    private int size;
+    private int weight;
     private String description;
     private CategoriesEntity category;
     private Collection<OrderItemEntity> orderItemsById;
     private Collection<ParametersEntity> parametersesById;
     private StorageEntity storagesById;
 
-    public ProductsEntity(String name, String currentPrice, String size, String weight, String description,
+    public ProductsEntity(String name, int currentPrice, int size, int weight, String description,
                           CategoriesEntity category) {
         this.name = name;
         this.currentPrice = currentPrice;
@@ -55,31 +55,31 @@ public class ProductsEntity {
 
     @Basic
     @Column(name = "CURRENT_PRICE")
-    public String getCurrentPrice() {
+    public int getCurrentPrice() {
         return currentPrice;
     }
 
-    public void setCurrentPrice(String currentPrice) {
+    public void setCurrentPrice(int currentPrice) {
         this.currentPrice = currentPrice;
     }
 
     @Basic
     @Column(name = "SIZE")
-    public String getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(int size) {
         this.size = size;
     }
 
     @Basic
     @Column(name = "WEIGHT")
-    public String getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 
@@ -112,9 +112,6 @@ public class ProductsEntity {
 
         if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (currentPrice != null ? !currentPrice.equals(that.currentPrice) : that.currentPrice != null) return false;
-        if (size != null ? !size.equals(that.size) : that.size != null) return false;
-        if (weight != null ? !weight.equals(that.weight) : that.weight != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
 
         return true;
@@ -124,9 +121,6 @@ public class ProductsEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (currentPrice != null ? currentPrice.hashCode() : 0);
-        result = 31 * result + (size != null ? size.hashCode() : 0);
-        result = 31 * result + (weight != null ? weight.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
