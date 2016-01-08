@@ -1,6 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page isELIgnored="false" %>
 <html>
 <head>
@@ -58,6 +59,38 @@
             Back
         </button>
     </div>
+</div>
+
+<div class="container">
+    <h2>Filters</h2>
+
+    <div id="spoiler" style="display:none">
+
+
+        <form:form modelAttribute="filterForm" action="/myshop/filter">
+            <b>Max Price:</b><br><br>
+
+            <div class="form-group">
+                <form:input type="number" class="form-control" path="maxPrice"/>
+            </div>
+            <b>Min Price:</b><br><br>
+
+            <div class="form-group">
+                <form:input type="number" class="form-control" path="minPrice"/>
+                <form:input type="hidden" class="form-control" path="categoryId"/>
+            </div>
+            <b>Name:</b><br><br>
+
+            <div class="form-group">
+                <form:input type="text" class="form-control" path="name"/>
+            </div>
+            <input type="submit" value="Edit">
+        </form:form>
+    </div>
+    <button title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler')
+    .style.display=='none') {document.getElementById('spoiler') .style.display=''}else
+    {document.getElementById('spoiler') .style.display='none'}">Show/hide
+    </button>
 </div>
 
 <div class="container">
