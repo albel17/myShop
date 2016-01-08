@@ -207,6 +207,9 @@ public class AdminController {
             topProducts.add(new ProductsMoney(product, productManager.getAllMoneyForProduct(product)));
         }
         model.addAttribute("topProducts", topProducts);
+
+        model.addAttribute("moneyForMonth", productManager.getAllMoneyThisMonth());
+        model.addAttribute("moneyForWeek", productManager.getAllMoneyThisWeek());
         return "statistics";
     }
 }

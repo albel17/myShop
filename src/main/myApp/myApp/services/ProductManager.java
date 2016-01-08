@@ -1,6 +1,7 @@
 package myApp.services;
 
 import myApp.DAO.API.CategoriesDAO;
+import myApp.DAO.OrdersDAO;
 import myApp.DAO.ParametersDAO;
 import myApp.DAO.ProductsDAO;
 import myApp.DAO.StorageDAO;
@@ -24,6 +25,9 @@ public class ProductManager implements GenericManager<ProductsEntity> {
 
     @Resource
     private StorageDAO storageDAO;
+
+    @Resource
+    private OrdersDAO ordersDAO;
 
     public ProductsEntity create(ProductsEntity productsEntity) {
         return productsDAO.create(productsEntity);
@@ -127,5 +131,23 @@ public class ProductManager implements GenericManager<ProductsEntity> {
             amount += item.getAmount();
         }
         return amount * product.getCurrentPrice();
+    }
+
+    public int getAllMoneyThisMonth() {
+        int sum = 0;
+        ArrayList<OrdersEntity> orders = ordersDAO.getThisMonthOrders();
+        for (OrdersEntity order : orders) {
+            sum += order.getCost();
+        }
+        return sum;
+    }
+
+    public int getAllMoneyThisWeek() {
+        int sum = 0;
+        ArrayList<OrdersEntity> orders = ordersDAO.getThisWeekOrders();
+        for (OrdersEntity order : orders) {
+            sum += order.getCost();
+        }
+        return sum;
     }
 }

@@ -39,7 +39,7 @@
 </div>
 
 <div class="container">
-  <h2>TOP CLIENTS</h2>
+  <h2>TOP 10 CLIENTS</h2>
   <c:forEach var="client" items="${topClients}">
     <div class="list-group">
       <p class="list-group-item">${client.personsEntity.email}, ${client.money}</p>
@@ -48,12 +48,26 @@
 </div><br>
 
 <div class="container">
-  <h2>TOP PRODUCTS</h2>
+  <h2>TOP 10 PRODUCTS</h2>
   <c:forEach var="product" items="${topProducts}">
     <div class="list-group">
       <p class="list-group-item">${product.productsEntity.name}, ${product.productsEntity.currentPrice}, ${product.money}</p>
     </div>
   </c:forEach>
+</div>
+
+<div class="container">
+  <h2>THIS MONTH MONEY</h2>
+    <div class="list-group">
+      <p class="list-group-item">${moneyForMonth}</p>
+    </div>
+</div>
+
+<div class="container">
+  <h2>THIS WEEK MONEY</h2>
+  <div class="list-group">
+    <p class="list-group-item">${moneyForWeek}</p>
+  </div>
 </div>
 </body>
 </html>

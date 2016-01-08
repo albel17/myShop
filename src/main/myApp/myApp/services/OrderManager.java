@@ -79,7 +79,7 @@ public class OrderManager implements GenericManager<OrdersEntity> {
             orderItemDAO.create(orderItemEntity);
             order.setCost(order.getCost() + orderItemEntity.getAmount() * orderItemEntity.getPrice());
         }
-        if(paymentmethod.equals("card")){
+        if (paymentmethod.equals("card")) {
             order.setOrderStatus("payed");
         }
         ordersDAO.update(order);
