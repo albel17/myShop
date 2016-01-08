@@ -84,7 +84,15 @@
             <div class="form-group">
                 <form:input type="text" class="form-control" path="name"/>
             </div>
-            <input type="submit" value="Edit">
+
+            <c:forEach var="attributeAndValue" items="${filterForm.attributesAndValues}" varStatus="status">
+                <b>${attributeAndValue.attribute.name}:</b><br><br>
+                <div class="list-group">
+                    <form:input type="text" class="form-control" path="attributesAndValues[${status.index}].value"/>
+                </div>
+            </c:forEach>
+            <input type="submit" value="Apply">
+
         </form:form>
     </div>
     <button title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler')

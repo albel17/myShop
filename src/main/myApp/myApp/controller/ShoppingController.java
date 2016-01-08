@@ -5,6 +5,7 @@ import myApp.bin.CartItem;
 import myApp.entity.AttributesEntity;
 import myApp.entity.CategoriesEntity;
 import myApp.entity.ProductsEntity;
+import myApp.form.AttributeAndValue;
 import myApp.form.FilterForm;
 import myApp.services.CategoriesManager;
 import myApp.services.ProductManager;
@@ -43,7 +44,7 @@ public class ShoppingController {
     public String products(Model model, @RequestParam int id) {
         model.addAttribute("products", categoriesManager.getProductsById(id));
         model.addAttribute("id", id);
-        model.addAttribute("filterForm", new FilterForm(id, 0, 0, ""));
+        model.addAttribute("filterForm", new FilterForm(id, 0, 0, "", categoriesManager.find(id)));
         return "products";
     }
 
@@ -87,6 +88,7 @@ public class ShoppingController {
 
     @RequestMapping(value = "/filter")
     public String filter(Model model, @ModelAttribute FilterForm filterForm) {
+        filterForm.update(categoriesManager.find(filterForm.getCategoryId()));
         Collection<ProductsEntity> products = categoriesManager.getProductsById(filterForm.getCategoryId());
         Collection<ProductsEntity> filteredProducts = new ArrayList<ProductsEntity>();
         if (filterForm.getMaxPrice() != 0) {
@@ -95,7 +97,6 @@ public class ShoppingController {
                         && product.getCurrentPrice() <= filterForm.getMaxPrice()
                         && product.getName().toLowerCase().contains(filterForm.getName().toLowerCase())) {
                     filteredProducts.add(product);
-                    //product.getName().toLowerCase().contains(filterForm.getName().toLowerCase())
                 }
             }
         } else {
@@ -106,9 +107,21 @@ public class ShoppingController {
                 }
             }
         }
-        model.addAttribute("products", filteredProducts);
+        Collection<ProductsEntity> filteredProducts2 = new ArrayList<ProductsEntity>(filteredProducts);
+        for (AttributeAndValue attributeAndValue : filterForm.getAttributesAndValues()) {
+            if (!attributeAndValue.getValue().equals("")) {
+                for (ProductsEntity product : filteredProducts) {
+                    if (!productManager.getParameterByAttributeIdProductId(attributeAndValue.getAttribute(), product)
+                            .toLowerCase().contains(attributeAndValue.getValue().toLowerCase())) {
+                        filteredProducts2.remove(product);
+                    }
+                }
+            }
+        }
+        model.addAttribute("products", filteredProducts2);
         model.addAttribute("id", filterForm.getCategoryId());
         model.addAttribute("filterForm", filterForm);
+        System.out.println(filterForm.getAttributesAndValues());
         return "products";
     }
 }

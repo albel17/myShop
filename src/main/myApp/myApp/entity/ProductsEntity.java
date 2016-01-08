@@ -152,16 +152,4 @@ public class ProductsEntity {
         this.storagesById = storagesById;
     }
 
-/*
-    private CategoriesEntity categoriesEntities;
-
-    @ManyToOne(optional = false)
-    public CategoriesEntity getCategoriesEntities() {
-        return categoriesEntities;
-    }
-
-    public void setCategoriesEntities(CategoriesEntity categoriesEntities) {
-        this.categoriesEntities = categoriesEntities;
-    }
-    */
 }
