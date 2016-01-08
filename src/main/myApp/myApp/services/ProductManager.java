@@ -9,10 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class ProductManager implements GenericManager<ProductsEntity> {
@@ -104,5 +101,31 @@ public class ProductManager implements GenericManager<ProductsEntity> {
             parametersDAO.update(parameter);
         }
         return product;
+    }
+
+    public List<ProductsEntity> getTopProducts() {
+        ArrayList<ProductsEntity> allProducts = productsDAO.getAll();
+        Collections.sort(allProducts, new Comparator<ProductsEntity>() {
+            public int compare(ProductsEntity o1, ProductsEntity o2) {
+                int sum1 = getAllMoneyForProduct(o1);
+                int sum2 = getAllMoneyForProduct(o2);
+                if (sum1 == sum2)
+                    return 0;
+                else
+                    return sum1 < sum2 ? 1 : -1;
+            }
+        });
+        if (allProducts.size() > 10)
+            return allProducts.subList(0, 10);
+        else
+            return allProducts;
+    }
+
+    public int getAllMoneyForProduct(ProductsEntity product) {
+        int amount = 0;
+        for (OrderItemEntity item : product.getOrderItemsById()) {
+            amount += item.getAmount();
+        }
+        return amount * product.getCurrentPrice();
     }
 }

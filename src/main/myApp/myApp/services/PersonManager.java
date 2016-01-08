@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.sql.Date;
-import java.util.Collection;
+import java.util.*;
 
 @Service
 public class PersonManager implements GenericManager<PersonsEntity> {
@@ -47,16 +47,42 @@ public class PersonManager implements GenericManager<PersonsEntity> {
         return personsDAO.find(userId).getOrdersesById();
     }
 
-    public PersonsEntity getPersonByEmail(String email){
+    public PersonsEntity getPersonByEmail(String email) {
         return personsDAO.getPersonByEmail(email);
     }
 
-    public boolean hasPerson(String email){
+    public boolean hasPerson(String email) {
         try {
             personsDAO.getPersonByEmail(email);
-        } catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
         return true;
+    }
+
+    public List<PersonsEntity> getTopCustomers() {
+        List<PersonsEntity> allUsers = personsDAO.getAll();
+        Collections.sort(allUsers, new Comparator<PersonsEntity>() {
+            public int compare(PersonsEntity o1, PersonsEntity o2) {
+                int sum1 = getUsersMoney(o1);
+                int sum2 = getUsersMoney(o2);
+                if (sum1 == sum2)
+                    return 0;
+                else
+                    return sum1 < sum2 ? 1 : -1;
+            }
+        });
+        if (allUsers.size() > 10)
+            return allUsers.subList(0, 10);
+        else
+            return allUsers;
+    }
+
+    public int getUsersMoney(PersonsEntity person) {
+        int sum = 0;
+        for (OrdersEntity ordersEntity : person.getOrdersesById()) {
+            sum += ordersEntity.getCost();
+        }
+        return sum;
     }
 }

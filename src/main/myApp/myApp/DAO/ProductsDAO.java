@@ -35,4 +35,9 @@ public class ProductsDAO extends GenericDaoJpaImpl<ProductsEntity> {
         ArrayList<ProductsEntity> result = (ArrayList<ProductsEntity>) query.getResultList();
         return result;
     }
+
+    public ArrayList<ProductsEntity> getAll(){
+        Query query = em.createQuery("SELECT c FROM ProductsEntity c");
+        return (ArrayList<ProductsEntity>) query.getResultList();
+    }
 }

@@ -2,14 +2,10 @@ package myApp.controller;
 
 import myApp.DAO.ParametersDAO;
 import myApp.DAO.ProductsDAO;
-import myApp.entity.AttributesEntity;
-import myApp.entity.CategoriesEntity;
-import myApp.entity.NewProduct;
-import myApp.entity.ProductsEntity;
-import myApp.services.AttributeManager;
-import myApp.services.CategoriesManager;
-import myApp.services.OrderManager;
-import myApp.services.ProductManager;
+import myApp.entity.*;
+import myApp.form.ProductsMoney;
+import myApp.form.UsersMoney;
+import myApp.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -35,6 +31,9 @@ public class AdminController {
 
     @Resource
     private ProductManager productManager;
+
+    @Resource
+    private PersonManager personManager;
 
     @Resource
     private AttributeManager attributeManager;
@@ -191,5 +190,23 @@ public class AdminController {
                                       HttpServletRequest request) {
         productManager.changeProduct(productId, name, currentprice, size, weight, description, amount, request);
         return "redirect:/admin/editproduct?id=" + productId;
+    }
+
+    @RequestMapping(value = "/admin/statistics")
+    public String statistics(Model model){
+        List<PersonsEntity> customers = personManager.getTopCustomers();
+        ArrayList<UsersMoney> topClients = new ArrayList<UsersMoney>();
+        for(PersonsEntity customer : customers){
+            topClients.add(new UsersMoney(customer, personManager.getUsersMoney(customer)));
+        }
+        model.addAttribute("topClients", topClients);
+
+        List<ProductsEntity> products = productManager.getTopProducts();
+        ArrayList<ProductsMoney> topProducts = new ArrayList<ProductsMoney>();
+        for(ProductsEntity product : products){
+            topProducts.add(new ProductsMoney(product, productManager.getAllMoneyForProduct(product)));
+        }
+        model.addAttribute("topProducts", topProducts);
+        return "statistics";
     }
 }
