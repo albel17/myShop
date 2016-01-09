@@ -67,16 +67,11 @@
 
     <p></p>
 
-    <h2>Select Delivery Date</h2>
-
     <form action="/myshop/profile/createorder" id="addressanddate" method="post">
-        Date:<br>
-        <input type="text" name="date" class="form-control">
-        <br>
         <input type="hidden" name="paymentmethod" value="${paymentmethod}" class="form-control">
         <input type="hidden" name="deliverymethod" value="${deliverymethod}" class="form-control">
         <input type="hidden" name="deliverydate" value="${deliverydate}" class="form-control">
-        <input type="submit" value="Submit">
+        <input type="submit" value="Continue">
     </form>
     <%} else {%>
     <div class="form-control">Our address is ULITSA PUSHKINA, DOM KOLOTUSHKINA.</div>

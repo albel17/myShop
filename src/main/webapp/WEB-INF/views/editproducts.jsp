@@ -94,7 +94,7 @@
         <b>Amount:</b><br><br>
 
         <div class="form-group">
-            <input type="number" name="amount" class="form-control"/>
+            <input type="number" name="amount" class="form-control" value="0"/>
         </div><br><br>
         <input type="submit" value="Add">
     </form:form>
