@@ -1,3 +1,4 @@
+<%@ page import="myApp.bin.Cart" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
@@ -108,7 +109,32 @@
             <p class="list-group-item">${values.get(theCount.index)}</p>
         </div>
     </c:forEach>
-
 </div>
+
+<%Cart cart = (Cart)request.getAttribute("cart");
+    if(!cart.ifEmpty()){%>
+<div style="position:absolute;bottom: 5px;right: 5px;margin: 0;padding: 5px 3px;">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Add</th>
+            <th>Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="item" items="${cart.items}">
+            <tr>
+                <td>${item.product.name}</td>
+                <td>${item.amount}</td>
+                <td><a href="/myshop/profile" class="btn btn-info" role="button">+</a> </td>
+                <td><a href="/myshop/profile" class="btn btn-info" role="button">-</a> </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
+<%}%>
 </body>
 </html>

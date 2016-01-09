@@ -37,6 +37,7 @@ public class ShoppingController {
     public String categories(Model model) {
         ArrayList<CategoriesEntity> categories = categoriesManager.getAll();
         model.addAttribute("categories", categories);
+        model.addAttribute("cart", cart);
         return "index";
     }
 
@@ -45,6 +46,7 @@ public class ShoppingController {
         model.addAttribute("products", categoriesManager.getProductsById(id));
         model.addAttribute("id", id);
         model.addAttribute("filterForm", new FilterForm(id, 0, 0, "", categoriesManager.find(id)));
+        model.addAttribute("cart", cart);
         return "products";
     }
 
@@ -62,6 +64,7 @@ public class ShoppingController {
         model.addAttribute("values", values);
         model.addAttribute("categoryId", category.getId());
         model.addAttribute("inBin", cart.hasItem(product));
+        model.addAttribute("cart", cart);
         return "productdescription";
     }
 
