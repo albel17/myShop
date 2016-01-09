@@ -113,7 +113,7 @@
 
 <%Cart cart = (Cart)request.getAttribute("cart");
     if(!cart.ifEmpty()){%>
-<div style="position:absolute;bottom: 5px;right: 5px;margin: 0;padding: 5px 3px;">
+<div style="position:absolute;bottom: 5px;right: 5px;margin: 0;padding: 5px 3px;" class="bg-success">
     <table class="table">
         <thead>
         <tr>
@@ -128,8 +128,8 @@
             <tr>
                 <td>${item.product.name}</td>
                 <td>${item.amount}</td>
-                <td><a href="/myshop/profile" class="btn btn-info" role="button">+</a> </td>
-                <td><a href="/myshop/profile" class="btn btn-info" role="button">-</a> </td>
+                <td><a href="/myshop/addtocart?id=${item.product.id}&category=${id}" class="btn btn-info" role="button">+</a> </td>
+                <td><a href="/myshop/removefromcart?id=${item.product.id}&category=${id}" class="btn btn-danger" role="button">-</a> </td>
             </tr>
         </c:forEach>
         </tbody>

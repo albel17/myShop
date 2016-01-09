@@ -74,19 +74,37 @@ public class ShoppingController {
     }
 
     @RequestMapping(value = "/addtocart")
-    public String addToCart(Model model, @RequestParam(value = "id") int id) {
+    public String addToCart(Model model, @RequestParam(value = "id") int id,
+                            @RequestParam(value = "index", required = false, defaultValue = "0") int index,
+                            @RequestParam(value = "category", required = false, defaultValue = "0") int categoryId) {
         ProductsEntity product = productManager.find(id);
         cart.add(new CartItem(product, 1));
         model.addAttribute("id", id);
-        return "redirect:/productdescription";
+        if (index == 0 && categoryId==0)
+            return "redirect:/productdescription";
+        else if(index==1)
+            return "redirect:/";
+        else {
+            model.addAttribute("id", categoryId);
+            return "redirect:/products";
+        }
     }
 
     @RequestMapping(value = "/removefromcart")
-    public String removefromcart(Model model, @RequestParam(value = "id") int id) {
+    public String removefromcart(Model model, @RequestParam(value = "id") int id,
+                                 @RequestParam(value = "index", required = false, defaultValue = "0") int index,
+                                 @RequestParam(value = "category", required = false, defaultValue = "0") int categoryId) {
         ProductsEntity product = productManager.find(id);
         cart.remove(new CartItem(product, 1));
         model.addAttribute("id", id);
-        return "redirect:/productdescription";
+        if (index == 0 && categoryId==0)
+            return "redirect:/productdescription";
+        else if(index==1)
+            return "redirect:/";
+        else {
+            model.addAttribute("id", categoryId);
+            return "redirect:/products";
+        }
     }
 
     @RequestMapping(value = "/filter")
