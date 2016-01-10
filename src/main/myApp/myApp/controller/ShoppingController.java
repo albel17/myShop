@@ -142,7 +142,7 @@ public class ShoppingController {
         model.addAttribute("products", filteredProducts2);
         model.addAttribute("id", filterForm.getCategoryId());
         model.addAttribute("filterForm", filterForm);
-        System.out.println(filterForm.getAttributesAndValues());
+        model.addAttribute("cart", cart);
         return "products";
     }
 }

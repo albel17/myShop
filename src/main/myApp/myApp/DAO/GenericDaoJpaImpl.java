@@ -19,9 +19,6 @@ public abstract class GenericDaoJpaImpl<T>
     protected EntityManager em;
 
     public GenericDaoJpaImpl() {
-        //Type t = getClass().getGenericSuperclass();
-        //ParameterizedType pt = (ParameterizedType) t;
-        //type = (Class) pt.getActualTypeArguments()[0];
         Type t = getClass().getGenericSuperclass();
 
         ParameterizedType pt = null;

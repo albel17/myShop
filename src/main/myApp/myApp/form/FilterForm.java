@@ -74,4 +74,15 @@ public class FilterForm {
     public void setAttributesAndValues(ArrayList<AttributeAndValue> attributesAndValues) {
         this.attributesAndValues = attributesAndValues;
     }
+
+    @Override
+    public String toString() {
+        return "FilterForm{" +
+                "categoryId=" + categoryId +
+                ", minPrice=" + minPrice +
+                ", maxPrice=" + maxPrice +
+                ", name='" + name + '\'' +
+                ", attributesAndValues=" + attributesAndValues +
+                '}';
+    }
 }
