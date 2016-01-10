@@ -125,7 +125,7 @@ public class ProductsEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "productsByProductId")
+    @OneToMany(mappedBy = "productsByProductId", fetch = FetchType.EAGER)
     public Collection<OrderItemEntity> getOrderItemsById() {
         return orderItemsById;
     }

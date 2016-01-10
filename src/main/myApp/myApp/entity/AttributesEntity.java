@@ -74,7 +74,7 @@ public class AttributesEntity {
         return result;
     }
 
-    @ManyToMany(mappedBy = "attributes")
+    @ManyToMany(mappedBy = "attributes", fetch = FetchType.EAGER)
     public Collection<CategoriesEntity> getCategories() {
         return categories;
     }
