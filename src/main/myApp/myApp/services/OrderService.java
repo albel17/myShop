@@ -6,6 +6,7 @@ import myApp.bin.CartItem;
 import myApp.entity.OrderItemEntity;
 import myApp.entity.OrdersEntity;
 import myApp.entity.StorageEntity;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -31,13 +32,18 @@ public class OrderService implements GenericService<OrdersEntity> {
     @Resource
     private StorageDAO storageDAO;
 
+    private final Logger logger = Logger.getLogger(OrderService.class);
+
     @Override
     public OrdersEntity create(OrdersEntity ordersEntity) {
-        return ordersDAO.create(ordersEntity);
+        ordersEntity = ordersDAO.create(ordersEntity);
+        logger.info("Order " + ordersEntity.getId() + " created.");
+        return ordersEntity;
     }
 
     @Override
     public void delete(Object id) {
+        logger.info("Order " + id + " deleted.");
         ordersDAO.delete(id);
     }
 
@@ -48,6 +54,7 @@ public class OrderService implements GenericService<OrdersEntity> {
 
     @Override
     public OrdersEntity update(OrdersEntity ordersEntity) {
+        logger.info("Order " + ordersEntity.getId() + " updated.");
         return ordersDAO.update(ordersEntity);
     }
 
@@ -57,6 +64,7 @@ public class OrderService implements GenericService<OrdersEntity> {
 
     public OrdersEntity changeStatus(int orderId, String newStatus) {
         OrdersEntity order = ordersDAO.find(orderId);
+        logger.info("Order " + orderId + " status changed from " + order.getOrderStatus() + " to " + newStatus);
         order.setOrderStatus(newStatus);
         return ordersDAO.update(order);
     }
@@ -86,6 +94,7 @@ public class OrderService implements GenericService<OrdersEntity> {
         if (paymentmethod.equals("card")) {
             order.setOrderStatus("payed");
         }
+        logger.info("Order "+order.getId()+" created");
         ordersDAO.update(order);
     }
 }

@@ -37,9 +37,6 @@ public class ShoppingController {
         ArrayList<CategoriesEntity> categories = categoriesService.getAll();
         model.addAttribute("categories", categories);
         model.addAttribute("cart", cart);
-        Logger logger = Logger.getLogger(ShoppingController.class);
-        logger.debug("Hi!, i'm your new logger!");
-        logger.info("LOGGER INFO!");
         return "index";
     }
 

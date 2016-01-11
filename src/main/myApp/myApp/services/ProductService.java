@@ -6,6 +6,7 @@ import myApp.DAO.ParametersDAO;
 import myApp.DAO.ProductsDAO;
 import myApp.DAO.StorageDAO;
 import myApp.entity.*;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -29,8 +30,11 @@ public class ProductService implements GenericService<ProductsEntity> {
     @Resource
     private OrdersDAO ordersDAO;
 
+    private final Logger logger = Logger.getLogger(ProductService.class);
+
     @Override
     public ProductsEntity create(ProductsEntity productsEntity) {
+        logger.info("Product " + productsEntity.getName() + " created.");
         return productsDAO.create(productsEntity);
     }
 
@@ -42,6 +46,7 @@ public class ProductService implements GenericService<ProductsEntity> {
             parametersDAO.delete(parameter.getId());
         }
         storageDAO.delete(product.getStoragesById().getId());
+        logger.info("Product " + productsDAO.find(id) + " deleted.");
         productsDAO.delete(product.getId());
     }
 
@@ -52,6 +57,7 @@ public class ProductService implements GenericService<ProductsEntity> {
 
     @Override
     public ProductsEntity update(ProductsEntity productsEntity) {
+        logger.info("Product " + productsEntity.getName() + " updated.");
         return productsDAO.update(productsEntity);
     }
 
@@ -72,6 +78,7 @@ public class ProductService implements GenericService<ProductsEntity> {
         }
         StorageEntity storage = new StorageEntity(amount, newProduct);
         storageDAO.create(storage);
+        logger.info("Product " + name + " created.");
         return newProduct;
     }
 
@@ -107,6 +114,7 @@ public class ProductService implements GenericService<ProductsEntity> {
             parameter.setValue(entry.getValue());
             parametersDAO.update(parameter);
         }
+        logger.info("Product " + product.getName() + " updated.");
         return product;
     }
 

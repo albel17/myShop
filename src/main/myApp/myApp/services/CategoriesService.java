@@ -20,20 +20,28 @@ public class CategoriesService implements GenericService<CategoriesEntity> {
     @Resource
     private AttributesDAO attributesDAO;
 
+    private final Logger logger = Logger.getLogger(CategoriesService.class);
+
     public ArrayList<CategoriesEntity> getAll() {
         return categoriesDAO.getAll();
     }
 
     @Override
     public CategoriesEntity create(CategoriesEntity categoriesEntity) {
+        logger.info("Category " + categoriesEntity.getName() + " created.");
         return categoriesDAO.create(categoriesEntity);
     }
 
     public CategoriesEntity createByNameAndDescription(String name, String description) {
+
+        logger.info("Category " + name + " created.");
         return create(new CategoriesEntity(name, description));
     }
+
     @Override
     public void delete(Object id) {
+
+        logger.info("Category " + categoriesDAO.find(id).getName() + " deleted.");
         categoriesDAO.delete(id);
     }
 
@@ -44,6 +52,7 @@ public class CategoriesService implements GenericService<CategoriesEntity> {
 
     @Override
     public CategoriesEntity update(CategoriesEntity categoriesEntity) {
+        logger.info("Category " + categoriesEntity.getName() + " updated.");
         return categoriesDAO.update(categoriesEntity);
     }
 

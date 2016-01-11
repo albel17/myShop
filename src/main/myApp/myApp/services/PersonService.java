@@ -3,6 +3,7 @@ package myApp.services;
 import myApp.DAO.PersonsDAO;
 import myApp.entity.OrdersEntity;
 import myApp.entity.PersonsEntity;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,13 +16,17 @@ public class PersonService implements GenericService<PersonsEntity> {
     @Resource
     private PersonsDAO personsDAO;
 
+    private final Logger logger = Logger.getLogger(PersonService.class);
+
     @Override
     public PersonsEntity create(PersonsEntity personsEntity) {
+        logger.info("User " + personsEntity.getEmail() + " created.");
         return personsDAO.create(personsEntity);
     }
 
     @Override
     public void delete(Object id) {
+        logger.info("User " + personsDAO.find(id) + " deleted.");
         personsDAO.delete(id);
     }
 
@@ -38,11 +43,13 @@ public class PersonService implements GenericService<PersonsEntity> {
         person.setBirthdate(personsEntity.getBirthdate());
         person.setEmail(personsEntity.getEmail());
         person.setPassword(personsEntity.getPassword());
+        logger.info("User " + personsEntity.getEmail() + " updated.");
         return personsDAO.update(person);
     }
 
     public int createWithParams(String name, String surname, Date birthdate, String email, String password) {
         PersonsEntity person = personsDAO.create(new PersonsEntity(name, surname, birthdate, email, password, 1));
+        logger.info("User " + email + " created.");
         return person.getId();
     }
 

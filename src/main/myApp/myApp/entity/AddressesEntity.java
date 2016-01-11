@@ -16,7 +16,8 @@ public class AddressesEntity {
     private PersonsEntity personsByClientId;
     private Collection<OrdersEntity> ordersesById;
 
-    public AddressesEntity(String country, String city, String postalCode, String street, String house, String flat, PersonsEntity personsByClientId) {
+    public AddressesEntity(String country, String city, String postalCode, String street, String house, String flat,
+                           PersonsEntity personsByClientId) {
         this.country = country;
         this.city = city;
         this.postalCode = postalCode;
