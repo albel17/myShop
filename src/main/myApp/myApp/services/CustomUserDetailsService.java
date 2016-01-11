@@ -1,7 +1,6 @@
 package myApp.services;
 
 import myApp.entity.PersonsEntity;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -17,11 +16,12 @@ import java.util.List;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
     @Resource
-    private PersonManager personManager;
+    private PersonService personService;
 
+    @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        PersonsEntity person = personManager.getPersonByEmail(s);
-        List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
+        PersonsEntity person = personService.getPersonByEmail(s);
+        List<GrantedAuthority> authList = new ArrayList<>();
         if (person.getPersonType() == 1)
             authList.add(new SimpleGrantedAuthority("ROLE_USER"));
         if (person.getPersonType() == 2)

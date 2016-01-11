@@ -66,7 +66,9 @@ public class StorageEntity {
         this.productsByProductId = productsByProductId;
     }
 
-    public StorageEntity(){}
+    public StorageEntity(){
+        //spring constructor
+    }
 
     @Override
     public String toString() {

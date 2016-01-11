@@ -4,30 +4,33 @@ import myApp.DAO.PersonsDAO;
 import myApp.entity.OrdersEntity;
 import myApp.entity.PersonsEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.sql.Date;
 import java.util.*;
 
 @Service
-public class PersonManager implements GenericManager<PersonsEntity> {
+public class PersonService implements GenericService<PersonsEntity> {
 
     @Resource
     private PersonsDAO personsDAO;
 
+    @Override
     public PersonsEntity create(PersonsEntity personsEntity) {
         return personsDAO.create(personsEntity);
     }
 
+    @Override
     public void delete(Object id) {
         personsDAO.delete(id);
     }
 
+    @Override
     public PersonsEntity find(Object id) {
         return personsDAO.find(id);
     }
 
+    @Override
     public PersonsEntity update(PersonsEntity personsEntity) {
         PersonsEntity person = personsDAO.getPersonByEmail(personsEntity.getEmail());
         person.setName(personsEntity.getName());
@@ -52,12 +55,10 @@ public class PersonManager implements GenericManager<PersonsEntity> {
     }
 
     public boolean hasPerson(String email) {
-        try {
-            personsDAO.getPersonByEmail(email);
-        } catch (Exception e) {
+        if (personsDAO.getPersonCollectionByEmail(email).isEmpty())
             return false;
-        }
-        return true;
+        else
+            return true;
     }
 
     public List<PersonsEntity> getTopCustomers() {

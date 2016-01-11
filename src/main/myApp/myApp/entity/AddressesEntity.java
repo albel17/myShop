@@ -26,7 +26,9 @@ public class AddressesEntity {
         this.personsByClientId = personsByClientId;
     }
 
-    public AddressesEntity(){}
+    public AddressesEntity(){
+        //spring constructor
+    }
 
     @Id
     @Column(name = "ID")

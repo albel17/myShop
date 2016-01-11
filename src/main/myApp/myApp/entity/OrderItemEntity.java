@@ -19,6 +19,7 @@ public class OrderItemEntity {
     }
 
     public OrderItemEntity() {
+        //spring constructor
     }
 
     @Id

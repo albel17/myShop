@@ -24,19 +24,19 @@ import java.util.List;
 @Transactional
 public class AdminController {
     @Resource
-    private OrderManager orderManager;
+    private OrderService orderService;
 
     @Resource
-    private CategoriesManager categoriesManager;
+    private CategoriesService categoriesService;
 
     @Resource
-    private ProductManager productManager;
+    private ProductService productService;
 
     @Resource
-    private PersonManager personManager;
+    private PersonService personService;
 
     @Resource
-    private AttributeManager attributeManager;
+    private AttributeService attributeManager;
 
     @Resource
     private ProductsDAO productsDAO;
@@ -51,20 +51,20 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/allorders")
     public String allorders(Model model) {
-        model.addAttribute("orderslist", orderManager.getAll());
+        model.addAttribute("orderslist", orderService.getAll());
         return "allorders";
     }
 
     @RequestMapping(value = "/admin/editorderstatus")
     public String editorderstatus(@RequestParam(value = "orderid") int orderid,
                                   @RequestParam(value = "status") String status) {
-        orderManager.changeStatus(orderid, status);
+        orderService.changeStatus(orderid, status);
         return "redirect:/admin/allorders";
     }
 
     @RequestMapping(value = "/admin/allcategories")
     public String allcategories(Model model) {
-        ArrayList<CategoriesEntity> categories = categoriesManager.getAll();
+        ArrayList<CategoriesEntity> categories = categoriesService.getAll();
         model.addAttribute("categories", categories);
         model.addAttribute("isEmpty", false);
         model.addAttribute("isUnique", true);
@@ -73,17 +73,17 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/addcategory")
     public String addcategory(Model model, @RequestParam String name, @RequestParam String description) {
-        if (!name.equals("") && !description.equals("") && !categoriesManager.hasCategory(name)) {
-            categoriesManager.createByNameAndDescription(name, description);
+        if (!"".equals(name) && !"".equals(description) && !categoriesService.hasCategory(name)) {
+            categoriesService.createByNameAndDescription(name, description);
         } else {
             model.addAttribute("isEmpty", false);
             model.addAttribute("isUnique", true);
-            if (name.equals("") || description.equals("")) {
+            if ("".equals(name) || "".equals(description)) {
                 model.addAttribute("isEmpty", true);
             } else {
                 model.addAttribute("isUnique", false);
             }
-            ArrayList<CategoriesEntity> categories = categoriesManager.getAll();
+            ArrayList<CategoriesEntity> categories = categoriesService.getAll();
             model.addAttribute("categories", categories);
             return "allcategories";
         }
@@ -92,28 +92,28 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/removecategory")
     public String removecategory(@RequestParam int id) {
-        categoriesManager.delete(id);
+        categoriesService.delete(id);
         return "redirect:/admin/allcategories";
     }
 
     @RequestMapping(value = "/admin/allproducts")
     public String allproducts(Model model) {
-        model.addAttribute("categories", categoriesManager.getAll());
+        model.addAttribute("categories", categoriesService.getAll());
         return "allproducts";
     }
 
     @RequestMapping(value = "/admin/editproducts")
     public String editproducts(Model model, @RequestParam int id) {
-        model.addAttribute("products", categoriesManager.getProductsById(id));
-        model.addAttribute("attributes", categoriesManager.getAttributesById(id));
+        model.addAttribute("products", categoriesService.getProductsById(id));
+        model.addAttribute("attributes", categoriesService.getAttributesById(id));
         model.addAttribute("newProduct", new NewProduct());
         return "editproducts";
     }
 
     @RequestMapping(value = "/admin/editcategory")
     public String editcategory(Model model, @RequestParam int id, @RequestParam String isEmpty) {
-        model.addAttribute("attributes", categoriesManager.getAttributesById(id));
-        if (isEmpty.equals("true"))
+        model.addAttribute("attributes", categoriesService.getAttributesById(id));
+        if ("true".equals(isEmpty))
             model.addAttribute("isEmpty", true);
         else
             model.addAttribute("isEmpty", false);
@@ -122,8 +122,8 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/createattribute")
     public String createattribute(@RequestParam int categoryId, @RequestParam String name, @RequestParam String description) {
-        if (!name.equals("") && !description.equals("")) {
-            categoriesManager.createAttribute(categoryId, name, description);
+        if (!"".equals(name) && !"".equals(description)) {
+            categoriesService.createAttribute(categoryId, name, description);
             return "redirect:/admin/editcategory?id=" + categoryId + "&isEmpty=false";
         } else {
             return "redirect:/admin/editcategory?id=" + categoryId + "&isEmpty=true";
@@ -132,8 +132,8 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/removeproduct")
     public String removeproduct(@RequestParam int id) {
-        int i = productManager.getCategoryId(id);
-        productManager.delete(id);
+        int i = productService.getCategoryId(id);
+        productService.delete(id);
         return "redirect:/admin/editproducts?id=" + i;
     }
 
@@ -147,7 +147,7 @@ public class AdminController {
         Collection<AttributesEntity> attributes = category.getAttributes();
         attributes.remove(attribute);
         category.setAttributes(attributes);
-        categoriesManager.update(category);
+        categoriesService.update(category);
         attributeManager.delete(id);
         return "redirect:/admin/editcategory?id=" + category.getId() + "&isEmpty=false";
     }
@@ -159,7 +159,7 @@ public class AdminController {
         CategoriesEntity category = product.getCategory();
         Collection<AttributesEntity> attributes = category.getAttributes();
         model.addAttribute("attributes", attributes);
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
         for (AttributesEntity attribute : attributes) {
             values.add(parametersDAO.getParameterByAttributeIdProductId(attribute, product).getValue());
         }
@@ -170,13 +170,13 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/addproduct")
     public String addproduct(@RequestParam int amount, @RequestParam int categoryId, @ModelAttribute NewProduct newProduct) {
-        HashMap<AttributesEntity, String> attributesAndValues = new HashMap<AttributesEntity, String>();
+        HashMap<AttributesEntity, String> attributesAndValues = new HashMap<>();
         int i = 0;
-        for (AttributesEntity attribute : categoriesManager.find(categoryId).getAttributes()) {
+        for (AttributesEntity attribute : categoriesService.find(categoryId).getAttributes()) {
             attributesAndValues.put(attribute, newProduct.getNewAttributes().get(i));
         }
 
-        productManager.createWithParams(newProduct.getName(), newProduct.getCurrentPrice(),
+        productService.createWithParams(newProduct.getName(), newProduct.getCurrentPrice(),
                 newProduct.getSize(), newProduct.getWeight(), newProduct.getDescription(),
                 attributesAndValues, categoryId, amount);
 
@@ -188,28 +188,28 @@ public class AdminController {
                                       @RequestParam int currentprice, @RequestParam int size, @RequestParam int weight,
                                       @RequestParam String description, @RequestParam int amount,
                                       HttpServletRequest request) {
-        productManager.changeProduct(productId, name, currentprice, size, weight, description, amount, request);
+        productService.changeProduct(productId, name, currentprice, size, weight, description, amount, request);
         return "redirect:/admin/editproduct?id=" + productId;
     }
 
     @RequestMapping(value = "/admin/statistics")
     public String statistics(Model model){
-        List<PersonsEntity> customers = personManager.getTopCustomers();
-        ArrayList<UsersMoney> topClients = new ArrayList<UsersMoney>();
+        List<PersonsEntity> customers = personService.getTopCustomers();
+        ArrayList<UsersMoney> topClients = new ArrayList<>();
         for(PersonsEntity customer : customers){
-            topClients.add(new UsersMoney(customer, personManager.getUsersMoney(customer)));
+            topClients.add(new UsersMoney(customer, personService.getUsersMoney(customer)));
         }
         model.addAttribute("topClients", topClients);
 
-        List<ProductsEntity> products = productManager.getTopProducts();
-        ArrayList<ProductsMoney> topProducts = new ArrayList<ProductsMoney>();
+        List<ProductsEntity> products = productService.getTopProducts();
+        ArrayList<ProductsMoney> topProducts = new ArrayList<>();
         for(ProductsEntity product : products){
-            topProducts.add(new ProductsMoney(product, productManager.getAllMoneyForProduct(product)));
+            topProducts.add(new ProductsMoney(product, productService.getAllMoneyForProduct(product)));
         }
         model.addAttribute("topProducts", topProducts);
 
-        model.addAttribute("moneyForMonth", productManager.getAllMoneyThisMonth());
-        model.addAttribute("moneyForWeek", productManager.getAllMoneyThisWeek());
+        model.addAttribute("moneyForMonth", productService.getAllMoneyThisMonth());
+        model.addAttribute("moneyForWeek", productService.getAllMoneyThisWeek());
         return "statistics";
     }
 }

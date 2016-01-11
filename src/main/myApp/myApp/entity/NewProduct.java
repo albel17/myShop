@@ -8,7 +8,7 @@ public class NewProduct {
     private int size;
     private int weight;
     private String description;
-    private ArrayList<String> newAttributes = new ArrayList<String>();
+    private ArrayList<String> newAttributes = new ArrayList<>();
 
     public String getName() {
         return name;

@@ -31,6 +31,7 @@ public class OrdersEntity {
     }
 
     public OrdersEntity() {
+        //spring constructor
     }
 
     @Id

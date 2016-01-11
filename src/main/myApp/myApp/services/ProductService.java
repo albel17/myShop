@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Component
-public class ProductManager implements GenericManager<ProductsEntity> {
+public class ProductService implements GenericService<ProductsEntity> {
     @Resource
     private ProductsDAO productsDAO;
 
@@ -29,25 +29,28 @@ public class ProductManager implements GenericManager<ProductsEntity> {
     @Resource
     private OrdersDAO ordersDAO;
 
+    @Override
     public ProductsEntity create(ProductsEntity productsEntity) {
         return productsDAO.create(productsEntity);
     }
 
+    @Override
     public void delete(Object id) {
         ProductsEntity product = productsDAO.find(id);
         Collection<ParametersEntity> parameters = product.getParametersesById();
         for (ParametersEntity parameter : parameters) {
             parametersDAO.delete(parameter.getId());
         }
-        System.out.println(product.getStoragesById().getId());
         storageDAO.delete(product.getStoragesById().getId());
         productsDAO.delete(product.getId());
     }
 
+    @Override
     public ProductsEntity find(Object id) {
         return productsDAO.find(id);
     }
 
+    @Override
     public ProductsEntity update(ProductsEntity productsEntity) {
         return productsDAO.update(productsEntity);
     }
@@ -58,7 +61,7 @@ public class ProductManager implements GenericManager<ProductsEntity> {
 
         ProductsEntity newProduct = new ProductsEntity(name, currentprice, size, weight, description,
                 categoriesDAO.getCategoryByID(categoryId));
-        ArrayList<ParametersEntity> parametersEntities = new ArrayList<ParametersEntity>();
+        ArrayList<ParametersEntity> parametersEntities = new ArrayList<>();
         for (Map.Entry<AttributesEntity, String> entry : attributesAndValues.entrySet()) {
             parametersEntities.add(new ParametersEntity(entry.getValue(), newProduct, entry.getKey()));
         }
@@ -92,7 +95,7 @@ public class ProductManager implements GenericManager<ProductsEntity> {
 
         CategoriesEntity category = productsDAO.getProductByID(id).getCategory();
         Collection<AttributesEntity> attributes = category.getAttributes();
-        Map<AttributesEntity, String> attributeValues = new HashMap<AttributesEntity, String>();
+        Map<AttributesEntity, String> attributeValues = new HashMap<>();
         for (AttributesEntity attribute : attributes) {
             attributeValues.put(attribute, req.getParameter(String.valueOf(attribute.getId())));
         }

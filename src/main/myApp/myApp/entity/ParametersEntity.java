@@ -17,6 +17,7 @@ public class ParametersEntity {
     }
 
     public ParametersEntity() {
+        //empty constructor for spring
     }
 
     @Id

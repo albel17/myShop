@@ -6,11 +6,10 @@ import myApp.entity.AddressesEntity;
 import myApp.entity.PersonsEntity;
 import myApp.form.AddressForm;
 import myApp.form.RegistrationForm;
-import myApp.services.AddressManager;
-import myApp.services.OrderManager;
-import myApp.services.PersonManager;
+import myApp.services.AddressService;
+import myApp.services.OrderService;
+import myApp.services.PersonService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,13 +32,13 @@ import java.util.Date;
 @Transactional
 public class UserController {
     @Resource
-    private PersonManager personManager;
+    private PersonService personService;
 
     @Resource
-    private AddressManager addressManager;
+    private AddressService addressManager;
 
     @Resource
-    private OrderManager orderManager;
+    private OrderService orderService;
 
     @Resource
     private UserDetailsService userDetailsService;
@@ -58,8 +57,8 @@ public class UserController {
     @RequestMapping(value = "/reg")
     public String reg(@ModelAttribute("person") @Valid RegistrationForm person, BindingResult bindingResult, Model model) {
 
-        if (!bindingResult.hasErrors() && !personManager.hasPerson(person.getEmail())) {
-            personManager.createWithParams(person.getName(), person.getSurname(), person.getBirthdate(),
+        if (!bindingResult.hasErrors() && !personService.hasPerson(person.getEmail())) {
+            personService.createWithParams(person.getName(), person.getSurname(), person.getBirthdate(),
                     person.getEmail(), person.getPassword());
             UserDetails userDetails = userDetailsService.loadUserByUsername(person.getEmail());
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
@@ -67,7 +66,7 @@ public class UserController {
             return "profile";
         }
         boolean emailExists = false;
-        if (personManager.hasPerson(person.getEmail())) {
+        if (personService.hasPerson(person.getEmail())) {
             emailExists = true;
         }
         model.addAttribute("emailExists", emailExists);
@@ -79,7 +78,7 @@ public class UserController {
     public String edituserinfo(ModelMap model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         RegistrationForm form = new RegistrationForm();
-        PersonsEntity person = personManager.getPersonByEmail(user.getUsername());
+        PersonsEntity person = personService.getPersonByEmail(user.getUsername());
         form.setName(person.getName());
         form.setSurname(person.getSurname());
         form.setBirthdate(person.getBirthdate());
@@ -95,19 +94,18 @@ public class UserController {
     public String submituserchange(@ModelAttribute(value = "person") @Valid RegistrationForm form,
                                    BindingResult bindingResult, Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(bindingResult.getAllErrors());
         if (!bindingResult.hasErrors()) {
-            PersonsEntity person = personManager.getPersonByEmail(user.getUsername());
+            PersonsEntity person = personService.getPersonByEmail(user.getUsername());
             person.setName(form.getName());
             person.setSurname(form.getSurname());
             person.setBirthdate(form.getBirthdate());
             person.setEmail(form.getEmail());
             person.setPassword(form.getNewPassword());
-            personManager.update(person);
+            personService.update(person);
             return "redirect:/profile/edituserinfo";
         }
         boolean emailExists = false;
-        if (personManager.hasPerson(form.getEmail())) {
+        if (personService.hasPerson(form.getEmail())) {
             emailExists = true;
         }
         model.addAttribute("person", form);
@@ -118,7 +116,7 @@ public class UserController {
     @RequestMapping(value = "/profile/addresslist")
     public String addresslist(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("addresslist", personManager.getPersonByEmail(user.getUsername()).getAddressesById());
+        model.addAttribute("addresslist", personService.getPersonByEmail(user.getUsername()).getAddressesById());
         model.addAttribute("newaddress", new AddressForm());
         return "addresslist";
     }
@@ -136,11 +134,11 @@ public class UserController {
             address.setFlat(form.getFlat());
             addressManager.createWithParams(address.getCountry(), address.getCity(), address.getPostalCode(),
                     address.getStreet(), address.getHouse(), address.getFlat(),
-                    personManager.getPersonByEmail(user.getUsername()).getId());
+                    personService.getPersonByEmail(user.getUsername()).getId());
             return "redirect:/profile/addresslist";
         }
         model.addAttribute("newaddress", form);
-        model.addAttribute("addresslist", personManager.getPersonByEmail(user.getUsername()).getAddressesById());
+        model.addAttribute("addresslist", personService.getPersonByEmail(user.getUsername()).getAddressesById());
         return "addresslist";
     }
 
@@ -199,7 +197,7 @@ public class UserController {
         model.addAttribute("deliverydate", deliverydate);
         if (deliverymethod.equals("delivery")) {
             model.addAttribute("addresslist",
-                    addressManager.getAddressListByUserId(personManager.getPersonByEmail(user.getUsername()).getId()));
+                    addressManager.getAddressListByUserId(personService.getPersonByEmail(user.getUsername()).getId()));
         }
         return "checkoutcontinue";
     }
@@ -210,8 +208,8 @@ public class UserController {
                               @RequestParam(value = "address") int address,
                               @RequestParam(value = "deliverydate") java.sql.Date deliverydate) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        orderManager.createWithParams(paymentmethod, deliverymethod, deliverydate, cart,
-                personManager.getPersonByEmail(user.getUsername()).getId(), address);
+        orderService.createWithParams(paymentmethod, deliverymethod, deliverydate, cart,
+                personService.getPersonByEmail(user.getUsername()).getId(), address);
         cart.nullify();
         return "redirect:/profile/";
     }
@@ -219,7 +217,7 @@ public class UserController {
     @RequestMapping(value = "/profile/myorders")
     public String myorders(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("orderslist", personManager.getOrders(personManager.getPersonByEmail(user.getUsername()).getId()));
+        model.addAttribute("orderslist", personService.getOrders(personService.getPersonByEmail(user.getUsername()).getId()));
         return "myorders";
     }
 

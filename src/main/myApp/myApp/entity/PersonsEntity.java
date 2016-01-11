@@ -1,7 +1,6 @@
 package myApp.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.Collection;
 
@@ -19,6 +18,16 @@ public class PersonsEntity {
     private Collection<OrdersEntity> ordersesById;
 
     public PersonsEntity() {
+        //epmty constructor for Spring
+    }
+
+    public PersonsEntity(String name, String surname, Date birthdate, String email, String password, int personType) {
+        this.name = name;
+        this.surname = surname;
+        this.birthdate = birthdate;
+        this.email = email;
+        this.password = password;
+        this.personType = personType;
     }
 
     @Id
@@ -99,7 +108,13 @@ public class PersonsEntity {
 
         PersonsEntity that = (PersonsEntity) o;
 
-        return id == that.id && personType == that.personType && !(name != null ? !name.equals(that.name) : that.name != null) && !(surname != null ? !surname.equals(that.surname) : that.surname != null) && !(birthdate != null ? !birthdate.equals(that.birthdate) : that.birthdate != null) && !(email != null ? !email.equals(that.email) : that.email != null) && !(password != null ? !password.equals(that.password) : that.password != null);
+        if (id != that.id) return false;
+        if (personType != that.personType) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
+        if (birthdate != null ? !birthdate.equals(that.birthdate) : that.birthdate != null) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        return !(password != null ? !password.equals(that.password) : that.password != null);
 
     }
 
@@ -131,27 +146,5 @@ public class PersonsEntity {
 
     public void setOrdersesById(Collection<OrdersEntity> ordersesById) {
         this.ordersesById = ordersesById;
-    }
-
-    public PersonsEntity(String name, String surname, Date birthdate, String email, String password, int personType) {
-        this.name = name;
-        this.surname = surname;
-        this.birthdate = birthdate;
-        this.email = email;
-        this.password = password;
-        this.personType = personType;
-    }
-
-    @Override
-    public String toString() {
-        return "PersonsEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", birthdate='" + birthdate + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", personType=" + personType +
-                '}';
     }
 }

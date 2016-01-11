@@ -3,14 +3,13 @@ package myApp.services;
 import myApp.DAO.AddressDAO;
 import myApp.DAO.PersonsDAO;
 import myApp.entity.AddressesEntity;
-import myApp.entity.PersonsEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Collection;
 
 @Service
-public class AddressManager implements GenericManager<AddressesEntity> {
+public class AddressService implements GenericService<AddressesEntity> {
 
     @Resource
     private AddressDAO addressDAO;
@@ -18,18 +17,22 @@ public class AddressManager implements GenericManager<AddressesEntity> {
     @Resource
     private PersonsDAO personsDAO;
 
+    @Override
     public AddressesEntity create(AddressesEntity addressesEntity) {
         return addressDAO.create(addressesEntity);
     }
 
+    @Override
     public void delete(Object id) {
         addressDAO.delete(id);
     }
 
+    @Override
     public AddressesEntity find(Object id) {
         return addressDAO.find(id);
     }
 
+    @Override
     public AddressesEntity update(AddressesEntity addressesEntity) {
         return addressDAO.update(addressesEntity);
     }

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @Component
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Cart {
-    private ArrayList<CartItem> items = new ArrayList<CartItem>();
+    private ArrayList<CartItem> items = new ArrayList<>();
 
     public void add(CartItem item) {
         boolean isFound = false;
@@ -76,7 +76,7 @@ public class Cart {
     }
 
     public void nullify() {
-        items = new ArrayList<CartItem>();
+        items = new ArrayList<>();
     }
 
     @Override

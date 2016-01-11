@@ -5,7 +5,7 @@ import myApp.DAO.API.CategoriesDAO;
 import myApp.entity.AttributesEntity;
 import myApp.entity.CategoriesEntity;
 import myApp.entity.ProductsEntity;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
-public class CategoriesManager implements GenericManager<CategoriesEntity> {
-    @Resource//(name="categoriesDAOIMPL")
+public class CategoriesService implements GenericService<CategoriesEntity> {
+    @Resource
     private CategoriesDAO categoriesDAO;
 
     @Resource
@@ -24,6 +24,7 @@ public class CategoriesManager implements GenericManager<CategoriesEntity> {
         return categoriesDAO.getAll();
     }
 
+    @Override
     public CategoriesEntity create(CategoriesEntity categoriesEntity) {
         return categoriesDAO.create(categoriesEntity);
     }
@@ -31,15 +32,17 @@ public class CategoriesManager implements GenericManager<CategoriesEntity> {
     public CategoriesEntity createByNameAndDescription(String name, String description) {
         return create(new CategoriesEntity(name, description));
     }
-
+    @Override
     public void delete(Object id) {
         categoriesDAO.delete(id);
     }
 
+    @Override
     public CategoriesEntity find(Object id) {
         return categoriesDAO.find(id);
     }
 
+    @Override
     public CategoriesEntity update(CategoriesEntity categoriesEntity) {
         return categoriesDAO.update(categoriesEntity);
     }
@@ -53,8 +56,8 @@ public class CategoriesManager implements GenericManager<CategoriesEntity> {
     }
 
     public void createAttribute(int id, String name, String description) {
-        Collection<CategoriesEntity> categories = new ArrayList<CategoriesEntity>();
-        Collection<AttributesEntity> attributes = new ArrayList<AttributesEntity>();
+        Collection<CategoriesEntity> categories = new ArrayList<>();
+        Collection<AttributesEntity> attributes = new ArrayList<>();
         categories.add(categoriesDAO.find(id));
         AttributesEntity attribute = attributesDAO.create(new AttributesEntity(name, description, categories));
         CategoriesEntity category = categoriesDAO.find(id);
@@ -64,12 +67,10 @@ public class CategoriesManager implements GenericManager<CategoriesEntity> {
         categoriesDAO.update(category);
     }
 
-    public boolean hasCategory(String name){
-        try {
-            categoriesDAO.getCategoryByName(name);
-        } catch (Exception e){
+    public boolean hasCategory(String name) {
+        if (categoriesDAO.getCategoryCollectionByName(name).isEmpty())
             return false;
-        }
-        return true;
+        else
+            return true;
     }
 }

@@ -4,7 +4,7 @@ import myApp.entity.PersonsEntity;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Query;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Component
@@ -14,6 +14,12 @@ public class PersonsDAO extends GenericDaoJpaImpl<PersonsEntity> {
         Query query = em.createQuery("SELECT c FROM PersonsEntity c where c.email=:email");
         query.setParameter("email", email);
         return (PersonsEntity) query.getSingleResult();
+    }
+
+    public Collection<PersonsEntity> getPersonCollectionByEmail(String email){
+        Query query = em.createQuery("SELECT c FROM PersonsEntity c where c.email=:email");
+        query.setParameter("email", email);
+        return query.getResultList();
     }
 
     public PersonsEntity getPersonByID(int id){

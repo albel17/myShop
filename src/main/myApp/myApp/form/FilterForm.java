@@ -33,6 +33,7 @@ public class FilterForm {
     }
 
     public FilterForm() {
+        //empty spring constructor
     }
 
     public int getCategoryId() {

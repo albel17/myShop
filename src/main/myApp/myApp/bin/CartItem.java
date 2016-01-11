@@ -1,6 +1,5 @@
 package myApp.bin;
 
-import myApp.DAO.ProductsDAO;
 import myApp.entity.ProductsEntity;
 
 public class CartItem {

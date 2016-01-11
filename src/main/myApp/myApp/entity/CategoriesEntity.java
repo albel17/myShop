@@ -18,6 +18,7 @@ public class CategoriesEntity {
     }
 
     public CategoriesEntity() {
+        //spring constructor
     }
 
     @Id

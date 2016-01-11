@@ -2,7 +2,6 @@ package myApp.DAO;
 
 import myApp.entity.AttributesEntity;
 import myApp.entity.ParametersEntity;
-import myApp.entity.PersonsEntity;
 import myApp.entity.ProductsEntity;
 import org.springframework.stereotype.Component;
 

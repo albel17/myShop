@@ -1,7 +1,6 @@
 package myApp.DAO;
 
 import myApp.entity.OrdersEntity;
-import myApp.entity.PersonsEntity;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Query;

@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.sql.Date;
 
 @Service
-public class OrderManager implements GenericManager<OrdersEntity> {
+public class OrderService implements GenericService<OrdersEntity> {
 
     @Resource
     private OrdersDAO ordersDAO;
@@ -31,18 +31,22 @@ public class OrderManager implements GenericManager<OrdersEntity> {
     @Resource
     private StorageDAO storageDAO;
 
+    @Override
     public OrdersEntity create(OrdersEntity ordersEntity) {
         return ordersDAO.create(ordersEntity);
     }
 
+    @Override
     public void delete(Object id) {
         ordersDAO.delete(id);
     }
 
+    @Override
     public OrdersEntity find(Object id) {
         return ordersDAO.find(id);
     }
 
+    @Override
     public OrdersEntity update(OrdersEntity ordersEntity) {
         return ordersDAO.update(ordersEntity);
     }

@@ -1,12 +1,10 @@
 package myApp.DAO;
 
-import myApp.entity.ParametersEntity;
 import myApp.entity.ProductsEntity;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Query;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Component
@@ -14,7 +12,7 @@ public class ProductsDAO extends GenericDaoJpaImpl<ProductsEntity> {
     public ArrayList<String> getAllNames(){
         Query query = em.createQuery("SELECT c FROM ProductsEntity c");
         List<ProductsEntity> list = query.getResultList();
-        ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<>();
         for(ProductsEntity c : list){
             result.add(c.getName());
         }

@@ -19,6 +19,7 @@ public class AttributesEntity {
     }
 
     public AttributesEntity() {
+        //spring constructor
     }
 
     @Id

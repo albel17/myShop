@@ -1,9 +1,7 @@
 package myApp.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name = "products", schema = "", catalog = "mydb")
@@ -30,6 +28,7 @@ public class ProductsEntity {
     }
 
     public ProductsEntity() {
+        //spring constructor
     }
 
     @Id
