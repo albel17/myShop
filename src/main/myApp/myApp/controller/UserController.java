@@ -27,6 +27,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 @Controller
 @Transactional
@@ -114,15 +115,21 @@ public class UserController {
     }
 
     @RequestMapping(value = "/profile/addresslist")
-    public String addresslist(Model model) {
+    public String addresslist(Model model, @RequestParam(required = false, defaultValue = "") String error) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("addresslist", personService.getPersonByEmail(user.getUsername()).getAddressesById());
         model.addAttribute("newaddress", new AddressForm());
+        if (Objects.equals(error, ""))
+            model.addAttribute("errors", false);
+        else {
+            model.addAttribute("errors", true);
+        }
         return "addresslist";
     }
 
     @RequestMapping(value = "/profile/addaddress")
-    public String addaddress(@ModelAttribute(value = "newaddress") @Valid AddressForm form, BindingResult bindingResult, Model model) {
+    public String addaddress(@ModelAttribute(value = "newaddress") @Valid AddressForm form, BindingResult bindingResult,
+                             Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (!bindingResult.hasErrors()) {
             AddressesEntity address = new AddressesEntity();
@@ -143,9 +150,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/profile/deleteaddress")
-    public String deleteaddress(@RequestParam(value = "id") int id) {
-        addressManager.delete(id);
-        return "redirect:/profile/addresslist";
+    public String deleteaddress(Model model, @RequestParam(value = "id") int id) {
+        if (addressManager.find(id).getOrdersesById().isEmpty()) {
+            addressManager.delete(id);
+            return "redirect:/profile/addresslist";
+        } else {
+            return "redirect:/profile/addresslist?error=true";
+        }
     }
 
     @RequestMapping(value = "/profile/checkout")
