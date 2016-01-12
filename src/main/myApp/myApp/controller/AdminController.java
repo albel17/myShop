@@ -1,7 +1,5 @@
 package myApp.controller;
 
-import myApp.DAO.ParametersDAO;
-import myApp.DAO.ProductsDAO;
 import myApp.entity.*;
 import myApp.form.ProductsMoney;
 import myApp.form.UsersMoney;
@@ -36,13 +34,7 @@ public class AdminController {
     private PersonService personService;
 
     @Resource
-    private AttributeService attributeManager;
-
-    @Resource
-    private ProductsDAO productsDAO;
-
-    @Resource
-    private ParametersDAO parametersDAO;
+    private AttributeService attributeService;
 
     @RequestMapping(value = "/admin")
     public String admin() {
@@ -139,7 +131,7 @@ public class AdminController {
 
     @RequestMapping(value = "/admin/removeattribute")
     public String removeattribute(@RequestParam int id) {
-        AttributesEntity attribute = attributeManager.find(id);
+        AttributesEntity attribute = attributeService.find(id);
         CategoriesEntity category = new CategoriesEntity();
         for (CategoriesEntity categoriesEntity : attribute.getCategories()) {
             category = categoriesEntity;
@@ -148,20 +140,20 @@ public class AdminController {
         attributes.remove(attribute);
         category.setAttributes(attributes);
         categoriesService.update(category);
-        attributeManager.delete(id);
+        attributeService.delete(id);
         return "redirect:/admin/editcategory?id=" + category.getId() + "&isEmpty=false";
     }
 
     @RequestMapping(value = "/admin/editproduct")
     public String editproduct(Model model, @RequestParam int id) {
-        ProductsEntity product = productsDAO.getProductByID(id);
+        ProductsEntity product = productService.find(id);
         model.addAttribute("product", product);
         CategoriesEntity category = product.getCategory();
         Collection<AttributesEntity> attributes = category.getAttributes();
         model.addAttribute("attributes", attributes);
         ArrayList<String> values = new ArrayList<>();
         for (AttributesEntity attribute : attributes) {
-            values.add(parametersDAO.getParameterByAttributeIdProductId(attribute, product).getValue());
+            values.add(attributeService.getParameterByAttributeIdProductId(attribute, product).getValue());
         }
         model.addAttribute("values", values);
         model.addAttribute("amount", product.getStoragesById().getAmount());

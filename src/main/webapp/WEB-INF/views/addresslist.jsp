@@ -40,7 +40,10 @@
 </div>
 
 <div class="container">
-    <h2>Adress list</h2>
+    <h2>Address list</h2>
+    <%if((boolean)request.getAttribute("errors")){%>
+    <div class="text-danger">Can't delete address with orders</div>
+    <%}%>
     <c:forEach var="address" items="${addresslist}">
         <div class="list-group">
             <p class="list-group-item">${address.country}, ${address.city}, ${address.street}, ${address.house}, ${address.flat}.

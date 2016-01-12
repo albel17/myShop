@@ -56,26 +56,29 @@ public class CategoriesService implements GenericService<CategoriesEntity> {
         return categoriesDAO.update(categoriesEntity);
     }
 
+    //get all attributes by category id
     public Collection<AttributesEntity> getAttributesById(int id) {
         return categoriesDAO.getCategoryByID(id).getAttributes();
     }
 
+    //get all products by category id
     public Collection<ProductsEntity> getProductsById(int id) {
         return categoriesDAO.find(id).getProducts();
     }
 
-    public void createAttribute(int id, String name, String description) {
+    public void createAttribute(int categoryId, String name, String description) {
         Collection<CategoriesEntity> categories = new ArrayList<>();
         Collection<AttributesEntity> attributes = new ArrayList<>();
-        categories.add(categoriesDAO.find(id));
+        categories.add(categoriesDAO.find(categoryId));
         AttributesEntity attribute = attributesDAO.create(new AttributesEntity(name, description, categories));
-        CategoriesEntity category = categoriesDAO.find(id);
+        CategoriesEntity category = categoriesDAO.find(categoryId);
         attributes.add(attribute);
         attributes.addAll(category.getAttributes());
         category.setAttributes(attributes);
         categoriesDAO.update(category);
     }
 
+    //return true if category exist
     public boolean hasCategory(String name) {
         if (categoriesDAO.getCategoryCollectionByName(name).isEmpty())
             return false;

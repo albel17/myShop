@@ -62,6 +62,7 @@ public class OrderService implements GenericService<OrdersEntity> {
         return ordersDAO.getAllOrders();
     }
 
+    //change order status
     public OrdersEntity changeStatus(int orderId, String newStatus) {
         OrdersEntity order = ordersDAO.find(orderId);
         logger.info("Order " + orderId + " status changed from " + order.getOrderStatus() + " to " + newStatus);

@@ -3,8 +3,13 @@ package myApp.bin;
 import myApp.entity.ProductsEntity;
 
 public class CartItem {
+    //product
     private ProductsEntity product;
+
+    //products amount in the cart
     private int amount;
+
+    //true if we have enough items in the storage
     private boolean notEnough;
 
     public CartItem(ProductsEntity product, int amount) {

@@ -44,12 +44,14 @@ public class AddressService implements GenericService<AddressesEntity> {
         return addressDAO.update(addressesEntity);
     }
 
+    //Create Address in BD with all params
     public AddressesEntity createWithParams(String country, String city, String postalcode, String street, String house,
                                             String flat, int userId) {
         logger.info("Address created by " + personsDAO.getPersonByID(userId).getEmail());
         return create(new AddressesEntity(country, city, postalcode, street, house, flat, personsDAO.getPersonByID(userId)));
     }
 
+    //Return collection of 1 element, can be empty if nothing found
     public Collection<AddressesEntity> getAddressListByUserId(int userId) {
         return personsDAO.getPersonByID(userId).getAddressesById();
     }

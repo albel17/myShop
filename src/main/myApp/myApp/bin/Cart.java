@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Cart {
     private ArrayList<CartItem> items = new ArrayList<>();
 
+    //Adds new Cart item
     public void add(CartItem item) {
         boolean isFound = false;
         int i;
@@ -28,6 +29,7 @@ public class Cart {
             items.add(item);
     }
 
+    //Removes item from the cart
     public void remove(CartItem item) {
         boolean isFound = false;
         int i;
@@ -46,7 +48,8 @@ public class Cart {
         }
     }
 
-    public boolean hasItem(ProductsEntity product){
+    //Returns true, if cart contains item
+    public boolean hasItem(ProductsEntity product) {
         CartItem item = new CartItem(product, 1);
         boolean isFound = false;
         int i;
@@ -59,6 +62,7 @@ public class Cart {
         return isFound;
     }
 
+    //Return cost of all items in the cart
     public int getSum() {
         int sum = 0;
         for (CartItem item : items) {
@@ -67,6 +71,7 @@ public class Cart {
         return sum;
     }
 
+    //returns all items from the cart
     public ArrayList<CartItem> getItems() {
         return items;
     }
@@ -75,6 +80,7 @@ public class Cart {
         return items.isEmpty();
     }
 
+    //delete everything from the cart
     public void nullify() {
         items = new ArrayList<>();
     }

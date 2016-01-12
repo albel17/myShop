@@ -1,7 +1,10 @@
 package myApp.services;
 
 import myApp.DAO.AttributesDAO;
+import myApp.DAO.ParametersDAO;
 import myApp.entity.AttributesEntity;
+import myApp.entity.ParametersEntity;
+import myApp.entity.ProductsEntity;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,9 @@ public class AttributeService implements GenericService<AttributesEntity> {
 
     @Resource
     private AttributesDAO attributesDAO;
+
+    @Resource
+    private ParametersDAO parametersDAO;
 
     private final Logger logger = Logger.getLogger(AddressService.class);
 
@@ -36,5 +42,10 @@ public class AttributeService implements GenericService<AttributesEntity> {
     public AttributesEntity update(AttributesEntity attributesEntity) {
         logger.info("Attribute " + attributesEntity.getName() + " updated.");
         return attributesDAO.update(attributesEntity);
+    }
+
+    //Get parameter by Attribute and product
+    public ParametersEntity getParameterByAttributeIdProductId(AttributesEntity attribute, ProductsEntity product){
+        return parametersDAO.getParameterByAttributeIdProductId(attribute, product);
     }
 }
